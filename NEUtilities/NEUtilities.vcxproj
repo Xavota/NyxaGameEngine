@@ -309,7 +309,9 @@
     <ClInclude Include="include\u0\nyLogMacros.hpp" />
     <ClInclude Include="include\u0\nyMacros.hpp" />
     <ClInclude Include="include\u0\nyPlatform.hpp" />
+    <ClInclude Include="include\u0\nyResult.hpp" />
     <ClInclude Include="include\u0\nySpan.hpp" />
+    <ClInclude Include="include\u0\nyStatus.hpp" />
     <ClInclude Include="include\u0\nyStringView.hpp" />
     <ClInclude Include="include\u0\nyTypes.hpp" />
     <ClInclude Include="include\u0\nyWarnings.hpp" />

@@ -69,6 +69,12 @@
     <ClInclude Include="include\u0\nyWarnings.hpp">
       <Filter>Header Files\u0</Filter>
     </ClInclude>
+    <ClInclude Include="include\u0\nyStatus.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyResult.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\u0\deleteme.cpp">
