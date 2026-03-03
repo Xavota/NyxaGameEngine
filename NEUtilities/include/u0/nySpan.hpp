@@ -39,14 +39,14 @@ namespace nyEngineSDK
      * @brief  Constructs an empty span.
      * @bug    No known bugs.
      */
-    constexpr Span() noexcept : m_data(nullptr), m_size(0) {}
+    constexpr Span() noexcept : mData(nullptr), mSize(0) {}
     /*
      * @brief  Constructs a span from a pointer and size.
      * @param  data  Pointer to the first element of the span.
      * @param  size  Number of elements in the span.
      * @bug    No known bugs.
      */
-    constexpr Span(T* data, usize size) noexcept : m_data(data), m_size(size) {}
+    constexpr Span(T* data, usize size) noexcept : mData(data), mSize(size) {}
 
     /*
      * @brief  Constructs a span from a C-style array.
@@ -54,26 +54,26 @@ namespace nyEngineSDK
      * @bug    No known bugs.
      */
     template <usize N>
-    constexpr Span(T(&arr)[N]) noexcept : m_data(arr), m_size(N) {}
+    constexpr Span(T(&arr)[N]) noexcept : mData(arr), mSize(N) {}
 
     /*
      * @brief  Returns a pointer to the first element of the span.
      * @return A pointer to the first element of the span.
      * @bug    No known bugs.
      */
-    constexpr T* data() const noexcept { return m_data; }
+    constexpr T* data() const noexcept { return mData; }
     /*
      * @brief  Returns the number of elements in the span.
      * @return The number of elements in the span.
      * @bug    No known bugs.
      */
-    constexpr usize size() const noexcept { return m_size; }
+    constexpr usize size() const noexcept { return mSize; }
     /*
      * @brief  Returns true if the span is empty (i.e., has zero elements).
      * @return True if the span is empty, false otherwise.
      * @bug    No known bugs.
      */
-    constexpr bool empty() const noexcept { return m_size == 0; }
+    constexpr bool empty() const noexcept { return mSize == 0; }
 
     /*
      * @brief  Returns a reference to the element at the specified index in the span.
@@ -82,8 +82,8 @@ namespace nyEngineSDK
      * @bug    No known bugs.
      */
     constexpr T& operator[](usize i) const noexcept {
-      NY_ASSERT(i < m_size);
-      return m_data[i];
+      NY_ASSERT(i < mSize);
+      return mData[i];
     }
 
     /*
@@ -91,23 +91,23 @@ namespace nyEngineSDK
      * @return An iterator to the first element of the span.
      * @bug    No known bugs.
      */
-    constexpr T* begin() const noexcept { return m_data; }
+    constexpr T* begin() const noexcept { return mData; }
     /*
      * @brief  Returns an iterator to one past the last element of the span.
      * @return An iterator to one past the last element of the span.
      * @bug    No known bugs.
      */
-    constexpr T* end() const noexcept { return m_data + m_size; }
+    constexpr T* end() const noexcept { return mData + mSize; }
 
   private:
     /*
      * @brief  Pointer to the first element of the span.
      */
-    T* m_data;
+    T* mData;
     /*
      * @brief  Number of elements in the span.
      */
-    usize m_size;
+    usize mSize;
   };
 
 } // namespace nyEngineSDK

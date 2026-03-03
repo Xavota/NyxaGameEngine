@@ -29,21 +29,25 @@ namespace nyEngineSDK
   using u32 = std::uint32_t;
   using u64 = std::uint64_t;
 
+  using byte = u8;
+
   using f32 = float;
   using f64 = double;
 
   using usize = std::size_t;
   using isize = std::ptrdiff_t;
 
+  NY_STATIC_ASSERT(sizeof(i8) == 1, "i8 must be 1 byte");
+  NY_STATIC_ASSERT(sizeof(i16) == 2, "i16 must be 2 bytes");
+  NY_STATIC_ASSERT(sizeof(i32) == 4, "i32 must be 4 bytes");
+  NY_STATIC_ASSERT(sizeof(i64) == 8, "i64 must be 8 bytes");
+
   NY_STATIC_ASSERT(sizeof(u8) == 1, "u8 must be 1 byte");
   NY_STATIC_ASSERT(sizeof(u16) == 2, "u16 must be 2 bytes");
   NY_STATIC_ASSERT(sizeof(u32) == 4, "u32 must be 4 bytes");
   NY_STATIC_ASSERT(sizeof(u64) == 8, "u64 must be 8 bytes");
 
-  NY_STATIC_ASSERT(sizeof(i8) == 1, "i8 must be 1 byte");
-  NY_STATIC_ASSERT(sizeof(i16) == 2, "i16 must be 2 bytes");
-  NY_STATIC_ASSERT(sizeof(i32) == 4, "i32 must be 4 bytes");
-  NY_STATIC_ASSERT(sizeof(i64) == 8, "i64 must be 8 bytes");
+  NY_STATIC_ASSERT(sizeof(byte) == 1, "byte must be 1 byte");
 
   NY_STATIC_ASSERT(sizeof(f32) == 4, "f32 must be 4 bytes");
   NY_STATIC_ASSERT(sizeof(f64) == 8, "f64 must be 8 bytes");

@@ -31,19 +31,19 @@ namespace nyEngineSDK
     * @brief  Constructs an empty string view.
     * @bug    No known bugs.
     */
-    constexpr StringView() noexcept : m_data(nullptr), m_size(0) {}
+    constexpr StringView() noexcept : mData(nullptr), mSize(0) {}
     /*
      * @brief  Constructs a string view from a pointer and size.
      * @bug    No known bugs.
      */
-    constexpr StringView(const char* s, usize n) noexcept : m_data(s), m_size(n) {}
+    constexpr StringView(const char* s, usize n) noexcept : mData(s), mSize(n) {}
     /*
      * @brief  Constructs a string view from a null-terminated C-string. If the
      *         pointer is null, the string view will be empty.
      * @param  zstr  Pointer to a null-terminated C-string. If null, the string view will be empty.
      * @bug    No known bugs.
      */
-    constexpr StringView(const char* zstr) noexcept : m_data(zstr), m_size(calc_len(zstr)) {}
+    constexpr StringView(const char* zstr) noexcept : mData(zstr), mSize(calc_len(zstr)) {}
 
     /*
      * @brief  Returns a pointer to the first character of the string view.
@@ -51,7 +51,7 @@ namespace nyEngineSDK
      *         is empty, this may be null or point to a null terminator.
      * @bug    No known bugs.
      */
-    constexpr const char* data() const noexcept { return m_data; }
+    constexpr const char* data() const noexcept { return mData; }
 
     /*
      * @brief  Returns the number of characters in the string view.
@@ -59,13 +59,13 @@ namespace nyEngineSDK
      *         any null terminator.
      * @bug    No known bugs.
      */
-    constexpr usize size() const noexcept { return m_size; }
+    constexpr usize size() const noexcept { return mSize; }
     /*
      * @brief  Returns whether the string view is empty (i.e. has zero size).
      * @return True if the string view is empty, false otherwise.
      * @bug    No known bugs.
      */
-    constexpr bool empty() const noexcept { return m_size == 0; }
+    constexpr bool empty() const noexcept { return mSize == 0; }
 
     /*
      * @brief  Returns a reference to the character at the specified index in
@@ -77,8 +77,8 @@ namespace nyEngineSDK
      * @bug    No known bugs.
      */
     constexpr const char& operator[](usize i) const noexcept {
-      NY_ASSERT(i < m_size);
-      return m_data[i];
+      NY_ASSERT(i < mSize);
+      return mData[i];
     }
 
    private:
@@ -100,10 +100,10 @@ namespace nyEngineSDK
     /*
      * @brief  Pointer to the first character of the string view. This may be null
      */
-    const char* m_data;
+    const char* mData;
     /*
      * @brief  Number of characters in the string view. This does not include any
      */
-    usize m_size;
+    usize mSize;
   };
 } // namespace nyEngineSDK

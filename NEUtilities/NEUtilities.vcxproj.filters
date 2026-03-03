@@ -75,12 +75,30 @@
     <ClInclude Include="include\u0\nyResult.hpp">
       <Filter>Header Files\u0</Filter>
     </ClInclude>
+    <ClInclude Include="include\u0\nyResultMacros.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyAllocator.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyMemory.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyHandle.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="nyByteBuffer.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\u0\deleteme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\u0\nyLog.cpp">
+      <Filter>Source Files\u0</Filter>
+    </ClCompile>
+    <ClCompile Include="src\u0\nyAllocator.cpp">
       <Filter>Source Files\u0</Filter>
     </ClCompile>
   </ItemGroup>

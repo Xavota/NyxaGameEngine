@@ -450,10 +450,6 @@ namespace nyEngineSDK
   /*
    * @brief  Formats a string by replacing `{}` placeholders in the format
    *         string with the string representations of the provided arguments.
-   *         The formatted string is written to the provided output buffer,
-   *         respecting the buffer's capacity and ensuring null termination if
-   *         possible. Supported argument types include StringView, C-strings,
-   *         characters, integral types, floating-point types, and booleans.
    * @param  out   Pointer to the destination buffer where bytes will be
    *               copied. If null, no copying occurs.
    * @param  cap   Total capacity of the destination buffer in bytes.
