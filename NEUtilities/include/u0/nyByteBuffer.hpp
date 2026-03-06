@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyByteBuffer.hpp
  * @author  Dalia Castellanos
@@ -12,7 +12,7 @@
  *
  * @bug	    No known bugs.
  */
- /*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include <cstring>
@@ -24,7 +24,7 @@
 
 namespace nyEngineSDK
 {
-  /*
+  /**
    * @brief  A simple byte buffer class that manages a contiguous block of memory
    *         for storing raw bytes. The ByteBuffer class provides functionality
    *         for resizing, appending, and releasing the buffer, as well as
@@ -34,7 +34,7 @@ namespace nyEngineSDK
   class ByteBuffer
   {
    public:
-    /*
+    /**
      * @brief  Constructs an empty ByteBuffer with no allocator. The buffer will
      *         be invalid until an allocator is set using `setAllocator`.
      * @bug	   No known bugs.
@@ -42,7 +42,7 @@ namespace nyEngineSDK
     ByteBuffer() noexcept
       : mAllocator(nullptr), mData(nullptr), mSize(0), mCapacity(0) {}
 
-    /*
+    /**
      * @brief  Constructs an empty ByteBuffer with the specified allocator. The
      *         buffer will be valid and ready for use, but will have no
      *         allocated memory until `resize` or `append` is called.
@@ -52,7 +52,7 @@ namespace nyEngineSDK
     explicit ByteBuffer(Allocator& allocator) noexcept
       : mAllocator(&allocator), mData(nullptr), mSize(0), mCapacity(0) {}
 
-    /*
+    /**
      * @brief  Constructs a ByteBuffer with the specified allocator and initial
      *         size. The buffer will be valid and ready for use, with memory
      *         allocated to hold `sizeBytes` bytes. The buffer will be
@@ -71,7 +71,7 @@ namespace nyEngineSDK
       resize(sizeBytes, alignmentBytes);
     }
 
-    /*
+    /**
      * @brief  Deleted copy constructor and copy assignment operator to prevent
      *         copying of the ByteBuffer, as it manages its own memory and
      *         should not be copied implicitly.
@@ -79,7 +79,7 @@ namespace nyEngineSDK
      */
     ByteBuffer(const ByteBuffer&) = delete;
 
-    /*
+    /**
      * @brief  Deleted copy assignment operator to prevent copying of the ByteBuffer,
      *         as it manages its own memory and should not be copied implicitly.
      * @bug	   No known bugs.
@@ -87,7 +87,7 @@ namespace nyEngineSDK
     ByteBuffer&
     operator=(const ByteBuffer&) = delete;
 
-    /*
+    /**
      * @brief  Move constructor and move assignment operator to allow efficient
      *         transfer of ownership of the buffer's memory from one ByteBuffer
      *         instance to another. After the move, the source ByteBuffer will
@@ -105,7 +105,7 @@ namespace nyEngineSDK
       other.mCapacity = 0;
     }
 
-    /*
+    /**
      * @brief  Move assignment operator to allow efficient transfer of ownership
      *         of the buffer's memory from one ByteBuffer instance to another.
      *         After the move, the source ByteBuffer will be left in a valid but
@@ -137,7 +137,7 @@ namespace nyEngineSDK
       return *this;
     }
 
-    /*
+    /**
      * @brief  Destructor that deallocates any allocated memory and resets the
      *         buffer to an empty state. If the buffer has allocated memory, it
      *         will be deallocated using the associated allocator before the
@@ -149,7 +149,7 @@ namespace nyEngineSDK
       reset();
     }
 
-    /*
+    /**
      * @brief  Checks if the ByteBuffer is valid, which means it has an
      *         associated allocator.
      * @return `true` if the ByteBuffer has a valid allocator and can be used
@@ -164,7 +164,7 @@ namespace nyEngineSDK
       return (mAllocator != nullptr);
     }
 
-    /*
+    /**
      * @brief  Sets the allocator to be used for managing the buffer's memory.
      *         This function must be called before any memory operations (like
      *         `resize` or `append`) can be performed on the ByteBuffer. The
@@ -181,7 +181,7 @@ namespace nyEngineSDK
       mAllocator = &allocator;
     }
 
-    /*
+    /**
      * @brief  Returns a pointer to the raw byte data stored in the buffer. The
      *         returned pointer is valid for reading and writing up to `size()`
      *         bytes. If the buffer is empty, the returned pointer may be
@@ -197,7 +197,7 @@ namespace nyEngineSDK
       return static_cast<byte*>(mData);
     }
 
-    /*
+    /**
      * @brief  Returns a const pointer to the raw byte data stored in the buffer.
      *         The returned pointer is valid for reading up to `size()` bytes.
      *         If the buffer is empty, the returned pointer may be `nullptr` or
@@ -213,7 +213,7 @@ namespace nyEngineSDK
       return static_cast<const byte*>(mData);
     }
 
-    /*
+    /**
      * @brief  Returns the current size of the buffer in bytes, which represents
      *         the number of bytes that have been allocated and are currently in
      *         use.
@@ -227,7 +227,7 @@ namespace nyEngineSDK
       return mSize;
     }
 
-    /*
+    /**
      * @brief  Returns the current capacity of the buffer in bytes, which
      *         represents the total number of bytes that have been allocated for
      *         the buffer. The capacity may be greater than or equal to the size,
@@ -242,7 +242,7 @@ namespace nyEngineSDK
       return mCapacity;
     }
 
-    /*
+    /**
      * @brief  Checks if the buffer is empty, which means it has a size of zero.
      *         An empty buffer may still have allocated memory (capacity greater
      *         than zero), but it does not contain any valid data.
@@ -256,7 +256,7 @@ namespace nyEngineSDK
       return mSize == 0;
     }
 
-    /*
+    /**
      * @brief  Clears the buffer by setting its size to zero. This does not
      *         deallocate any allocated memory, so the capacity remains unchanged.
      *         If you want to completely reset the buffer and deallocate
@@ -269,7 +269,7 @@ namespace nyEngineSDK
       mSize = 0;
     }
 
-    /*
+    /**
      * @brief  Resets the buffer by deallocating any allocated memory and setting
      *         the size and capacity to zero. If the buffer has allocated
      *         memory, it will be deallocated using the associated allocator
@@ -290,7 +290,7 @@ namespace nyEngineSDK
       mCapacity = 0;
     }
 
-    /*
+    /**
      * @brief  Reserves memory for the buffer to hold at least `newCapacityBytes`
      *         bytes. If the current capacity is already sufficient, this
      *         function does nothing and returns `true`. If the current capacity
@@ -340,7 +340,7 @@ namespace nyEngineSDK
       return true;
     }
 
-    /*
+    /**
      * @brief  Resizes the buffer to hold `newSizeBytes` bytes. 
      *         - If the new size is greater than the current capacity, this
      *           function will attempt to reserve new memory with the specified
@@ -394,7 +394,7 @@ namespace nyEngineSDK
       return true;
     }
 
-    /*
+    /**
      * @brief  Appends raw byte data to the end of the buffer. If the new total
      *         size after appending exceeds the current capacity, this function
      *         will attempt to reserve new memory with the specified alignment
@@ -438,7 +438,7 @@ namespace nyEngineSDK
       return true;
     }
 
-    /*
+    /**
      * @brief  Releases ownership of the buffer's memory and returns a pointer
      *         to it. After calling this function, the ByteBuffer will be left
      *         in an empty state with no allocated memory, and the caller is
@@ -466,25 +466,25 @@ namespace nyEngineSDK
     }
 
    private:
-    /*
+    /**
      * @brief  Pointer to the allocator used for managing the buffer's memory.
      *         The allocator is responsible for allocating, deallocating, and
      *         potentially reallocating the memory used by the buffer.
      */
     Allocator* mAllocator;
-    /*
+    /**
      * @brief  Pointer to the raw byte data stored in the buffer. This pointer
      *         is valid for reading and writing up to `size()` bytes, and the
      *         memory it points to is managed by the buffer and should not be
      *         accessed directly outside of the buffer's member functions.
      */
     void* mData;
-    /*
+    /**
      * @brief  The current size of the buffer in bytes, which represents the
      *         number of bytes that have been allocated and are currently in use.
      */
     usize mSize;
-    /*
+    /**
      * @brief  The current capacity of the buffer in bytes, which represents the
      *         total number of bytes that have been allocated for the buffer.
      *         The capacity may be greater than or equal to the size, depending

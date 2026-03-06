@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyMacros.hpp
  * @author  Dalia Castellanos
@@ -13,7 +13,7 @@
  *
  * @bug	    No known bugs.
  */
-/*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include "u0/nyConfig.hpp"
@@ -121,7 +121,7 @@
 
 namespace nyEngineSDK
 {
-  /**
+  /***
    * @brief Assertion handler callback signature.
    */
   using AssertHandlerFn =
@@ -129,7 +129,7 @@ namespace nyEngineSDK
 
   namespace detail
   {
-    /**
+    /***
      * @brief  Default assertion handler used when no custom handler is installed.
      * @param  expr  The expression that failed.
      * @param  file  The source file where the assertion failed.
@@ -150,7 +150,7 @@ namespace nyEngineSDK
       #endif
     }
 
-    /**
+    /***
      * @brief  Returns storage for the current assertion handler.
      * @return A reference to an atomic pointer to the current assertion handler function.
      * @bug    No known bugs
@@ -162,7 +162,7 @@ namespace nyEngineSDK
       return handler;
     }
 
-    /**
+    /***
      * @brief  Invokes the current assertion handler with the given failure context.
      * @param  expr  The expression that failed.
      * @param  file  The source file where the assertion failed
@@ -185,7 +185,7 @@ namespace nyEngineSDK
     }
   } // namespace detail
 
-  /**
+  /***
    * @brief  Installs a custom assertion handler (typically set by Core at startup).
    * @param  fn  The assertion handler callback to install. If null, the
    *             default handler will be used.
@@ -199,7 +199,7 @@ namespace nyEngineSDK
       std::memory_order_relaxed);
   }
 
-  /**
+  /***
    * @brief  Returns the currently installed assertion handler.
    * @return The currently installed assertion handler callback.
    * @bug    No known bugs

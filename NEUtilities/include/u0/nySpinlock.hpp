@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nySpinlock.hpp
  * @author  Dalia Castellanos
@@ -13,7 +13,7 @@
  *
  * @bug	    No known bugs.
  */
- /*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include <atomic>
@@ -42,13 +42,11 @@ namespace nyEngineSDK
 
     /**
      * @brief Deleted copy constructor to prevent copying of the SpinLock.
-     * @bug No known bugs
      */
     SpinLock(const SpinLock&) = delete;
 
     /**
      * @brief Deleted copy assignment operator to prevent copying of the SpinLock.
-     * @bug No known bugs
      */
     SpinLock&
     operator=(const SpinLock&) = delete;

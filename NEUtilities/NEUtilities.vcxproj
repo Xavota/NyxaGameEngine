@@ -298,9 +298,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\u0\nyAllocator.hpp" />
+    <ClInclude Include="include\u0\nyByteBuffer.hpp" />
+    <ClInclude Include="include\u0\nyConditionVariable.hpp" />
     <ClInclude Include="include\u0\nyHandle.hpp" />
+    <ClInclude Include="include\u0\nyLockGuard.hpp" />
     <ClInclude Include="include\u0\nyMemory.hpp" />
     <ClInclude Include="include\u0\nyModule.h" />
+    <ClInclude Include="include\u0\nyMutex.hpp" />
     <ClInclude Include="include\u0\nyPrerequisiteUtilities.h" />
     <ClInclude Include="include\u0\nyApi.hpp" />
     <ClInclude Include="include\u0\nyBuild.hpp" />
@@ -315,11 +319,13 @@
     <ClInclude Include="include\u0\nyResult.hpp" />
     <ClInclude Include="include\u0\nyResultMacros.hpp" />
     <ClInclude Include="include\u0\nySpan.hpp" />
+    <ClInclude Include="include\u0\nySpinlock.hpp" />
     <ClInclude Include="include\u0\nyStatus.hpp" />
     <ClInclude Include="include\u0\nyStringView.hpp" />
+    <ClInclude Include="include\u0\nyTime.hpp" />
     <ClInclude Include="include\u0\nyTypes.hpp" />
     <ClInclude Include="include\u0\nyWarnings.hpp" />
-    <ClInclude Include="nyByteBuffer.hpp" />
+    <ClInclude Include="include\u0\nyThread.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\u0\deleteme.cpp" />

@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyLogMacros.hpp
  * @author  Dalia Castellanos
@@ -10,12 +10,12 @@
  * name. The Trace macro is conditionally compiled out in release builds for
  * performance reasons, while the other macros are always available but still
  * filtered at runtime based on the current log level. These macros provide a
- * simple and consistent way to emit log messages throughout the engine code, with
- * the flexibility to customize the log sink and log level as needed.
+ * simple and consistent way to emit log messages throughout the engine code,
+ * with the flexibility to customize the log sink and log level as needed.
  *
  * @bug	    No known bugs.
  */
-/*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include "nyLog.hpp"

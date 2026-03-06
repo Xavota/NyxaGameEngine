@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyResult.hpp
  * @author  Dalia Castellanos
@@ -11,7 +11,7 @@
  *
  * @bug	    No known bugs.
  */
- /*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include <new>
@@ -23,7 +23,7 @@
 
 namespace nyEngineSDK
 {
-  /*
+  /**
    * @brief  Represents the result of an operation that can either succeed with
    *         a value of type T or fail with an error status.
    * @tparam T  The type of the value that represents a successful result. This
@@ -35,7 +35,7 @@ namespace nyEngineSDK
   class Result
   {
    public:
-    /*
+    /**
      * @brief  Constructs a Result object representing a successful result with
      *         the specified value.
      * @param  value  The value to store in the Result object, representing a
@@ -50,7 +50,7 @@ namespace nyEngineSDK
       new (&mStorage.value) T(value);
     }
 
-    /*
+    /**
      * @brief  Constructs a Result object representing a successful result with
      *         the specified value.
      * @param  value  The value to store in the Result object, representing a
@@ -65,7 +65,7 @@ namespace nyEngineSDK
       new (&mStorage.value) T(std::move(value));
     }
 
-    /*
+    /**
      * @brief  Constructs a Result object representing an error result with the
      *         specified error status.
      * @param  error  The error status to store in the Result object,
@@ -79,7 +79,7 @@ namespace nyEngineSDK
       new (&mStorage.error) Status(error);
     }
 
-    /*
+    /**
      * @brief  Constructs a Result object representing an error result with the
      *         specified error status.
      * @param  error  The error status to store in the Result object,
@@ -93,7 +93,7 @@ namespace nyEngineSDK
       new (&mStorage.error) Status(std::move(error));
     }
 
-    /*
+    /**
      * @brief  Copy constructor for Result. Creates a new Result object by
      *         copying the value or error status from another Result object.
      * @param  other  The Result object to copy from. The new Result object will
@@ -114,7 +114,7 @@ namespace nyEngineSDK
       }
     }
 
-    /*
+    /**
      * @brief  Move constructor for Result. Creates a new Result object by
      *         moving the value or error status from another Result object.
      * @param  other  The Result object to move from. The new Result object will
@@ -137,7 +137,7 @@ namespace nyEngineSDK
       }
     }
 
-    /*
+    /**
      * @brief  Copy assignment operator for Result. Assigns the value or error
      *         status from another Result object to this object. If this object
      *         already contains a value or error status, it will be destroyed
@@ -172,7 +172,7 @@ namespace nyEngineSDK
       return *this;
     }
 
-    /*
+    /**
      * @brief  Move assignment operator for Result. Moves the value or error
      *         status from another Result object to this object. If this object
      *         already contains a value or error status, it will be destroyed
@@ -208,7 +208,7 @@ namespace nyEngineSDK
       return *this;
     }
 
-    /*
+    /**
      * @brief  Destructor for Result. Destroys the active value or error status
      *         contained in the Result object. If the Result object contains a
      *         value, it will be destroyed. If it contains an error status, the
@@ -221,7 +221,7 @@ namespace nyEngineSDK
     }
 
 
-    /*
+    /**
      * @brief  Returns true if the Result object contains a value
      *         (i.e., represents a successful result), or false if it contains
      *         an error status (i.e., represents an error result).
@@ -235,7 +235,7 @@ namespace nyEngineSDK
       return mHasValue;
     }
 
-    /*
+    /**
      * @brief  Explicit conversion operator to bool. Allows a Result object to
      *         be used in boolean contexts (e.g., if statements) to check if it
      *         contains a value (i.e., represents a successful result) or an
@@ -250,7 +250,7 @@ namespace nyEngineSDK
       return mHasValue;
     }
 
-    /*
+    /**
      * @brief  Returns a reference to the value contained in the Result object.
      * @return A reference to the value contained in the Result object.
      * @bug    No known bugs.
@@ -262,7 +262,7 @@ namespace nyEngineSDK
       return mStorage.value;
     }
 
-    /*
+    /**
      * @brief  Returns a const reference to the value contained in the Result
      *         object.
      * @return A const reference to the value contained in the Result object.
@@ -275,7 +275,7 @@ namespace nyEngineSDK
       return mStorage.value;
     }
 
-    /*
+    /**
      * @brief  Returns a reference to the error status contained in the Result
      *         object.
      * @return A reference to the error status contained in the Result object.
@@ -288,7 +288,7 @@ namespace nyEngineSDK
       return mStorage.error;
     }
 
-    /*
+    /**
      * @brief  Returns a const reference to the error status contained in the
      *         Result object.
      * @return A const reference to the error status contained in the Result
@@ -302,7 +302,7 @@ namespace nyEngineSDK
       return mStorage.error;
     }
 
-    /*
+    /**
      * @brief  Returns a reference to the error status contained in the Result
      *         object. If the Result object currently contains a value, the
      *         value will be destroyed and replaced with a default-constructed
@@ -322,7 +322,7 @@ namespace nyEngineSDK
     }
 
    private:
-    /*
+    /**
      * @brief  Destroys the active value or error status contained in the Result
      *         object. If the Result object contains a value, it will be
      *         destroyed. If it contains an error status, the error status will
@@ -350,19 +350,19 @@ namespace nyEngineSDK
       Storage() {}
       ~Storage() {}
 
-      /*
+      /**
        * @brief  The value contained in the Result object when it represents a
        *         successful result. This member is active when mHasValue is true.
        */
       T value;
-      /*
+      /**
        * @brief  The error status contained in the Result object when it represents
        *         an error result. This member is active when mHasValue is false.
        */
       Status error;
     };
 
-    /*
+    /**
      * @brief  Indicates whether the Result object currently contains a value or
      *         an error status. If mHasValue is true, the value member of the
      *         Storage union is active and contains the value of the successful
@@ -370,14 +370,14 @@ namespace nyEngineSDK
      *         union is active and contains the error status of the error result.
      */
     Storage mStorage;
-    /*
+    /**
      * @brief  Indicates whether the Result object currently contains a value
      *         (true) or an error status (false).
      */
     bool mHasValue;
   };
 
-  /*
+  /**
    * @brief  Specialization of the Result class template for void. This
    *         specialization represents the result of an operation that can
    *         either succeed with no value (i.e., void) or fail with an error
@@ -387,7 +387,7 @@ namespace nyEngineSDK
   class Result<void>
   {
    public:
-    /*
+    /**
      * @brief  Constructs a Result object representing a successful result with
      *         no value. The Result object will contain a successful status with
      *         no message.
@@ -398,7 +398,7 @@ namespace nyEngineSDK
     {
     }
 
-    /*
+    /**
      * @brief  Constructs a Result object representing an error result with the
      *         specified error status.
      * @param  error  The error status to store in the Result object,
@@ -411,7 +411,7 @@ namespace nyEngineSDK
     {
     }
 
-    /*
+    /**
      * @brief  Constructs a Result object representing an error result with the
      *         specified error status.
      * @param  error  The error status to store in the Result object,
@@ -424,7 +424,7 @@ namespace nyEngineSDK
     {
     }
 
-    /*
+    /**
      * @brief  Returns true if the Result object contains a value
      *         (i.e., represents a successful result), or false if it contains
      *         an error status (i.e., represents an error result).
@@ -438,7 +438,7 @@ namespace nyEngineSDK
       return mStatus.isOk();
     }
 
-    /*
+    /**
      * @brief  Explicit conversion operator to bool. Allows a Result object to
      *         be used in boolean contexts (e.g., if statements) to check if it
      *         contains a value (i.e., represents a successful result) or an
@@ -453,7 +453,7 @@ namespace nyEngineSDK
       return mStatus.isOk();
     }
 
-    /*
+    /**
      * @brief  Returns a const reference to the error status contained in the
      *         Result object.
      * @return A const reference to the error status contained in the Result
@@ -467,7 +467,7 @@ namespace nyEngineSDK
       return mStatus;
     }
 
-    /*
+    /**
      * @brief  Returns a reference to the error status contained in the Result
      *         object.
      * @return A reference to the error status contained in the Result object.
@@ -480,7 +480,7 @@ namespace nyEngineSDK
       return mStatus;
     }
 
-    /*
+    /**
      * @brief  Returns a reference to the status contained in the Result object.
      * @return A reference to the status contained in the Result object.
      * @bug    No known bugs.
@@ -492,7 +492,7 @@ namespace nyEngineSDK
     }
 
    private:
-    /*
+    /**
      * @brief  The error status contained in the Result object when it represents
      *         an error result. This member is active when mHasValue is false.
      */

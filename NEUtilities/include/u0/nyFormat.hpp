@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyFormat.hpp
  * @author  Dalia Castellanos
@@ -12,7 +12,7 @@
  *
  * @bug	    No known bugs.
  */
-/*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include <type_traits>
@@ -28,7 +28,7 @@ namespace nyEngineSDK
 {
   namespace detail
   {
-    /*
+    /**
      * @brief  Helper function to calculate the length of a null-terminated C-string.
      * @param  s  Pointer to a null-terminated C-string. If null, the length is considered 0.
      * @return Length of the C-string, not including the null terminator. If the
@@ -40,7 +40,7 @@ namespace nyEngineSDK
       return s ? static_cast<usize>(std::strlen(s)) : 0;
     }
 
-    /*
+    /**
      * @brief  Helper function to copy bytes from a source to a destination buffer,
      *         respecting the capacity and current position, and ensuring null
      *         termination if possible.
@@ -76,7 +76,7 @@ namespace nyEngineSDK
       return pos;
     }
 
-    /*
+    /**
      * @brief  Helper function to append a null-terminated C-string to a destination
      *         buffer, respecting the capacity and current position, and ensuring
      *         null termination if possible.
@@ -96,7 +96,7 @@ namespace nyEngineSDK
       return copy_bytes(dst, cap, pos, s, cstr_len(s));
     }
 
-    /*
+    /**
      * @brief  Helper function to append a StringView to a destination buffer,
      *         respecting the capacity and current position, and ensuring null
      *         termination if possible.
@@ -115,7 +115,7 @@ namespace nyEngineSDK
       return copy_bytes(dst, cap, pos, sv.data(), sv.size());
     }
 
-    /*
+    /**
      * @brief  Helper function to append a single character to a destination
      *         buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible.
@@ -138,7 +138,7 @@ namespace nyEngineSDK
       return pos;
     }
 
-    /*
+    /**
      * @brief  Helper function to append an integral value to a destination buffer,
      *         respecting the capacity and current position, and ensuring null
      *         termination if possible.
@@ -162,7 +162,7 @@ namespace nyEngineSDK
       return copy_bytes(dst, cap, pos, buf, static_cast<usize>(res.ptr - buf));
     }
 
-    /*
+    /**
      * @brief  Helper function to append a floating point value to a destination
      *         buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible.
@@ -186,7 +186,7 @@ namespace nyEngineSDK
       return copy_bytes(dst, cap, pos, buf, static_cast<usize>(n));
     }
 
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -209,7 +209,7 @@ namespace nyEngineSDK
     {
       return append_sv(dst, cap, pos, v);
     }
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -231,7 +231,7 @@ namespace nyEngineSDK
     {
       return append_cstr(dst, cap, pos, v);
     }
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -253,7 +253,7 @@ namespace nyEngineSDK
     {
       return append_cstr(dst, cap, pos, v);
     }
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -275,7 +275,7 @@ namespace nyEngineSDK
     {
       return append_char(dst, cap, pos, v);
     }
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -298,7 +298,7 @@ namespace nyEngineSDK
       return append_cstr(dst, cap, pos, v ? "true" : "false");
     }
 
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -320,7 +320,7 @@ namespace nyEngineSDK
     {
       return append_float(dst, cap, pos, static_cast<double>(v));
     }
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -343,7 +343,7 @@ namespace nyEngineSDK
       return append_float(dst, cap, pos, v);
     }
 
-    /*
+    /**
      * @brief  Helper function to append a single argument of various supported types
      *         to a destination buffer, respecting the capacity and current position, and
      *         ensuring null termination if possible. This is an overload set that
@@ -371,7 +371,7 @@ namespace nyEngineSDK
       else return append_integral(dst, cap, pos, static_cast<unsigned long long>(v));
     }
 
-    /*
+    /**
      * @brief  Base case for the recursive format implementation. When there are
      *         no more arguments to replace, this function simply copies the
      *         remaining format string to the output buffer, respecting capacity
@@ -395,7 +395,7 @@ namespace nyEngineSDK
       return copy_bytes(out, cap, pos, fmt.data(), fmt.size());
     }
 
-    /*
+    /**
      * @brief  Recursive implementation of the format function. This function
      *         processes the format string, replacing the first occurrence of
      *         `{}` with the string representation of the first argument, and
@@ -447,7 +447,7 @@ namespace nyEngineSDK
 
   } // namespace detail
 
-  /*
+  /**
    * @brief  Formats a string by replacing `{}` placeholders in the format
    *         string with the string representations of the provided arguments.
    * @param  out   Pointer to the destination buffer where bytes will be

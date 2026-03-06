@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyMemory.hpp
  * @author  Dalia Castellanos
@@ -12,7 +12,7 @@
  *
  * @bug	    No known bugs.
  */
- /*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include <new>
@@ -24,7 +24,7 @@
 
 namespace nyEngineSDK
 {
-  /*
+  /**
    * @brief  Checks if a number is a power of two.
    * @param  x  The number to check.
    * @return `true` if `x` is a power of two, and `false` otherwise. Note that
@@ -37,7 +37,7 @@ namespace nyEngineSDK
     return (x != 0) && ((x & (x - 1)) == 0);
   }
 
-  /*
+  /**
    * @brief  Aligns a value up to the nearest multiple of the specified alignment.
    * @param  value      The value to align.
    * @param  alignment  The alignment to align to, in bytes. This must be a
@@ -53,7 +53,7 @@ namespace nyEngineSDK
     return (value + (alignment - 1)) & ~(alignment - 1);
   }
 
-  /*
+  /**
    * @brief  Allocates memory for an object of type `T` using the specified
    *         allocator, and constructs the object in-place with the given
    *         arguments.
@@ -78,7 +78,7 @@ namespace nyEngineSDK
     return new (mem) T(std::forward<Args>(args)...);
   }
 
-  /*
+  /**
    * @brief  Destroys an object of type `T` and deallocates the memory used by
    *         the object using the specified allocator.
    * @param  allocator  The allocator to use for memory deallocation. This
@@ -102,7 +102,7 @@ namespace nyEngineSDK
     allocator.deallocate(p);
   }
 
-  /*
+  /**
    * @brief  Allocates memory for an object of type `T` using the current default
    *         allocator, and constructs the object in-place with the given arguments.
    * @param  args  The arguments to forward to the constructor of `T`.
@@ -119,7 +119,7 @@ namespace nyEngineSDK
     return allocNew<T>(*allocator, std::forward<Args>(args)...);
   }
 
-  /*
+  /**
    * @brief  Destroys an object of type `T` and deallocates the memory used by
    *         the object using the current default allocator.
    * @param  p  A pointer to the object to destroy and deallocate. This pointer

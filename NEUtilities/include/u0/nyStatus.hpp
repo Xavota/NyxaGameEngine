@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyStatus.hpp
  * @author  Dalia Castellanos
@@ -14,7 +14,7 @@
  *
  * @bug	    No known bugs.
  */
- /*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include "u0/nyTypes.hpp"
@@ -30,7 +30,7 @@
 
 namespace nyEngineSDK
 {
-  /*
+  /**
    * @brief  Represents the result of an operation, which can be either success
    *         or error.
    * @bug    No known bugs.
@@ -40,7 +40,7 @@ namespace nyEngineSDK
   public:
     static constexpr u16 MessageCap = static_cast<u16>(NY_STATUS_MESSAGE_CAP);
 
-    /*
+    /**
      * @brief  Creates a successful status with no message.
      * @return A Status object representing success with no message.
      * @bug    No known bugs.
@@ -50,7 +50,7 @@ namespace nyEngineSDK
       return Status();
     }
 
-    /*
+    /**
      * @brief  Creates an error status with the specified log level, module,
      *         and message.
      * @param  level    The log level associated with the error status. This can
@@ -77,7 +77,7 @@ namespace nyEngineSDK
       return s;
     }
 
-    /*
+    /**
      * @brief  Creates an error status with the specified log level, module, and
      *         formatted message.
      * @param  level   The log level associated with the error status. This can
@@ -113,7 +113,7 @@ namespace nyEngineSDK
       return s;
     }
 
-    /*
+    /**
      * @brief  Returns true if the status represents success, false if it
      *         represents an error.
      * @return True if the status is successful, false if it is an error.
@@ -125,7 +125,7 @@ namespace nyEngineSDK
       return mOk;
     }
 
-    /*
+    /**
      * @brief  Returns true if the status represents an error, false if it
      *         represents success.
      * @return True if the status is an error, false if it is successful.
@@ -137,7 +137,7 @@ namespace nyEngineSDK
       return !mOk;
     }
 
-    /*
+    /**
      * @brief  Returns the log level associated with the status. For error
      *         statuses, this indicates the severity of the error
      *         (e.g., Warning, Error, Fatal). For successful statuses, this
@@ -151,7 +151,7 @@ namespace nyEngineSDK
       return mLevel;
     }
 
-    /*
+    /**
      * @brief  Returns the module or component associated with the status.
      *         This can be used to indicate which part of the system the status
      *         originated from.
@@ -164,7 +164,7 @@ namespace nyEngineSDK
       return mModule;
     }
 
-    /*
+    /**
      * @brief  Returns the message associated with the status. For error
      *         statuses, this will contain details about the error condition.
      *         For successful statuses, this may be empty or contain
@@ -179,7 +179,7 @@ namespace nyEngineSDK
     }
 
   private:
-    /*
+    /**
      * @brief  Private constructor for creating a successful status with no
      *         message.
      * @return A Status object representing success with no message.
@@ -189,7 +189,7 @@ namespace nyEngineSDK
       mOk(true), mLevel(LogLevel::Info), mModule(), mMessage{ '\0' },
       mMessageLen(0) {}
 
-    /*
+    /**
      * @brief  Helper function to set the message for the status, ensuring it
      *         fits within the fixed-size message buffer and properly null-terminated.
      * @param  msg  The message to set for the status. If the message exceeds the
@@ -206,24 +206,24 @@ namespace nyEngineSDK
     }
 
   private:
-    /*
+    /**
      * @brief  Indicates whether the status represents success (true) or error
      *        (false).
      */
     bool mOk;
-    /*
+    /**
      * @brief  The log level associated with the status. For error statuses,
      *         this indicates the severity of the error (e.g., Warning, Error,
      *         Fatal). For successful statuses, this will typically be
      *         LogLevel::Info.
      */
     LogLevel mLevel;
-    /*
+    /**
      * @brief  The module or component associated with the status. This can be
      *         used to indicate which part of the system the status originated from.
      */
     StringView mModule;
-    /*
+    /**
      * @brief  The message associated with the status. For error statuses, this
      *         will contain details about the error condition. For successful
      *         statuses, this may be empty or contain informational messages.
@@ -231,7 +231,7 @@ namespace nyEngineSDK
      *         defined by MessageCap.
      */
     char mMessage[MessageCap];
-    /*
+    /**
      * @brief  The length of the message stored in mMessage.
      */
     u16 mMessageLen;

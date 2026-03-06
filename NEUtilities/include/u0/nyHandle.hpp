@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyHandle.hpp
  * @author  Dalia Castellanos
@@ -16,14 +16,14 @@
  *
  * @bug	    No known bugs.
  */
-/*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include "u0/nyTypes.hpp"
 
 namespace nyEngineSDK
 {
-  /*
+  /**
    * @brief A handle structure that combines an index and a generation for safe
    *        resource management.
    */
@@ -33,13 +33,13 @@ namespace nyEngineSDK
     u32 generation = 0;
   };
 
-  /*
+  /**
    * @brief A constant representing an invalid handle, where the index is set to
    *        0xFFFFFFFFu and the generation is set to 0.
    */
   inline constexpr Handle kInvalidHandle{ 0xFFFFFFFFu, 0u };
 
-  /*
+  /**
    * @brief Checks if a given handle is valid by verifying that its index is not
    *        equal to 0xFFFFFFFFu.
    */
@@ -49,7 +49,7 @@ namespace nyEngineSDK
     return h.index != 0xFFFFFFFFu;
   }
 
-  /*
+  /**
    * @brief Compares two handles for equality by checking if both their index
    *        and generation are the same.
    */
@@ -59,7 +59,7 @@ namespace nyEngineSDK
     return (a.index == b.index) && (a.generation == b.generation);
   }
 
-  /*
+  /**
    * @brief Compares two handles for inequality by negating the result of the
    *        equality operator.
    */

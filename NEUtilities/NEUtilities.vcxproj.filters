@@ -87,7 +87,25 @@
     <ClInclude Include="include\u0\nyHandle.hpp">
       <Filter>Header Files\u0</Filter>
     </ClInclude>
-    <ClInclude Include="nyByteBuffer.hpp">
+    <ClInclude Include="include\u0\nySpinlock.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyByteBuffer.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyMutex.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyLockGuard.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyThread.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyTime.hpp">
+      <Filter>Header Files\u0</Filter>
+    </ClInclude>
+    <ClInclude Include="include\u0\nyConditionVariable.hpp">
       <Filter>Header Files\u0</Filter>
     </ClInclude>
   </ItemGroup>

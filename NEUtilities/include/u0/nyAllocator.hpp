@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******************************************************************************/
 /**
  * @file    nyAllocator.hpp
  * @author  Dalia Castellanos
@@ -15,7 +15,7 @@
  *
  * @bug	    No known bugs.
  */
-/*****************************************************************************/
+/******************************************************************************/
 #pragma once
 
 #include "u0/nyApi.hpp"
@@ -23,7 +23,7 @@
 
 namespace nyEngineSDK
 {
-  /*
+  /**
    * @brief  Abstract base class for memory allocators. Defines the interface
    *         for allocating, deallocating, and optionally reallocating memory.
    * @bug	   No known bugs.
@@ -31,14 +31,14 @@ namespace nyEngineSDK
   class Allocator
   {
    public:
-    /*
+    /**
      * @brief  Virtual destructor.
      * @bug	   No known bugs.
      */
     virtual
     ~Allocator() noexcept = default;
 
-    /*
+    /**
      * @brief  Allocates a block of memory of the specified size and alignment.
      * @param  sizeBytes       The size of the memory block to allocate, in
      *                         bytes. By default, this should not be zero,
@@ -53,7 +53,7 @@ namespace nyEngineSDK
     NY_NODISCARD virtual void*
     allocate(usize sizeBytes, usize alignmentBytes) noexcept = 0;
 
-    /*
+    /**
      * @brief  Deallocates a previously allocated block of memory.}
      * @param  p   A pointer to the memory block to deallocate. This pointer must
      *             have been returned by a previous call to `allocate` on the same
@@ -63,7 +63,7 @@ namespace nyEngineSDK
     virtual void
     deallocate(void* p) noexcept = 0;
 
-    /*
+    /**
      * @brief  Reallocates a previously allocated block of memory to a new size
      *         and alignment.
      * @param  p               A pointer to the memory block to reallocate. This
@@ -93,7 +93,7 @@ namespace nyEngineSDK
     }
   };
 
-  /*
+  /**
    * @brief  Returns a reference to a global allocator that uses the standard
    *         malloc/free functions for memory management. This allocator is used
    *         as the default allocator for the library, but can be overridden by
@@ -106,7 +106,7 @@ namespace nyEngineSDK
   NY_API NY_NODISCARD Allocator&
   getMallocAllocator() noexcept;
 
-  /*
+  /**
    * @brief  Sets the default allocator to be used by the library when
    *         allocating memory. If `nullptr` is passed, the default allocator
    *         will be reset to the global malloc allocator.
@@ -118,7 +118,7 @@ namespace nyEngineSDK
   NY_API void
   setDefaultAllocator(Allocator* allocator) noexcept;
 
-  /*
+  /**
    * @brief  Returns a pointer to the current default allocator used by the
    *         library for memory allocation. This allocator is used by the
    *         `alloc` and `free` functions to manage memory. If no custom
@@ -131,7 +131,7 @@ namespace nyEngineSDK
   NY_API NY_NODISCARD Allocator*
   getDefaultAllocator() noexcept;
 
-  /*
+  /**
    * @brief  Allocates a block of memory of the specified size and alignment
    *         using the current default allocator. This is a convenience function
    *         that forwards to the `allocate` method of the default allocator.
@@ -150,7 +150,7 @@ namespace nyEngineSDK
   NY_API NY_NODISCARD void*
   alloc(usize sizeBytes, usize alignmentBytes = 16) noexcept;
 
-  /*
+  /**
    * @brief  Frees a block of memory previously allocated with the `alloc`
    *         function using the current default allocator. This is a
    *         convenience function that forwards to the `deallocate` method
