@@ -16,8 +16,8 @@
 #include <thread>
 #include <utility>
 
-#include "u0/nyBuild.hpp"
-#include "u0/nyMacros.hpp"
+#include "macros/nyBuild.hpp"
+#include "macros/nyMacros.hpp"
 
 namespace nyEngineSDK
 {

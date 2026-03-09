@@ -17,7 +17,7 @@
 
 #include <condition_variable>
 
-#include "u0/nyMutex.hpp"
+#include "thread/nyMutex.hpp"
 
 namespace nyEngineSDK
 {

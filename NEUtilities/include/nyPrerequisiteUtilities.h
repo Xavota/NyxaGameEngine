@@ -10,9 +10,9 @@
 /******************************************************************************/
 #pragma once
 
-#include "u0/nyConfig.hpp"
-#include "u0/nyPlatform.hpp"
-#include "u0/nyCompiler.hpp"
-#include "u0/nyBuild.hpp"
-#include "u0/nyFeatures.hpp"
-#include "u0/nyMacros.hpp"
+#include "macros/nyConfig.hpp"
+#include "macros/nyPlatform.hpp"
+#include "macros/nyCompiler.hpp"
+#include "macros/nyBuild.hpp"
+#include "macros/nyFeatures.hpp"
+#include "macros/nyMacros.hpp"

@@ -14,7 +14,7 @@
  /*****************************************************************************/
 #pragma once
 
-#include "u0/nyResult.hpp"
+#include "types/nyResult.hpp"
 
 // Result<void> success helper
 #define U0_OK() ::u0::Result<void>(::u0::Status::ok())

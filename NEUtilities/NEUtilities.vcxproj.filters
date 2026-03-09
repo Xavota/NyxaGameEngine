@@ -13,111 +13,126 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\u0">
-      <UniqueIdentifier>{1b3f47a7-492d-476f-b5a3-e13355768465}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\u0">
       <UniqueIdentifier>{3cb537bc-214d-41d6-9db3-2edbd198d1ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\macros">
+      <UniqueIdentifier>{ae02983c-f4ab-4264-9ffe-86146cda95d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\memory">
+      <UniqueIdentifier>{f44e2fd7-0372-4bbd-a0d7-289838a26e50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\thread">
+      <UniqueIdentifier>{79e346dc-46c5-4def-9af9-896ac4c7b90d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\types">
+      <UniqueIdentifier>{c66bf746-b668-444f-bbbd-2c613ee2fcf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\file">
+      <UniqueIdentifier>{d7f65a63-ef07-41dd-a573-292c08a3a9d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\u0\nyPrerequisiteUtilities.h">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyApi.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyBuild.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyCompiler.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyConfig.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyFeatures.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyFormat.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyLog.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyLogMacros.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyMacros.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyModule.h">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyPlatform.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nySpan.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyStringView.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyTypes.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyWarnings.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyStatus.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyResult.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyResultMacros.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyAllocator.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyMemory.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyHandle.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nySpinlock.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyByteBuffer.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyMutex.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyLockGuard.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyThread.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyTime.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-    <ClInclude Include="include\u0\nyConditionVariable.hpp">
-      <Filter>Header Files\u0</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="include\u0\deleteme.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\u0\nyLog.cpp">
       <Filter>Source Files\u0</Filter>
     </ClCompile>
     <ClCompile Include="src\u0\nyAllocator.cpp">
       <Filter>Source Files\u0</Filter>
     </ClCompile>
+    <ClCompile Include="src\u0\nyTypes.cpp">
+      <Filter>Source Files\u0</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\macros\nyApi.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyBuild.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyCompiler.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyConfig.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyFeatures.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyLogMacros.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyMacros.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyPlatform.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyResultMacros.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyWarnings.hpp">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\memory\nyAllocator.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\memory\nyByteBuffer.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\memory\nyMemory.hpp">
+      <Filter>Header Files\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thread\nyConditionVariable.hpp">
+      <Filter>Header Files\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thread\nyLockGuard.hpp">
+      <Filter>Header Files\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thread\nyMutex.hpp">
+      <Filter>Header Files\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thread\nySpinlock.hpp">
+      <Filter>Header Files\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thread\nyThread.hpp">
+      <Filter>Header Files\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="include\thread\nyTime.hpp">
+      <Filter>Header Files\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyHandle.hpp">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyModule.h">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyResult.hpp">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nySpan.hpp">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyStatus.hpp">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyStringView.hpp">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyTypes.hpp">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nyFormat.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nyLog.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nyPrerequisiteUtilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\nyPath.hpp">
+      <Filter>Header Files\file</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

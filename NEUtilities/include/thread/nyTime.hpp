@@ -13,10 +13,10 @@
 /******************************************************************************/
 #pragma once
 
-#include "u0/nyTypes.hpp"
-
 #include <chrono>
 #include <thread>
+
+#include "types/nyTypes.hpp"
 
 namespace nyEngineSDK
 {

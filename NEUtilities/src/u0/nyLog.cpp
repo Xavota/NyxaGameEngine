@@ -1,7 +1,9 @@
-#include "u0/nyLog.hpp"
-#include "u0/nyMacros.hpp"
+#include "nyLog.hpp"
+
 #include <atomic>
 #include <cstdlib>
+
+#include "macros/nyMacros.hpp"
 
 namespace nyEngineSDK
 {

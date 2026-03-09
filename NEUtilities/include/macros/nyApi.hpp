@@ -13,8 +13,8 @@
 /******************************************************************************/
 #pragma once
 
-#include "u0/nyPlatform.hpp"
-#include "u0/nyCompiler.hpp"
+#include "macros/nyPlatform.hpp"
+#include "macros/nyCompiler.hpp"
 
 // Build system must define exactly one of these when compiling the library:
 // - NY_UTILITIES_SHARED : building/using Utilities as a shared library if not defined, defaults to static library

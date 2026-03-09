@@ -20,9 +20,9 @@
 #include <cstring>
 #include <cstdio>
 
-#include "u0/nyTypes.hpp"
-#include "u0/nyStringView.hpp"
-#include "u0/nyMacros.hpp"
+#include "types/nyTypes.hpp"
+#include "types/nyStringView.hpp"
+#include "macros/nyMacros.hpp"
 
 namespace nyEngineSDK
 {

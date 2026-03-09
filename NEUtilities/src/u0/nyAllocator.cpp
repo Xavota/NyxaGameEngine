@@ -1,10 +1,10 @@
-#include "u0/nyAllocator.hpp"
+#include "memory/nyAllocator.hpp"
 
 #include <atomic>
 #include <cstdlib>
 
-#include "u0/nyMacros.hpp"
-#include "u0/nyPlatform.hpp"
+#include "macros/nyMacros.hpp"
+#include "macros/nyPlatform.hpp"
 
 
 #if NY_OS_WINDOWS

@@ -16,7 +16,7 @@
 #include <cstdint>
 #include <cstddef>
 
-#include "u0/nyMacros.hpp"
+#include "macros/nyMacros.hpp"
 
 namespace nyEngineSDK
 {
@@ -37,21 +37,6 @@ namespace nyEngineSDK
 
   using usize = std::size_t;
   using isize = std::ptrdiff_t;
-
-  NY_STATIC_ASSERT(sizeof(i8) == 1, "i8 must be 1 byte");
-  NY_STATIC_ASSERT(sizeof(i16) == 2, "i16 must be 2 bytes");
-  NY_STATIC_ASSERT(sizeof(i32) == 4, "i32 must be 4 bytes");
-  NY_STATIC_ASSERT(sizeof(i64) == 8, "i64 must be 8 bytes");
-
-  NY_STATIC_ASSERT(sizeof(u8) == 1, "u8 must be 1 byte");
-  NY_STATIC_ASSERT(sizeof(u16) == 2, "u16 must be 2 bytes");
-  NY_STATIC_ASSERT(sizeof(u32) == 4, "u32 must be 4 bytes");
-  NY_STATIC_ASSERT(sizeof(u64) == 8, "u64 must be 8 bytes");
-
-  NY_STATIC_ASSERT(sizeof(byte) == 1, "byte must be 1 byte");
-
-  NY_STATIC_ASSERT(sizeof(f32) == 4, "f32 must be 4 bytes");
-  NY_STATIC_ASSERT(sizeof(f64) == 8, "f64 must be 8 bytes");
 
   /**
    * @brief  A struct representing a duration of time, with fields for days,
@@ -78,9 +63,7 @@ namespace nyEngineSDK
      * @param  ns  The number of nanoseconds in the duration.
      * @bug    No known bugs
      */
-    Duration(u32 d, u32 h, u32 m, u32 s, u32 ms, u32 us, u32 ns) noexcept
-      : days(d), hours(h), minutes(m), seconds(s),
-      milliseconds(ms), microseconds(us), nanoseconds(ns) {}
+    Duration(u64 d, u64 h, u64 m, u64 s, u64 ms, u64 us, u64 ns) noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct in days.
@@ -188,32 +171,32 @@ namespace nyEngineSDK
     }
 
 
-    static u32 hoursPerDay;
-    static u32 minutesPerDay;
-    static u32 secondsPerDay;
-    static u32 millisecondsPerDay;
-    static u32 microsecondsPerDay;
-    static u32 nanosecondsPerDay;
+    static u64 hoursPerDay;
+    static u64 minutesPerDay;
+    static u64 secondsPerDay;
+    static u64 millisecondsPerDay;
+    static u64 microsecondsPerDay;
+    static u64 nanosecondsPerDay;
 
-    static u32 minutesPerHour;
-    static u32 secondsPerHour;
-    static u32 millisecondsPerHour;
-    static u32 microsecondsPerHour;
-    static u32 nanosecondsPerHour;
+    static u64 minutesPerHour;
+    static u64 secondsPerHour;
+    static u64 millisecondsPerHour;
+    static u64 microsecondsPerHour;
+    static u64 nanosecondsPerHour;
 
-    static u32 secondsPerMinute;
-    static u32 millisecondsPerMinute;
-    static u32 microsecondsPerMinute;
-    static u32 nanosecondsPerMinute;
+    static u64 secondsPerMinute;
+    static u64 millisecondsPerMinute;
+    static u64 microsecondsPerMinute;
+    static u64 nanosecondsPerMinute;
 
-    static u32 millisecondsPerSecond;
-    static u32 microsecondsPerSecond;
-    static u32 nanosecondsPerSecond;
+    static u64 millisecondsPerSecond;
+    static u64 microsecondsPerSecond;
+    static u64 nanosecondsPerSecond;
 
-    static u32 microsecondsPerMillisecond;
-    static u32 nanosecondsPerMillisecond;
+    static u64 microsecondsPerMillisecond;
+    static u64 nanosecondsPerMillisecond;
 
-    static u32 nanosecondsPerMicrosecond;
+    static u64 nanosecondsPerMicrosecond;
 
     u32 days;
     u32 hours;

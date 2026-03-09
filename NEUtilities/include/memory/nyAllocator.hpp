@@ -18,8 +18,8 @@
 /******************************************************************************/
 #pragma once
 
-#include "u0/nyApi.hpp"
-#include "u0/nyTypes.hpp"
+#include "macros/nyApi.hpp"
+#include "types/nyTypes.hpp"
 
 namespace nyEngineSDK
 {

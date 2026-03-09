@@ -18,7 +18,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "u0/nyStatus.hpp"
+#include "types/nyStatus.hpp"
 
 
 namespace nyEngineSDK

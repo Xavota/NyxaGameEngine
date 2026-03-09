@@ -18,9 +18,9 @@
 #include <cstring>
 #include <utility>
 
-#include "u0/nyAllocator.hpp"
-#include "u0/nyMacros.hpp"
-#include "u0/nyTypes.hpp"
+#include "memory/nyAllocator.hpp"
+#include "macros/nyMacros.hpp"
+#include "types/nyTypes.hpp"
 
 namespace nyEngineSDK
 {

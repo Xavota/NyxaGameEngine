@@ -15,9 +15,9 @@
 /******************************************************************************/
 #pragma once
 
-#include "nyApi.hpp"
-#include "u0/nyTypes.hpp"
-#include "u0/nyStringView.hpp"
+#include "macros/nyApi.hpp"
+#include "types/nyTypes.hpp"
+#include "types/nyStringView.hpp"
 
 namespace nyEngineSDK
 {

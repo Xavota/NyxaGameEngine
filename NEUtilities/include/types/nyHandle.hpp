@@ -19,7 +19,7 @@
 /******************************************************************************/
 #pragma once
 
-#include "u0/nyTypes.hpp"
+#include "types/nyTypes.hpp"
 
 namespace nyEngineSDK
 {

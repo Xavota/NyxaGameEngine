@@ -17,12 +17,13 @@
 /******************************************************************************/
 #pragma once
 
-#include "u0/nyTypes.hpp"
-#include "u0/nyStringView.hpp"
-#include "u0/nyFormat.hpp"
-#include "u0/nyLog.hpp"
-
 #include <cstdint>
+
+#include "types/nyTypes.hpp"
+#include "types/nyStringView.hpp"
+
+#include "nyFormat.hpp"
+#include "nyLog.hpp"
 
 #ifndef NY_STATUS_MESSAGE_CAP
 #define NY_STATUS_MESSAGE_CAP 1024

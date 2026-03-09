@@ -297,40 +297,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\u0\nyAllocator.hpp" />
-    <ClInclude Include="include\u0\nyByteBuffer.hpp" />
-    <ClInclude Include="include\u0\nyConditionVariable.hpp" />
-    <ClInclude Include="include\u0\nyHandle.hpp" />
-    <ClInclude Include="include\u0\nyLockGuard.hpp" />
-    <ClInclude Include="include\u0\nyMemory.hpp" />
-    <ClInclude Include="include\u0\nyModule.h" />
-    <ClInclude Include="include\u0\nyMutex.hpp" />
-    <ClInclude Include="include\u0\nyPrerequisiteUtilities.h" />
-    <ClInclude Include="include\u0\nyApi.hpp" />
-    <ClInclude Include="include\u0\nyBuild.hpp" />
-    <ClInclude Include="include\u0\nyCompiler.hpp" />
-    <ClInclude Include="include\u0\nyConfig.hpp" />
-    <ClInclude Include="include\u0\nyFeatures.hpp" />
-    <ClInclude Include="include\u0\nyFormat.hpp" />
-    <ClInclude Include="include\u0\nyLog.hpp" />
-    <ClInclude Include="include\u0\nyLogMacros.hpp" />
-    <ClInclude Include="include\u0\nyMacros.hpp" />
-    <ClInclude Include="include\u0\nyPlatform.hpp" />
-    <ClInclude Include="include\u0\nyResult.hpp" />
-    <ClInclude Include="include\u0\nyResultMacros.hpp" />
-    <ClInclude Include="include\u0\nySpan.hpp" />
-    <ClInclude Include="include\u0\nySpinlock.hpp" />
-    <ClInclude Include="include\u0\nyStatus.hpp" />
-    <ClInclude Include="include\u0\nyStringView.hpp" />
-    <ClInclude Include="include\u0\nyTime.hpp" />
-    <ClInclude Include="include\u0\nyTypes.hpp" />
-    <ClInclude Include="include\u0\nyWarnings.hpp" />
-    <ClInclude Include="include\u0\nyThread.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="include\u0\deleteme.cpp" />
     <ClCompile Include="src\u0\nyAllocator.cpp" />
     <ClCompile Include="src\u0\nyLog.cpp" />
+    <ClCompile Include="src\u0\nyTypes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\file\nyPath.hpp" />
+    <ClInclude Include="include\macros\nyApi.hpp" />
+    <ClInclude Include="include\macros\nyBuild.hpp" />
+    <ClInclude Include="include\macros\nyCompiler.hpp" />
+    <ClInclude Include="include\macros\nyConfig.hpp" />
+    <ClInclude Include="include\macros\nyFeatures.hpp" />
+    <ClInclude Include="include\macros\nyLogMacros.hpp" />
+    <ClInclude Include="include\macros\nyMacros.hpp" />
+    <ClInclude Include="include\macros\nyPlatform.hpp" />
+    <ClInclude Include="include\macros\nyResultMacros.hpp" />
+    <ClInclude Include="include\macros\nyWarnings.hpp" />
+    <ClInclude Include="include\memory\nyAllocator.hpp" />
+    <ClInclude Include="include\memory\nyByteBuffer.hpp" />
+    <ClInclude Include="include\memory\nyMemory.hpp" />
+    <ClInclude Include="include\nyFormat.hpp" />
+    <ClInclude Include="include\nyLog.hpp" />
+    <ClInclude Include="include\nyPrerequisiteUtilities.h" />
+    <ClInclude Include="include\thread\nyConditionVariable.hpp" />
+    <ClInclude Include="include\thread\nyLockGuard.hpp" />
+    <ClInclude Include="include\thread\nyMutex.hpp" />
+    <ClInclude Include="include\thread\nySpinlock.hpp" />
+    <ClInclude Include="include\thread\nyThread.hpp" />
+    <ClInclude Include="include\thread\nyTime.hpp" />
+    <ClInclude Include="include\types\nyHandle.hpp" />
+    <ClInclude Include="include\types\nyModule.h" />
+    <ClInclude Include="include\types\nyResult.hpp" />
+    <ClInclude Include="include\types\nySpan.hpp" />
+    <ClInclude Include="include\types\nyStatus.hpp" />
+    <ClInclude Include="include\types\nyStringView.hpp" />
+    <ClInclude Include="include\types\nyTypes.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
