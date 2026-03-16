@@ -297,12 +297,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\u0\nyAllocator.cpp" />
-    <ClCompile Include="src\u0\nyLog.cpp" />
-    <ClCompile Include="src\u0\nyTypes.cpp" />
+    <ClCompile Include="src\file\nyFile.cpp" />
+    <ClCompile Include="src\file\nyFileWatcher.cpp" />
+    <ClCompile Include="src\file\nyPath.cpp" />
+    <ClCompile Include="src\memory\nyAllocator.cpp" />
+    <ClCompile Include="src\nyLog.cpp" />
+    <ClCompile Include="src\types\nyTypes.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\file\nyPath.hpp" />
+    <ClInclude Include="include\file\nyFile.h" />
+    <ClInclude Include="include\file\nyFileWatcher.h" />
+    <ClInclude Include="include\file\nyPath.h" />
     <ClInclude Include="include\macros\nyApi.hpp" />
     <ClInclude Include="include\macros\nyBuild.hpp" />
     <ClInclude Include="include\macros\nyCompiler.hpp" />
@@ -310,6 +315,7 @@
     <ClInclude Include="include\macros\nyFeatures.hpp" />
     <ClInclude Include="include\macros\nyLogMacros.hpp" />
     <ClInclude Include="include\macros\nyMacros.hpp" />
+    <ClInclude Include="include\macros\nyModuleName.h" />
     <ClInclude Include="include\macros\nyPlatform.hpp" />
     <ClInclude Include="include\macros\nyResultMacros.hpp" />
     <ClInclude Include="include\macros\nyWarnings.hpp" />
@@ -325,6 +331,7 @@
     <ClInclude Include="include\thread\nySpinlock.hpp" />
     <ClInclude Include="include\thread\nyThread.hpp" />
     <ClInclude Include="include\thread\nyTime.hpp" />
+    <ClInclude Include="include\types\nyContainers.h" />
     <ClInclude Include="include\types\nyHandle.hpp" />
     <ClInclude Include="include\types\nyModule.h" />
     <ClInclude Include="include\types\nyResult.hpp" />

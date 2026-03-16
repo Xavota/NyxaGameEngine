@@ -17,36 +17,36 @@
 #include "types/nyResult.hpp"
 
 // Result<void> success helper
-#define U0_OK() ::u0::Result<void>(::u0::Status::ok())
+#define NY_OK() ::nyEngineSDK::Result<void>(::nyEngineSDK::Status::ok())
 
 // Create a Status error quickly (non-formatted)
-#define U0_ERR(level, module, messageSv) \
-  ::u0::Status::error((level), (module), (messageSv))
+#define NY_ERR(level, module, messageSv) \
+  ::nyEngineSDK::Status::error((level), (module), (messageSv))
 
 // Create a formatted Status error quickly
-#define U0_ERRF(level, module, fmt, ...) \
-  ::u0::Status::errorf((level), (module), (fmt), ##__VA_ARGS__)
+#define NY_ERRF(level, module, fmt, ...) \
+  ::nyEngineSDK::Status::errorf((level), (module), (fmt), ##__VA_ARGS__)
 
 // Propagate an error Result<void> upward if it failed
-#define U0_TRY(expr) \
+#define NY_TRY(expr) \
   do \
   { \
-    auto _u0_try_result = (expr); \
-    if (!_u0_try_result) \
+    auto _ny_try_result = (expr); \
+    if (!_ny_try_result) \
     { \
-      return _u0_try_result.error(); \
+      return _ny_try_result.error(); \
     } \
   } while (0)
 
 // Propagate an error Result<T> upward if it failed
 // and on success assign the extracted value to outVar (moved).
-#define U0_TRY_ASSIGN(outVar, expr) \
+#define NY_TRY_ASSIGN(outVar, expr) \
   do \
   { \
-    auto _u0_try_result = (expr); \
-    if (!_u0_try_result) \
+    auto _ny_try_result = (expr); \
+    if (!_ny_try_result) \
     { \
-      return _u0_try_result.error(); \
+      return _ny_try_result.error(); \
     } \
-    (outVar) = std::move(_u0_try_result.value()); \
+    (outVar) = std::move(_ny_try_result.value()); \
   } while (0)

@@ -66,109 +66,83 @@ namespace nyEngineSDK
     Duration(u64 d, u64 h, u64 m, u64 s, u64 ms, u64 us, u64 ns) noexcept;
 
     /**
-     * @brief  Returns the total duration represented by this `Duration` struct in days.
+     * @brief  Returns a normalized version of this Duration, where all of its
+     *         values are as big as their maximum allows to, making all excess
+     *         go up in the hierarchy.
+     * @bug    No known bugs
      */
-    u64 getDays() const noexcept
+    Duration NY_FORCE_INLINE
+    normalized() const noexcept
     {
-      u64 totalDays = static_cast<u64>(days);
-      totalDays += static_cast<u64>(hours / hoursPerDay);
-      totalDays += static_cast<u64>(minutes / minutesPerDay);
-      totalDays += static_cast<u64>(seconds / secondsPerDay);
-      totalDays += static_cast<u64>(milliseconds / millisecondsPerDay);
-      totalDays += static_cast<u64>(microseconds / microsecondsPerDay);
-      totalDays += static_cast<u64>(nanoseconds / nanosecondsPerDay);
-      return totalDays;
+      return Duration(days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds);
     }
+
+    /**
+     * @brief  Returns the total duration represented by this `Duration` struct in days.
+     * @bug    No known bugs
+     */
+    u64
+    getDays() const noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct in hours.
+     * @bug    No known bugs
      */
-    u64 getHours() const noexcept
-    {
-      u64 totalHours = static_cast<u64>(hours);
-      totalHours += static_cast<u64>(days * hoursPerDay);
-      totalHours += static_cast<u64>(minutes / minutesPerHour);
-      totalHours += static_cast<u64>(seconds / secondsPerHour);
-      totalHours += static_cast<u64>(milliseconds / millisecondsPerHour);
-      totalHours += static_cast<u64>(microseconds / microsecondsPerHour);
-      totalHours += static_cast<u64>(nanoseconds / nanosecondsPerHour);
-      return totalHours;
-    }
+    u64
+    getHours() const noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct in minutes.
+     * @bug    No known bugs
      */
-    u64 getMinutes() const noexcept
-    {
-      u64 totalMinutes = static_cast<u64>(minutes);
-      totalMinutes += static_cast<u64>(days * minutesPerDay);
-      totalMinutes += static_cast<u64>(hours * minutesPerHour);
-      totalMinutes += static_cast<u64>(seconds / secondsPerMinute);
-      totalMinutes += static_cast<u64>(milliseconds / millisecondsPerMinute);
-      totalMinutes += static_cast<u64>(microseconds / microsecondsPerMinute);
-      totalMinutes += static_cast<u64>(nanoseconds / nanosecondsPerMinute);
-      return totalMinutes;
-    }
+    u64
+    getMinutes() const noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct in seconds.
+     * @bug    No known bugs
      */
-    u64 getSeconds() const noexcept
-    {
-      u64 totalSeconds = static_cast<u64>(seconds);
-      totalSeconds += static_cast<u64>(days * secondsPerDay);
-      totalSeconds += static_cast<u64>(hours * secondsPerHour);
-      totalSeconds += static_cast<u64>(minutes * secondsPerMinute);
-      totalSeconds += static_cast<u64>(milliseconds / millisecondsPerSecond);
-      totalSeconds += static_cast<u64>(microseconds / microsecondsPerSecond);
-      totalSeconds += static_cast<u64>(nanoseconds / nanosecondsPerSecond);
-      return totalSeconds;
-    }
+    u64
+    getSeconds() const noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct in milliseconds.
+     * @bug    No known bugs
      */
-    u64 getMilliseconds() const noexcept
-    {
-      u64 totalMilliseconds = static_cast<u64>(milliseconds);
-      totalMilliseconds += static_cast<u64>(days * millisecondsPerDay);
-      totalMilliseconds += static_cast<u64>(hours * millisecondsPerHour);
-      totalMilliseconds += static_cast<u64>(minutes * millisecondsPerMinute);
-      totalMilliseconds += static_cast<u64>(seconds * millisecondsPerSecond);
-      totalMilliseconds += static_cast<u64>(microseconds / microsecondsPerMillisecond);
-      totalMilliseconds += static_cast<u64>(nanoseconds / nanosecondsPerMillisecond);
-      return totalMilliseconds;
-    }
+    u64
+    getMilliseconds() const noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct in microseconds.
+     * @bug    No known bugs
      */
-    u64 getMicroseconds() const noexcept
-    {
-      u64 totalMicroseconds = static_cast<u64>(microseconds);
-      totalMicroseconds += static_cast<u64>(days * microsecondsPerDay);
-      totalMicroseconds += static_cast<u64>(hours * microsecondsPerHour);
-      totalMicroseconds += static_cast<u64>(minutes * microsecondsPerMinute);
-      totalMicroseconds += static_cast<u64>(seconds * microsecondsPerSecond);
-      totalMicroseconds += static_cast<u64>(milliseconds * microsecondsPerMillisecond);
-      totalMicroseconds += static_cast<u64>(nanoseconds / nanosecondsPerMicrosecond);
-      return totalMicroseconds;
-    }
+    u64
+    getMicroseconds() const noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct in nanoseconds.
+     * @bug    No known bugs
      */
-    u64 getNanoseconds() const noexcept
-    {
-      u64 totalNanoseconds = static_cast<u64>(nanoseconds);
-      totalNanoseconds += static_cast<u64>(days * nanosecondsPerDay);
-      totalNanoseconds += static_cast<u64>(hours * nanosecondsPerHour);
-      totalNanoseconds += static_cast<u64>(minutes * nanosecondsPerMinute);
-      totalNanoseconds += static_cast<u64>(seconds * nanosecondsPerSecond);
-      totalNanoseconds += static_cast<u64>(milliseconds * nanosecondsPerMillisecond);
-      totalNanoseconds += static_cast<u64>(microseconds * nanosecondsPerMicrosecond);
-      return totalNanoseconds;
-    }
+    u64
+    getNanoseconds() const noexcept;
+
+    /**
+     * @brief  Checks if the total time in nanoseconds is the same for both Durations.
+     *         Note: Careful for incorrect checks due to nanoseconds overflow
+     *         above 213,503 days.
+     * @bug    No known bugs
+     */
+    bool
+    operator==(const Duration& other) const noexcept;
+
+    /**
+     * @brief  Checks if the total time in nanoseconds is different for both Durations.
+     *         Note: Careful for incorrect checks due to nanoseconds overflow
+     *         above 213,503 days.
+     * @bug    No known bugs
+     */
+    bool
+    operator!=(const Duration& other) const noexcept;
 
 
     static u64 hoursPerDay;

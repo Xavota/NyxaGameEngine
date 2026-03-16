@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\u0">
-      <UniqueIdentifier>{3cb537bc-214d-41d6-9db3-2edbd198d1ec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\macros">
       <UniqueIdentifier>{ae02983c-f4ab-4264-9ffe-86146cda95d3}</UniqueIdentifier>
     </Filter>
@@ -31,16 +28,34 @@
     <Filter Include="Header Files\file">
       <UniqueIdentifier>{d7f65a63-ef07-41dd-a573-292c08a3a9d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\file">
+      <UniqueIdentifier>{e1805935-1e83-4849-8783-e39c20bff746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\memory">
+      <UniqueIdentifier>{d7116ea9-f791-4b27-a2e3-2088f74a2a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\types">
+      <UniqueIdentifier>{eca0b188-c080-4c39-a031-a71aff68bae8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\u0\nyLog.cpp">
-      <Filter>Source Files\u0</Filter>
+    <ClCompile Include="src\file\nyFileWatcher.cpp">
+      <Filter>Source Files\file</Filter>
     </ClCompile>
-    <ClCompile Include="src\u0\nyAllocator.cpp">
-      <Filter>Source Files\u0</Filter>
+    <ClCompile Include="src\file\nyPath.cpp">
+      <Filter>Source Files\file</Filter>
     </ClCompile>
-    <ClCompile Include="src\u0\nyTypes.cpp">
-      <Filter>Source Files\u0</Filter>
+    <ClCompile Include="src\file\nyFile.cpp">
+      <Filter>Source Files\file</Filter>
+    </ClCompile>
+    <ClCompile Include="src\memory\nyAllocator.cpp">
+      <Filter>Source Files\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\types\nyTypes.cpp">
+      <Filter>Source Files\types</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nyLog.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,7 +146,19 @@
     <ClInclude Include="include\nyPrerequisiteUtilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\file\nyPath.hpp">
+    <ClInclude Include="include\file\nyFile.h">
+      <Filter>Header Files\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\macros\nyModuleName.h">
+      <Filter>Header Files\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyContainers.h">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\nyFileWatcher.h">
+      <Filter>Header Files\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\file\nyPath.h">
       <Filter>Header Files\file</Filter>
     </ClInclude>
   </ItemGroup>
