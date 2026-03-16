@@ -21,8 +21,6 @@
 #include "types/nyStringView.hpp"
 #include "types/nyTypes.hpp"
 
-#include <string>
-
 namespace nyEngineSDK
 {
   /**
