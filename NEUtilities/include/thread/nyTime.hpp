@@ -37,7 +37,7 @@ namespace nyEngineSDK
       auto now = std::chrono::steady_clock::now().time_since_epoch();
       u64 nanoseconds = static_cast<u64>(
         std::chrono::duration_cast<std::chrono::nanoseconds>(now).count());
-      return Duration(0, 0, 0, 0, 0, 0, static_cast<u32>(nanoseconds));
+      return Duration(0, 0, 0, 0, 0, 0, static_cast<u64>(nanoseconds));
     }
 
     /**

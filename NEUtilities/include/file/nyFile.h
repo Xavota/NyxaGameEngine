@@ -27,7 +27,7 @@ namespace nyEngineSDK
    * @brief  File utilities for reading files and querying file state.
    * @bug    No known bugs
    */
-  class File
+  class NY_API File
   {
   public:
     /**

@@ -1,5 +1,7 @@
 #include "types/nyTypes.hpp"
 
+#include <cmath>
+
 namespace nyEngineSDK
 {
   NY_STATIC_ASSERT(sizeof(i8)   == 1, "i8 must be 1 byte");
@@ -200,16 +202,380 @@ namespace nyEngineSDK
     return totalNanoseconds;
   }
 
+  f32
+  fmod(f32 v, float m)
+  {
+    return std::fmod(v, m);
+  }
+
+  f32
+  frac(f32 v)
+  {
+    return fmod(v, 1.0f);
+  }
+
+  Duration
+  Duration::fromSecondsF(f32 secs) noexcept
+  {
+    u64 totalSeconds = static_cast<u64>(secs);
+    secs = frac(secs) * static_cast<f32>(millisecondsPerSecond);
+    u64 totalMilliseconds = static_cast<u64>(secs);
+    secs = frac(secs) * static_cast<f32>(microsecondsPerSecond);
+    u64 totalMicroseconds = static_cast<u64>(secs);
+    secs = frac(secs) * static_cast<f32>(nanosecondsPerSecond);
+    u64 totalNanoseconds = static_cast<u64>(secs);
+
+    return Duration(0, 0, 0, totalSeconds, totalMicroseconds,
+      totalMicroseconds, totalNanoseconds
+    );
+  }
+
+  f32
+  Duration::getSecondsF() const noexcept
+  {
+    u64 totalSeconds = static_cast<u64>(seconds);
+    totalSeconds += static_cast<u64>(days * secondsPerDay);
+    totalSeconds += static_cast<u64>(hours * secondsPerHour);
+    totalSeconds += static_cast<u64>(minutes * secondsPerMinute);
+    totalSeconds += static_cast<u64>(milliseconds / millisecondsPerSecond);
+    totalSeconds += static_cast<u64>(microseconds / microsecondsPerSecond);
+    totalSeconds += static_cast<u64>(nanoseconds / nanosecondsPerSecond);
+
+    f32 r = static_cast<f32>(totalSeconds) +
+            static_cast<f32>(milliseconds) / millisecondsPerSecond +
+            static_cast<f32>(microseconds) / microsecondsPerSecond +
+            static_cast<f32>(nanoseconds) / nanosecondsPerSecond;
+
+    return totalSeconds;
+  }
 
   bool
   Duration::operator==(const Duration& other) const noexcept
   {
-    return getNanoseconds() == other.getNanoseconds();
+    return getMilliseconds() == other.getMilliseconds() &&
+           getMicroseconds() == other.getMicroseconds();
+           getNanoseconds() == other.getNanoseconds();
   }
 
   bool
   Duration::operator!=(const Duration& other) const noexcept
   {
     return !(*this == other);
+  }
+
+  bool
+  Duration::operator>(const Duration& other) const noexcept
+  {
+    if (days < other.days) {
+      return false;
+    }
+    else if (days > other.days) {
+      return true;
+    }
+
+    if (hours < other.hours) {
+      return false;
+    }
+    else if (hours > other.hours) {
+      return true;
+    }
+
+    if (minutes < other.minutes) {
+      return false;
+    }
+    else if (minutes > other.minutes) {
+      return true;
+    }
+
+    if (seconds < other.seconds) {
+      return false;
+    }
+    else if (seconds > other.seconds) {
+      return true;
+    }
+
+    if (milliseconds < other.milliseconds) {
+      return false;
+    }
+    else if (milliseconds > other.milliseconds) {
+      return true;
+    }
+
+    if (microseconds < other.microseconds) {
+      return false;
+    }
+    else if (microseconds > other.microseconds) {
+      return true;
+    }
+
+    if (nanoseconds < other.nanoseconds) {
+      return false;
+    }
+    else if (nanoseconds > other.nanoseconds) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool
+  Duration::operator>=(const Duration& other) const noexcept
+  {
+    if (days < other.days) {
+      return false;
+    }
+    else if (days > other.days) {
+      return true;
+    }
+
+    if (hours < other.hours) {
+      return false;
+    }
+    else if (hours > other.hours) {
+      return true;
+    }
+
+    if (minutes < other.minutes) {
+      return false;
+    }
+    else if (minutes > other.minutes) {
+      return true;
+    }
+
+    if (seconds < other.seconds) {
+      return false;
+    }
+    else if (seconds > other.seconds) {
+      return true;
+    }
+
+    if (milliseconds < other.milliseconds) {
+      return false;
+    }
+    else if (milliseconds > other.milliseconds) {
+      return true;
+    }
+
+    if (microseconds < other.microseconds) {
+      return false;
+    }
+    else if (microseconds > other.microseconds) {
+      return true;
+    }
+
+    if (nanoseconds < other.nanoseconds) {
+      return false;
+    }
+    else if (nanoseconds > other.nanoseconds) {
+      return true;
+    }
+
+    return true;
+  }
+
+  bool
+  Duration::operator<(const Duration& other) const noexcept
+  {
+    if (days < other.days) {
+      return true;
+    }
+    else if (days > other.days) {
+      return false;
+    }
+
+    if (hours < other.hours) {
+      return true;
+    }
+    else if (hours > other.hours) {
+      return false;
+    }
+
+    if (minutes < other.minutes) {
+      return true;
+    }
+    else if (minutes > other.minutes) {
+      return false;
+    }
+
+    if (seconds < other.seconds) {
+      return true;
+    }
+    else if (seconds > other.seconds) {
+      return false;
+    }
+
+    if (milliseconds < other.milliseconds) {
+      return true;
+    }
+    else if (milliseconds > other.milliseconds) {
+      return false;
+    }
+
+    if (microseconds < other.microseconds) {
+      return true;
+    }
+    else if (microseconds > other.microseconds) {
+      return false;
+    }
+
+    if (nanoseconds < other.nanoseconds) {
+      return true;
+    }
+    else if (nanoseconds > other.nanoseconds) {
+      return false;
+    }
+
+    return false;
+  }
+
+  bool
+  Duration::operator<=(const Duration& other) const noexcept
+  {
+    if (days < other.days) {
+      return true;
+    }
+    else if (days > other.days) {
+      return false;
+    }
+
+    if (hours < other.hours) {
+      return true;
+    }
+    else if (hours > other.hours) {
+      return false;
+    }
+
+    if (minutes < other.minutes) {
+      return true;
+    }
+    else if (minutes > other.minutes) {
+      return false;
+    }
+
+    if (seconds < other.seconds) {
+      return true;
+    }
+    else if (seconds > other.seconds) {
+      return false;
+    }
+
+    if (milliseconds < other.milliseconds) {
+      return true;
+    }
+    else if (milliseconds > other.milliseconds) {
+      return false;
+    }
+
+    if (microseconds < other.microseconds) {
+      return true;
+    }
+    else if (microseconds > other.microseconds) {
+      return false;
+    }
+
+    if (nanoseconds < other.nanoseconds) {
+      return true;
+    }
+    else if (nanoseconds > other.nanoseconds) {
+      return false;
+    }
+
+    return true;
+  }
+
+  Duration
+  Duration::operator+(const Duration& other) const noexcept
+  {
+    return Duration(
+      days + other.days,
+      hours + other.hours,
+      minutes + other.minutes,
+      seconds + other.seconds,
+      milliseconds + other.milliseconds,
+      microseconds + other.microseconds,
+      nanoseconds + other.nanoseconds
+    );
+  }
+
+  Duration
+  Duration::operator-(const Duration& other) const noexcept
+  {
+    if (*this <= other) return Duration();
+
+    u64 subMilliseconds = getMilliseconds() - other.getMilliseconds();
+    u64 subMicroseconds = microseconds;
+    if (subMicroseconds < other.microseconds) {
+      subMilliseconds -= 1;
+      subMicroseconds += 1000;
+      subMicroseconds -= other.microseconds;
+    }
+    subMicroseconds -= other.microseconds;
+
+    u64 subNanoseconds = nanoseconds;
+    if (subNanoseconds < other.nanoseconds) {
+      if (subMicroseconds == 0) {
+        subMilliseconds -= 1;
+        subMicroseconds = 1000;
+      }
+      subMicroseconds -= 1;
+      subNanoseconds += 1000;
+    }
+    subNanoseconds -= other.nanoseconds;
+
+    return Duration(
+      0, 0, 0, 0, subMilliseconds, subMicroseconds, subNanoseconds
+    );
+  }
+
+  Duration&
+  Duration::operator=(const Duration& other) noexcept
+  {
+    days = other.days;
+    hours = other.hours;
+    minutes = other.minutes;
+    seconds = other.seconds;
+    milliseconds = other.milliseconds;
+    microseconds = other.microseconds;
+    nanoseconds = other.nanoseconds;
+    return *this;
+  }
+
+  Duration&
+  Duration::operator=(Duration&& other) noexcept
+  {
+    if (this == &other)
+    {
+      return *this;
+    }
+
+    days = other.days;
+    hours = other.hours;
+    minutes = other.minutes;
+    seconds = other.seconds;
+    milliseconds = other.milliseconds;
+    microseconds = other.microseconds;
+    nanoseconds = other.nanoseconds;
+
+    other.days = 0;
+    other.hours = 0;
+    other.minutes = 0;
+    other.seconds = 0;
+    other.milliseconds = 0;
+    other.microseconds = 0;
+    other.nanoseconds = 0;
+
+    return *this;
+  }
+
+  Duration&
+  Duration::operator+=(const Duration& other) noexcept
+  {
+    *this = (*this + other);
+  }
+
+  Duration&
+  Duration::operator-=(const Duration& other) noexcept
+  {
+    *this = (*this - other);
   }
 }

@@ -16,6 +16,7 @@
 #include <cstdint>
 #include <cstddef>
 
+#include "macros/nyApi.hpp"
 #include "macros/nyMacros.hpp"
 
 namespace nyEngineSDK
@@ -42,8 +43,9 @@ namespace nyEngineSDK
    * @brief  A struct representing a duration of time, with fields for days,
    *         hours, minutes, seconds, milliseconds, microseconds, and nanoseconds.
    */
-  struct Duration
+  class NY_API Duration
   {
+   public:
     /**
      * @brief  Constructs a Duration with all fields initialized to zero.
      * @bug    No known bugs
@@ -125,11 +127,29 @@ namespace nyEngineSDK
      */
     u64
     getNanoseconds() const noexcept;
+    
+    /**
+     * @brief  Creates a Duration from a floating point amount of seconds, using
+     *         the fractional part to complete the lesser time amounts.
+     * @bug    No known bugs
+     */
+    static Duration
+    fromSecondsF(f32 seconds) noexcept;
+
+    /**
+     * @brief  Returns the total duration represented by this `Duration` struct
+     *         in seconds as a floating point, including every lesser time as
+     *         fractional part.
+     * @bug    No known bugs
+     */
+    f32
+    getSecondsF() const noexcept;
 
     /**
      * @brief  Checks if the total time in nanoseconds is the same for both Durations.
      *         Note: Careful for incorrect checks due to nanoseconds overflow
      *         above 213,503 days.
+     * @return True if both durations are equal, false if not.
      * @bug    No known bugs
      */
     bool
@@ -137,12 +157,95 @@ namespace nyEngineSDK
 
     /**
      * @brief  Checks if the total time in nanoseconds is different for both Durations.
-     *         Note: Careful for incorrect checks due to nanoseconds overflow
-     *         above 213,503 days.
+     * @return True if both durations are different, false if not.
      * @bug    No known bugs
      */
     bool
     operator!=(const Duration& other) const noexcept;
+
+    /**
+     * @brief  Checks if [this] is greater than [other].
+     * @return True if [this] is greater than [other], false if not.
+     * @bug    No known bugs
+     */
+    bool
+    operator>(const Duration& other) const noexcept;
+
+    /**
+     * @brief  Checks if [this] is greater than or equal [other].
+     * @return True if [this] is greater than or equal [other], false if not.
+     * @bug    No known bugs
+     */
+    bool
+    operator>=(const Duration& other) const noexcept;
+
+    /**
+     * @brief  Checks if [this] is less than [other].
+     * @return True if [this] is less than [other], false if not.
+     * @bug    No known bugs
+     */
+    bool
+    operator<(const Duration& other) const noexcept;
+
+    /**
+     * @brief  Checks if [this] is less than or equal [other].
+     * @return True if [this] is less than or equal [other], false if not.
+     * @bug    No known bugs
+     */
+    bool
+    operator<=(const Duration& other) const noexcept;
+
+    /**
+     * @brief  Adds both durations and returns the resulting time.
+     * @return The sum of both durations.
+     * @bug    No known bugs
+     */
+    Duration
+    operator+(const Duration& other) const noexcept;
+
+    /**
+     * @brief  Subtracts both durations and returns the resulting time.
+     *         If [other] is bigger than [this], the result would be a
+     *         Duration of zero.
+     * @return The subtraction of both durations.
+     * @bug    No known bugs
+     */
+    Duration
+    operator-(const Duration& other) const noexcept;
+
+    /**
+     * @brief  The copy assign operator.
+     * @return A reference to [this] with the assigning done.
+     * @bug    No known bugs
+     */
+    Duration&
+    operator=(const Duration& other) noexcept;
+
+    /**
+     * @brief  The move assign operator.
+     * @return A reference to [this] with the assigning done.
+     * @bug    No known bugs
+     */
+    Duration&
+    operator=(Duration&& other) noexcept;
+
+    /**
+     * @brief  Adds both durations and sets the result on [this]. Returns a
+     *         reference to [this] with the resulting value.
+     * @return A reference to [this] with the resulting sum.
+     * @bug    No known bugs
+     */
+    Duration&
+    operator+=(const Duration& other) noexcept;
+
+    /**
+     * @brief  Subtracts both durations and sets the result on [this]. Returns a
+     *         reference to [this] with the resulting value.
+     * @return A reference to [this] with the resulting subtraction.
+     * @bug    No known bugs
+     */
+    Duration&
+    operator-=(const Duration& other) noexcept;
 
 
     static u64 hoursPerDay;
@@ -172,6 +275,7 @@ namespace nyEngineSDK
 
     static u64 nanosecondsPerMicrosecond;
 
+   private:
     u32 days;
     u32 hours;
     u32 minutes;

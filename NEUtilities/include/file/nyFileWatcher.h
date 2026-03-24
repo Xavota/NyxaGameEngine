@@ -16,6 +16,8 @@
 
 #include <functional>
 
+#include "macros/nyApi.hpp"
+
 #include "thread/nyMutex.hpp"
 #include "thread/nyThread.hpp"
 #include "types/nyContainers.h"
@@ -50,7 +52,7 @@ namespace nyEngineSDK
    * @brief  Polling-based file watcher for hot reload.
    * @bug    No known bugs
    */
-  class FileWatcher
+  class NY_API FileWatcher
   {
    public:
 

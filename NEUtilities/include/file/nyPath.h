@@ -17,6 +17,7 @@
 
 #include <string>
 
+#include "macros/nyApi.hpp"
 #include "macros/nyMacros.hpp"
 
 #include "types/nyContainers.h"
@@ -28,7 +29,7 @@ namespace nyEngineSDK
    * @brief  Utility helpers for path string inspection and normalization.
    * @bug   No known bugs
    */
-  class Path
+  class NY_API Path
   {
    public:
     /**
