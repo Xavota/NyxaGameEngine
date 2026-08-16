@@ -179,7 +179,7 @@ namespace nyEngineSDK
         }
       }
 
-      Time::sleep(mInterval);
+      Clock::sleep(mInterval);
     }
   }
 

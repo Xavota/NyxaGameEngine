@@ -113,7 +113,7 @@
     <ClInclude Include="include\thread\nyThread.hpp">
       <Filter>Header Files\thread</Filter>
     </ClInclude>
-    <ClInclude Include="include\thread\nyTime.hpp">
+    <ClInclude Include="include\thread\nyClock.hpp">
       <Filter>Header Files\thread</Filter>
     </ClInclude>
     <ClInclude Include="include\types\nyHandle.hpp">

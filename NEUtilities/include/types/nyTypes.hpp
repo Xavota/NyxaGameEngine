@@ -214,6 +214,22 @@ namespace nyEngineSDK
     operator-(const Duration& other) const noexcept;
 
     /**
+     * @brief  Multiplies all the time values with the floating point scale.
+     * @return The multiplication of this time with the floating point scale.
+     * @bug    No known bugs
+     */
+    Duration
+    operator*(f32 scale) const noexcept;
+
+    /**
+     * @brief  Multiplies all the time values with the floating point scale.
+     * @return The multiplication of this time with the floating point scale.
+     * @bug    No known bugs
+     */
+    Duration
+    operator*(f64 scale) const noexcept;
+
+    /**
      * @brief  The copy assign operator.
      * @return A reference to [this] with the assigning done.
      * @bug    No known bugs

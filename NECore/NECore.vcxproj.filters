@@ -16,18 +16,30 @@
     <Filter Include="Header Files\macros">
       <UniqueIdentifier>{81bacd2c-32aa-4262-86dd-3716a113496f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\tools">
+      <UniqueIdentifier>{a383ddaa-e43b-480b-bad3-4c296e328593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tools">
+      <UniqueIdentifier>{05796b78-62b5-4df4-8263-ecdf964c3135}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseApp.cpp">
+    <ClCompile Include="src\nyBaseApp.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\nyTime.cpp">
+      <Filter>Source Files\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\macros\nyCoreApi.hpp">
       <Filter>Header Files\macros</Filter>
     </ClInclude>
-    <ClInclude Include="include\BaseApp.h">
+    <ClInclude Include="include\nyBaseApp.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tools\nyTime.h">
+      <Filter>Header Files\tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

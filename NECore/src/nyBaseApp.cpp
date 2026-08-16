@@ -39,9 +39,9 @@ namespace nyEngineSDK
   {
     static Duration fixedTimeSum = Duration();
     static Duration fixedDeltaTime = Duration::fromSecondsF(0.02f);
-    static Duration currentTime = Time::now();
+    static Duration currentTime = Clock::now(); 
     while (appIsRunning()) {
-      Duration startFrameTime = Time::now();
+      Duration startFrameTime = Clock::now();
       Duration timeElapsed = startFrameTime - currentTime;
       currentTime = startFrameTime;
       fixedTimeSum += timeElapsed;

@@ -330,7 +330,7 @@
     <ClInclude Include="include\thread\nyMutex.hpp" />
     <ClInclude Include="include\thread\nySpinlock.hpp" />
     <ClInclude Include="include\thread\nyThread.hpp" />
-    <ClInclude Include="include\thread\nyTime.hpp" />
+    <ClInclude Include="include\thread\nyClock.hpp" />
     <ClInclude Include="include\types\nyContainers.h" />
     <ClInclude Include="include\types\nyHandle.hpp" />
     <ClInclude Include="include\types\nyModule.h" />

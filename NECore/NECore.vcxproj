@@ -301,11 +301,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseApp.cpp" />
+    <ClCompile Include="src\nyBaseApp.cpp" />
+    <ClCompile Include="src\tools\nyTime.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\BaseApp.h" />
+    <ClInclude Include="include\nyBaseApp.h" />
     <ClInclude Include="include\macros\nyCoreApi.hpp" />
+    <ClInclude Include="include\tools\nyTime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

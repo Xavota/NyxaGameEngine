@@ -208,10 +208,22 @@ namespace nyEngineSDK
     return std::fmod(v, m);
   }
 
+  f64
+  fmod(f64 v, float m)
+  {
+    return std::fmod(v, m);
+  }
+
   f32
   frac(f32 v)
   {
     return fmod(v, 1.0f);
+  }
+
+  f64
+  frac(f64 v)
+  {
+    return fmod(v, 1.0);
   }
 
   Duration
@@ -225,9 +237,9 @@ namespace nyEngineSDK
     secs = frac(secs) * static_cast<f32>(nanosecondsPerSecond);
     u64 totalNanoseconds = static_cast<u64>(secs);
 
-    return Duration(0, 0, 0, totalSeconds, totalMicroseconds,
+    return {0, 0, 0, totalSeconds, totalMicroseconds,
       totalMicroseconds, totalNanoseconds
-    );
+    };
   }
 
   f32
@@ -486,7 +498,7 @@ namespace nyEngineSDK
   Duration
   Duration::operator+(const Duration& other) const noexcept
   {
-    return Duration(
+    return {
       days + other.days,
       hours + other.hours,
       minutes + other.minutes,
@@ -494,7 +506,7 @@ namespace nyEngineSDK
       milliseconds + other.milliseconds,
       microseconds + other.microseconds,
       nanoseconds + other.nanoseconds
-    );
+    };
   }
 
   Duration
@@ -522,23 +534,60 @@ namespace nyEngineSDK
     }
     subNanoseconds -= other.nanoseconds;
 
-    return Duration(
+    return {
       0, 0, 0, 0, subMilliseconds, subMicroseconds, subNanoseconds
-    );
+    };
+  }
+
+  Duration
+  Duration::operator*(f32 scale) const noexcept
+  {
+    f32 miliseconsScale = static_cast<f32>(getMilliseconds()) * scale;
+    u64 miliseconsInt = static_cast<u64>(miliseconsScale);
+
+    f32 microseconsFrac = (frac(miliseconsScale) / scale) *
+                          static_cast<f32>(microsecondsPerMillisecond);
+
+    f32 microsecondsScale = (static_cast<f32>(microseconds) + microseconsFrac) * scale;
+    u64 microsecondsInt = static_cast<u64>(microsecondsScale);
+
+    f32 nanosecondsFrac = (frac(microsecondsScale) / scale) *
+                          static_cast<f32>(nanosecondsPerMicrosecond);
+
+    f32 nanosecondsScale = (static_cast<f32>(nanoseconds) + nanosecondsFrac) * scale;
+    u64 nanosecondsInt = static_cast<u64>(nanosecondsScale);
+
+    return {
+      0, 0, 0, 0, miliseconsInt, microsecondsInt, nanosecondsInt
+    };
+  }
+
+  Duration
+  Duration::operator*(f64 scale) const noexcept
+  {
+    f64 miliseconsScale = static_cast<f64>(getMilliseconds()) * scale;
+    u64 miliseconsInt = static_cast<u64>(miliseconsScale);
+
+    f64 microseconsFrac = (frac(miliseconsScale) / scale) *
+                          static_cast<f64>(microsecondsPerMillisecond);
+
+    f64 microsecondsScale = (static_cast<f64>(microseconds) + microseconsFrac) * scale;
+    u64 microsecondsInt = static_cast<u64>(microsecondsScale);
+
+    f64 nanosecondsFrac = (frac(microsecondsScale) / scale) *
+                          static_cast<f64>(nanosecondsPerMicrosecond);
+
+    f64 nanosecondsScale = (static_cast<f64>(nanoseconds) + nanosecondsFrac) * scale;
+    u64 nanosecondsInt = static_cast<u64>(nanosecondsScale);
+
+    return {
+      0, 0, 0, 0, miliseconsInt, microsecondsInt, nanosecondsInt
+    };
   }
 
   Duration&
   Duration::operator=(const Duration& other) noexcept
-  {
-    days = other.days;
-    hours = other.hours;
-    minutes = other.minutes;
-    seconds = other.seconds;
-    milliseconds = other.milliseconds;
-    microseconds = other.microseconds;
-    nanoseconds = other.nanoseconds;
-    return *this;
-  }
+  = default;
 
   Duration&
   Duration::operator=(Duration&& other) noexcept
