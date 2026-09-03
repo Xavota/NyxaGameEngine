@@ -13,7 +13,7 @@
  /******************************************************************************/
 #pragma once
 
-#include "macros/nyApi.hpp"
+#include "macros/nyUtilitiesApi.hpp"
 #include "memory/nyByteBuffer.hpp"
 
 #include "types/nyContainers.h"

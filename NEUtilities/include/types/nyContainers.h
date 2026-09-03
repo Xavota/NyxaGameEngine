@@ -20,8 +20,6 @@
 #include <unordered_set>
 #include <vector>
 
-#include <fstream>
-
 namespace nyEngineSDK
 {
   using String = std::string;
@@ -36,7 +34,7 @@ namespace nyEngineSDK
   UPtr<T>
   makeUnique(_Args&& ...args) noexcept
   {
-    return std::make_unique<T>(std::forward<_Args>(args));
+    return std::make_unique<T>(std::forward<_Args>(args)...);
   }
 
   template <class T>
@@ -46,7 +44,7 @@ namespace nyEngineSDK
   SPtr<T>
   makeShared(_Args&& ...args) noexcept
   {
-    return std::make_shared<T>(std::forward<_Args>(args));
+    return std::make_shared<T>(std::forward<_Args>(args)...);
   }
 
   template <class T>

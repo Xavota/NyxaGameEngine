@@ -16,6 +16,8 @@
 /******************************************************************************/
 #pragma once
 
+#include <macros/nyMacros.hpp>
+
 #include "types/nyTypes.hpp"
 
 namespace nyEngineSDK

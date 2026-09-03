@@ -14,9 +14,8 @@
 #pragma once
 
 #include <cstdint>
-#include <cstddef>
 
-#include "macros/nyApi.hpp"
+#include "macros/nyUtilitiesApi.hpp"
 #include "macros/nyMacros.hpp"
 
 namespace nyEngineSDK
@@ -35,6 +34,7 @@ namespace nyEngineSDK
 
   using f32 = float;
   using f64 = double;
+  using f64L = long double;
 
   using usize = std::size_t;
   using isize = std::ptrdiff_t;
@@ -50,6 +50,7 @@ namespace nyEngineSDK
      * @brief  Constructs a Duration with all fields initialized to zero.
      * @bug    No known bugs
      */
+    explicit
     Duration() noexcept
       : days(0), hours(0), minutes(0), seconds(0),
       milliseconds(0), microseconds(0), nanoseconds(0) {}
@@ -65,6 +66,7 @@ namespace nyEngineSDK
      * @param  ns  The number of nanoseconds in the duration.
      * @bug    No known bugs
      */
+    explicit 
     Duration(u64 d, u64 h, u64 m, u64 s, u64 ms, u64 us, u64 ns) noexcept;
 
     /**
@@ -134,7 +136,7 @@ namespace nyEngineSDK
      * @bug    No known bugs
      */
     static Duration
-    fromSecondsF(f32 seconds) noexcept;
+    fromSecondsF(f64 seconds) noexcept;
 
     /**
      * @brief  Returns the total duration represented by this `Duration` struct
@@ -142,7 +144,7 @@ namespace nyEngineSDK
      *         fractional part.
      * @bug    No known bugs
      */
-    f32
+    f64
     getSecondsF() const noexcept;
 
     /**
@@ -228,22 +230,6 @@ namespace nyEngineSDK
      */
     Duration
     operator*(f64 scale) const noexcept;
-
-    /**
-     * @brief  The copy assign operator.
-     * @return A reference to [this] with the assigning done.
-     * @bug    No known bugs
-     */
-    Duration&
-    operator=(const Duration& other) noexcept;
-
-    /**
-     * @brief  The move assign operator.
-     * @return A reference to [this] with the assigning done.
-     * @bug    No known bugs
-     */
-    Duration&
-    operator=(Duration&& other) noexcept;
 
     /**
      * @brief  Adds both durations and sets the result on [this]. Returns a

@@ -44,9 +44,7 @@
     NY_WARNING_DISABLE_MSVC(4100); \
     /* GCC/Clang */ \
     NY_WARNING_DISABLE_GCC_CLANG("-Wunused-parameter"); \
-  } while (0)
+  } while (false)
 
 #define NY_RESTORE_WARNINGS() \
-  do { \
-    NY_WARNING_POP(); \
-  } while (0)
+  NY_WARNING_POP();

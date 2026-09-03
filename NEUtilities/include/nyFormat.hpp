@@ -459,9 +459,9 @@ namespace nyEngineSDK
    * @param  fmt   The format string to process. The first occurrence of `{}`
    *               will be replaced with the string representation of the
    *               first argument.
-   * @param  args   The arguments to replace `{}` placeholders in the format
-   *                string. Supported types include StringView, C-strings,
-   *                characters, integral types, floating-point types, and booleans.
+   * @param  args  The arguments to replace `{}` placeholders in the format
+   *               string. Supported types include StringView, C-strings,
+   *               characters, integral types, floating-point types, and booleans.
    * @return A StringView representing the formatted string that was written to
    *         the output buffer. The size of the StringView will be the number
    *         of characters written, not including the null terminator. If the

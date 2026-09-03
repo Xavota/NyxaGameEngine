@@ -2,12 +2,12 @@
 
 #include <filesystem>
 
-#include "macros/nyModuleName.h"
+#include "nyModuleName.h"
 
 #include "file/nyFile.h"
 #include "file/nyPath.h"
 #include "thread/nyLockGuard.hpp"
-#include "thread/nyTime.hpp"
+#include "thread/nyClock.hpp"
 
 namespace nyEngineSDK
 {

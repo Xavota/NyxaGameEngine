@@ -7,7 +7,7 @@
 
 #include "nyLog.hpp"
 
-#include "macros/nyModuleName.h"
+#include "nyModuleName.h"
 #include "macros/nyResultMacros.hpp"
 
 #include "file/nyPath.h"

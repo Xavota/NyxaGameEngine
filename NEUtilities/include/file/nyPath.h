@@ -17,7 +17,7 @@
 
 #include <string>
 
-#include "macros/nyApi.hpp"
+#include "macros/nyUtilitiesApi.hpp"
 #include "macros/nyMacros.hpp"
 
 #include "types/nyContainers.h"

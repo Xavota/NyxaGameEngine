@@ -26,7 +26,7 @@ namespace nyEngineSDK
    * @brief Thin wrapper over std::mutex for engine-wide consistency.
    * @bug No known bugs
    */
-  class Mutex
+  class NY_API Mutex
   {
    public:
     /**

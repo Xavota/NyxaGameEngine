@@ -16,7 +16,7 @@
 /******************************************************************************/
 #pragma once
 
-// __has_builtin / __has_attribute / __has_cpp_attribute support
+// __has_builtin / __has_attribute / __has_cpp_attribute / __has_feature support
 #ifndef NY_HAS_BUILTIN
   #if defined(__has_builtin)
     #define NY_HAS_BUILTIN(x) __has_builtin(x)
@@ -38,5 +38,13 @@
     #define NY_HAS_CPP_ATTRIBUTE(x) __has_cpp_attribute(x)
   #else
     #define NY_HAS_CPP_ATTRIBUTE(x) 0
+  #endif
+#endif
+
+#ifndef NY_HAS_FEATURE
+  #if defined(__has_feature)
+    #define NY_HAS_FEATURE(x) __has_feature(x)
+  #else
+    #define NY_HAS_FEATURE(x) 0
   #endif
 #endif

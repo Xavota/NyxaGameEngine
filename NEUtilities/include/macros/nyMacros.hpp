@@ -220,7 +220,7 @@ namespace nyEngineSDK
       { \
         ::nyEngineSDK::detail::assertFail(#expr, __FILE__, __LINE__, ""); \
       } \
-    } while (0)
+    } while (false)
 
   #define NY_ASSERT_MSG(expr, msg) \
     do \
@@ -229,7 +229,7 @@ namespace nyEngineSDK
       { \
         ::nyEngineSDK::detail::assertFail(#expr, __FILE__, __LINE__, (msg)); \
       } \
-    } while (0)
+    } while (false)
 #else
   #define NY_ASSERT(expr) ((void)0)
   #define NY_ASSERT_MSG(expr, msg) ((void)0)
@@ -240,6 +240,6 @@ namespace nyEngineSDK
   { \
     ::nyEngineSDK::detail::assertFail("PANIC", __FILE__, __LINE__, (msg)); \
     NY_UNREACHABLE(); \
-  } while (0)
+  } while (false)
 
 #define NY_STATIC_ASSERT(expr, msg) static_assert((expr), msg)

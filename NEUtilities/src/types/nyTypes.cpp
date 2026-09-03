@@ -1,6 +1,7 @@
 #include "types/nyTypes.hpp"
 
-#include <cmath>
+#include <macros/nyMacros.hpp>
+#include "math/nyMath.h"
 
 namespace nyEngineSDK
 {
@@ -202,47 +203,23 @@ namespace nyEngineSDK
     return totalNanoseconds;
   }
 
-  f32
-  fmod(f32 v, float m)
-  {
-    return std::fmod(v, m);
-  }
-
-  f64
-  fmod(f64 v, float m)
-  {
-    return std::fmod(v, m);
-  }
-
-  f32
-  frac(f32 v)
-  {
-    return fmod(v, 1.0f);
-  }
-
-  f64
-  frac(f64 v)
-  {
-    return fmod(v, 1.0);
-  }
-
   Duration
-  Duration::fromSecondsF(f32 secs) noexcept
+  Duration::fromSecondsF(f64 secs) noexcept
   {
     u64 totalSeconds = static_cast<u64>(secs);
-    secs = frac(secs) * static_cast<f32>(millisecondsPerSecond);
+    secs = Math::frac(secs) * static_cast<f64>(millisecondsPerSecond);
     u64 totalMilliseconds = static_cast<u64>(secs);
-    secs = frac(secs) * static_cast<f32>(microsecondsPerSecond);
+    secs = Math::frac(secs) * static_cast<f64>(microsecondsPerSecond);
     u64 totalMicroseconds = static_cast<u64>(secs);
-    secs = frac(secs) * static_cast<f32>(nanosecondsPerSecond);
+    secs = Math::frac(secs) * static_cast<f64>(nanosecondsPerSecond);
     u64 totalNanoseconds = static_cast<u64>(secs);
 
-    return {0, 0, 0, totalSeconds, totalMicroseconds,
+    return Duration(0, 0, 0, totalSeconds, totalMilliseconds,
       totalMicroseconds, totalNanoseconds
-    };
+    );
   }
 
-  f32
+  f64
   Duration::getSecondsF() const noexcept
   {
     u64 totalSeconds = static_cast<u64>(seconds);
@@ -253,19 +230,19 @@ namespace nyEngineSDK
     totalSeconds += static_cast<u64>(microseconds / microsecondsPerSecond);
     totalSeconds += static_cast<u64>(nanoseconds / nanosecondsPerSecond);
 
-    f32 r = static_cast<f32>(totalSeconds) +
-            static_cast<f32>(milliseconds) / millisecondsPerSecond +
-            static_cast<f32>(microseconds) / microsecondsPerSecond +
-            static_cast<f32>(nanoseconds) / nanosecondsPerSecond;
+    f64 r = static_cast<f64>(totalSeconds) +
+            static_cast<f64>(milliseconds) / static_cast<f64>(millisecondsPerSecond) +
+            static_cast<f64>(microseconds) / static_cast<f64>(microsecondsPerSecond) +
+            static_cast<f64>(nanoseconds) / static_cast<f64>(nanosecondsPerSecond);
 
-    return totalSeconds;
+    return static_cast<f64>(r);
   }
 
   bool
   Duration::operator==(const Duration& other) const noexcept
   {
     return getMilliseconds() == other.getMilliseconds() &&
-           getMicroseconds() == other.getMicroseconds();
+           getMicroseconds() == other.getMicroseconds() &&
            getNanoseconds() == other.getNanoseconds();
   }
 
@@ -498,15 +475,14 @@ namespace nyEngineSDK
   Duration
   Duration::operator+(const Duration& other) const noexcept
   {
-    return {
+    return Duration(
       days + other.days,
       hours + other.hours,
       minutes + other.minutes,
       seconds + other.seconds,
       milliseconds + other.milliseconds,
       microseconds + other.microseconds,
-      nanoseconds + other.nanoseconds
-    };
+      nanoseconds + other.nanoseconds);
   }
 
   Duration
@@ -534,9 +510,9 @@ namespace nyEngineSDK
     }
     subNanoseconds -= other.nanoseconds;
 
-    return {
+    return Duration(
       0, 0, 0, 0, subMilliseconds, subMicroseconds, subNanoseconds
-    };
+    );
   }
 
   Duration
@@ -545,21 +521,21 @@ namespace nyEngineSDK
     f32 miliseconsScale = static_cast<f32>(getMilliseconds()) * scale;
     u64 miliseconsInt = static_cast<u64>(miliseconsScale);
 
-    f32 microseconsFrac = (frac(miliseconsScale) / scale) *
+    f32 microseconsFrac = (Math::frac(miliseconsScale) / scale) *
                           static_cast<f32>(microsecondsPerMillisecond);
 
     f32 microsecondsScale = (static_cast<f32>(microseconds) + microseconsFrac) * scale;
     u64 microsecondsInt = static_cast<u64>(microsecondsScale);
 
-    f32 nanosecondsFrac = (frac(microsecondsScale) / scale) *
+    f32 nanosecondsFrac = (Math::frac(microsecondsScale) / scale) *
                           static_cast<f32>(nanosecondsPerMicrosecond);
 
     f32 nanosecondsScale = (static_cast<f32>(nanoseconds) + nanosecondsFrac) * scale;
     u64 nanosecondsInt = static_cast<u64>(nanosecondsScale);
 
-    return {
+    return Duration(
       0, 0, 0, 0, miliseconsInt, microsecondsInt, nanosecondsInt
-    };
+    );
   }
 
   Duration
@@ -568,63 +544,34 @@ namespace nyEngineSDK
     f64 miliseconsScale = static_cast<f64>(getMilliseconds()) * scale;
     u64 miliseconsInt = static_cast<u64>(miliseconsScale);
 
-    f64 microseconsFrac = (frac(miliseconsScale) / scale) *
+    f64 microseconsFrac = (Math::frac(miliseconsScale) / scale) *
                           static_cast<f64>(microsecondsPerMillisecond);
 
     f64 microsecondsScale = (static_cast<f64>(microseconds) + microseconsFrac) * scale;
     u64 microsecondsInt = static_cast<u64>(microsecondsScale);
 
-    f64 nanosecondsFrac = (frac(microsecondsScale) / scale) *
+    f64 nanosecondsFrac = (Math::frac(microsecondsScale) / scale) *
                           static_cast<f64>(nanosecondsPerMicrosecond);
 
     f64 nanosecondsScale = (static_cast<f64>(nanoseconds) + nanosecondsFrac) * scale;
     u64 nanosecondsInt = static_cast<u64>(nanosecondsScale);
 
-    return {
+    return Duration(
       0, 0, 0, 0, miliseconsInt, microsecondsInt, nanosecondsInt
-    };
-  }
-
-  Duration&
-  Duration::operator=(const Duration& other) noexcept
-  = default;
-
-  Duration&
-  Duration::operator=(Duration&& other) noexcept
-  {
-    if (this == &other)
-    {
-      return *this;
-    }
-
-    days = other.days;
-    hours = other.hours;
-    minutes = other.minutes;
-    seconds = other.seconds;
-    milliseconds = other.milliseconds;
-    microseconds = other.microseconds;
-    nanoseconds = other.nanoseconds;
-
-    other.days = 0;
-    other.hours = 0;
-    other.minutes = 0;
-    other.seconds = 0;
-    other.milliseconds = 0;
-    other.microseconds = 0;
-    other.nanoseconds = 0;
-
-    return *this;
+    );
   }
 
   Duration&
   Duration::operator+=(const Duration& other) noexcept
   {
     *this = (*this + other);
+    return *this;
   }
 
   Duration&
   Duration::operator-=(const Duration& other) noexcept
   {
     *this = (*this - other);
+    return *this;
   }
 }

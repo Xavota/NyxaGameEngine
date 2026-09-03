@@ -88,11 +88,10 @@ namespace nyEngineSDK
     operator=(const ByteBuffer&) = delete;
 
     /**
-     * @brief  Move constructor and move assignment operator to allow efficient
-     *         transfer of ownership of the buffer's memory from one ByteBuffer
-     *         instance to another. After the move, the source ByteBuffer will
-     *         be left in a valid but empty state, with no allocated memory and
-     *         a null allocator pointer.
+     * @brief  Move constructor to allow efficient transfer of ownership of the
+     *         buffer's memory from one ByteBuffer instance to another. After
+     *         the move, the source ByteBuffer will be left in a valid but empty
+     *         state, with no allocated memory and a null allocator pointer.
      * @bug	   No known bugs.
      */
     ByteBuffer(ByteBuffer&& other) noexcept

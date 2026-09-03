@@ -14,7 +14,6 @@
  /*****************************************************************************/
 #pragma once
 
-#include "types/nyResult.hpp"
 
 // Result<void> success helper
 #define NY_OK() ::nyEngineSDK::Result<void>(::nyEngineSDK::Status::ok())

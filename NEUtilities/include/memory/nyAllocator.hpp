@@ -18,7 +18,7 @@
 /******************************************************************************/
 #pragma once
 
-#include "macros/nyApi.hpp"
+#include "macros/nyUtilitiesApi.hpp"
 #include "types/nyTypes.hpp"
 
 namespace nyEngineSDK

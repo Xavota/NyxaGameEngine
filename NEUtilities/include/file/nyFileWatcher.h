@@ -16,7 +16,7 @@
 
 #include <functional>
 
-#include "macros/nyApi.hpp"
+#include "macros/nyUtilitiesApi.hpp"
 
 #include "thread/nyMutex.hpp"
 #include "thread/nyThread.hpp"
@@ -44,7 +44,7 @@ namespace nyEngineSDK
   struct FileChangeEvent
   {
     String path;
-    FileChangeType type;
+    FileChangeType type = FileChangeType::Added;
     bool isDirectory = false;
   };
 

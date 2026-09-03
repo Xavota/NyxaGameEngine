@@ -37,6 +37,12 @@
     <Filter Include="Source Files\types">
       <UniqueIdentifier>{eca0b188-c080-4c39-a031-a71aff68bae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\math">
+      <UniqueIdentifier>{c06560e0-04a5-44af-84d7-1437064f4d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{377dccdc-ae63-4050-8daa-713888b54910}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\file\nyFileWatcher.cpp">
@@ -57,9 +63,12 @@
     <ClCompile Include="src\nyLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\math\nyMath.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\macros\nyApi.hpp">
+    <ClInclude Include="include\macros\nyUtilitiesApi.hpp">
       <Filter>Header Files\macros</Filter>
     </ClInclude>
     <ClInclude Include="include\macros\nyBuild.hpp">
@@ -149,9 +158,6 @@
     <ClInclude Include="include\file\nyFile.h">
       <Filter>Header Files\file</Filter>
     </ClInclude>
-    <ClInclude Include="include\macros\nyModuleName.h">
-      <Filter>Header Files\macros</Filter>
-    </ClInclude>
     <ClInclude Include="include\types\nyContainers.h">
       <Filter>Header Files\types</Filter>
     </ClInclude>
@@ -160,6 +166,15 @@
     </ClInclude>
     <ClInclude Include="include\file\nyPath.h">
       <Filter>Header Files\file</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\nyMath.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\nyAngle.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nyModuleName.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

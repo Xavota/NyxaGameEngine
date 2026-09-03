@@ -15,6 +15,11 @@
 /******************************************************************************/
 #pragma once
 
+#include "macros/nyWarnings.hpp"
+
+NY_WARNING_PUSH()
+NY_WARNING_DISABLE_MSVC(26115)
+
 namespace nyEngineSDK
 {
   /**
@@ -48,6 +53,17 @@ namespace nyEngineSDK
     operator=(const LockGuard&) = delete;
 
     /**
+     * @brief Deleted move constructor to prevent moving of the lock guard.
+     */
+    LockGuard(LockGuard&&) = delete;
+
+    /**
+     * @brief Deleted move assignment operator to prevent moving of the lock guard.
+     */
+    LockGuard&
+    operator=(LockGuard&&) = delete;
+
+    /**
      * @brief Unlocks the guarded mutex-like object.
      * @bug No known bugs
      */
@@ -64,3 +80,5 @@ namespace nyEngineSDK
     TMutex& mMutex;
   };
 } // namespace nyEngineSDK
+
+NY_WARNING_POP()

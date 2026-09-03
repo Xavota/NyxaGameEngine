@@ -14,10 +14,11 @@
 /******************************************************************************/
 #pragma once
 
-#include <new>
 #include <type_traits>
 #include <utility>
+#include <algorithm>
 
+#include "macros/nyMacros.hpp"
 #include "types/nyStatus.hpp"
 
 
@@ -90,7 +91,7 @@ namespace nyEngineSDK
     Result(Status&& error) noexcept
       : mHasValue(false)
     {
-      new (&mStorage.error) Status(std::move(error));
+      new (&mStorage.error) Status(error);
     }
 
     /**
@@ -359,7 +360,7 @@ namespace nyEngineSDK
        * @brief  The error status contained in the Result object when it represents
        *         an error result. This member is active when mHasValue is false.
        */
-      Status error;
+      Status error = Status::ok();
     };
 
     /**
@@ -420,7 +421,7 @@ namespace nyEngineSDK
      * @bug    No known bugs.
      */
     Result(Status&& s) noexcept
-      : mStatus(std::move(s))
+      : mStatus(s)
     {
     }
 

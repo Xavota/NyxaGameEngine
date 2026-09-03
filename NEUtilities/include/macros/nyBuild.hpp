@@ -14,6 +14,8 @@
 /******************************************************************************/
 #pragma once
 
+#include "macros/nyFeatures.hpp"
+
 // Debug detection
 #if defined(NDEBUG)
   #define NY_BUILD_DEBUG 0
@@ -24,24 +26,18 @@
 #endif
 
 // Sanitizers (best-effort)
-#if defined(__has_feature)
-  #if __has_feature(address_sanitizer)
-    #define NY_SANITIZER_ASAN 1
-  #else
-    #define NY_SANITIZER_ASAN 0
-  #endif
-    #if __has_feature(thread_sanitizer)
-    #define NY_SANITIZER_TSAN 1
-  #else
-    #define NY_SANITIZER_TSAN 0
-  #endif
-  #if __has_feature(memory_sanitizer)
-    #define NY_SANITIZER_MSAN 1
-  #else
-    #define NY_SANITIZER_MSAN 0
-  #endif
+#if NY_HAS_FEATURE(address_sanitizer)
+  #define NY_SANITIZER_ASAN 1
 #else
   #define NY_SANITIZER_ASAN 0
+#endif
+  #if NY_HAS_FEATURE(thread_sanitizer)
+  #define NY_SANITIZER_TSAN 1
+#else
   #define NY_SANITIZER_TSAN 0
+#endif
+#if NY_HAS_FEATURE(memory_sanitizer)
+  #define NY_SANITIZER_MSAN 1
+#else
   #define NY_SANITIZER_MSAN 0
 #endif

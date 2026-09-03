@@ -40,8 +40,10 @@ namespace nyEngineSDK
   inline constexpr Handle kInvalidHandle{ 0xFFFFFFFFu, 0u };
 
   /**
-   * @brief Checks if a given handle is valid by verifying that its index is not
-   *        equal to 0xFFFFFFFFu.
+   * @brief  Checks if a given handle is valid by verifying that its index is
+   *         not equal to 0xFFFFFFFFu.
+   * @param  h  The handle to check for validity.
+   * @return true if the handle is valid, false otherwise.
    */
   inline bool
   isValid(const Handle& h) noexcept
@@ -50,8 +52,11 @@ namespace nyEngineSDK
   }
 
   /**
-   * @brief Compares two handles for equality by checking if both their index
-   *        and generation are the same.
+   * @brief  Compares two handles for equality by checking if both their index
+   *         and generation are the same.
+   * @param  a  The first handle to compare.
+   * @param  b  The second handle to compare.
+   * @return true if the handles are equal, false otherwise.
    */
   inline bool
   operator==(const Handle& a, const Handle& b) noexcept
@@ -60,8 +65,11 @@ namespace nyEngineSDK
   }
 
   /**
-   * @brief Compares two handles for inequality by negating the result of the
-   *        equality operator.
+   * @brief  Compares two handles for inequality by negating the result of the
+   *         equality operator.
+   * @param  a  The first handle to compare.
+   * @param  b  The second handle to compare.
+   * @return true if the handles are not equal, false otherwise.
    */
   inline bool
   operator!=(const Handle& a, const Handle& b) noexcept

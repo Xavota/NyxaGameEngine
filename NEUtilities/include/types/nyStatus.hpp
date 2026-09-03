@@ -17,8 +17,6 @@
 /******************************************************************************/
 #pragma once
 
-#include <cstdint>
-
 #include "types/nyTypes.hpp"
 #include "types/nyStringView.hpp"
 
@@ -48,7 +46,7 @@ namespace nyEngineSDK
      */
     static Status ok() noexcept
     {
-      return Status();
+      return {};
     }
 
     /**
@@ -211,14 +209,14 @@ namespace nyEngineSDK
      * @brief  Indicates whether the status represents success (true) or error
      *        (false).
      */
-    bool mOk;
+    bool mOk = false;
     /**
      * @brief  The log level associated with the status. For error statuses,
      *         this indicates the severity of the error (e.g., Warning, Error,
      *         Fatal). For successful statuses, this will typically be
      *         LogLevel::Info.
      */
-    LogLevel mLevel;
+    LogLevel mLevel = LogLevel::Info;
     /**
      * @brief  The module or component associated with the status. This can be
      *         used to indicate which part of the system the status originated from.
@@ -235,6 +233,6 @@ namespace nyEngineSDK
     /**
      * @brief  The length of the message stored in mMessage.
      */
-    u16 mMessageLen;
+    u16 mMessageLen = 0;
   };
 } // namespace nyEngineSDK
