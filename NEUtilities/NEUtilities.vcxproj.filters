@@ -152,13 +152,13 @@
     <ClInclude Include="include\nyLog.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nyPrerequisiteUtilities.h">
+    <ClInclude Include="include\nyPrerequisiteUtilities.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\file\nyFile.h">
       <Filter>Header Files\file</Filter>
     </ClInclude>
-    <ClInclude Include="include\types\nyContainers.h">
+    <ClInclude Include="include\types\nyContainers.hpp">
       <Filter>Header Files\types</Filter>
     </ClInclude>
     <ClInclude Include="include\file\nyFileWatcher.h">
@@ -173,8 +173,11 @@
     <ClInclude Include="include\math\nyAngle.h">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="include\nyModuleName.h">
+    <ClInclude Include="include\nyModuleName.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\nyVector3.hpp">
+      <Filter>Header Files\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

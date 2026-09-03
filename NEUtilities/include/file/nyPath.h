@@ -15,12 +15,10 @@
 /******************************************************************************/
 #pragma once
 
-#include <string>
-
 #include "macros/nyUtilitiesApi.hpp"
 #include "macros/nyMacros.hpp"
 
-#include "types/nyContainers.h"
+#include "types/nyContainers.hpp"
 #include "types/nyStringView.hpp"
 
 namespace nyEngineSDK

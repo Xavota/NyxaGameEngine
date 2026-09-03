@@ -371,6 +371,9 @@ namespace nyEngineSDK
     }
 
    private:
+    /**
+     * @brief The angle value in radians.
+     */
     f32 angle = 0.0f;
   };
 }

@@ -20,7 +20,7 @@
 
 #include "thread/nyMutex.hpp"
 #include "thread/nyThread.hpp"
-#include "types/nyContainers.h"
+#include "types/nyContainers.hpp"
 #include "types/nyTypes.hpp"
 #include "types/nyStringView.hpp"
 

@@ -7,12 +7,12 @@
 
 #include "nyLog.hpp"
 
-#include "nyModuleName.h"
+#include "nyModuleName.hpp"
 #include "macros/nyResultMacros.hpp"
 
 #include "file/nyPath.h"
 
-#include "types/nyContainers.h"
+#include "types/nyContainers.hpp"
 
 namespace nyEngineSDK
 {

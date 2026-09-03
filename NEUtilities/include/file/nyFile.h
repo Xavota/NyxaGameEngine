@@ -16,7 +16,7 @@
 #include "macros/nyUtilitiesApi.hpp"
 #include "memory/nyByteBuffer.hpp"
 
-#include "types/nyContainers.h"
+#include "types/nyContainers.hpp"
 #include "types/nyResult.hpp"
 #include "types/nyStringView.hpp"
 #include "types/nyTypes.hpp"

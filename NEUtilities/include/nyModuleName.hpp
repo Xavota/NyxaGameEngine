@@ -2,6 +2,7 @@
 
 #include "types/nyStringView.hpp"
 
-namespace nyEngineSDK {
+namespace nyEngineSDK
+{
   static constexpr StringView kModule = "Utilities";
 }

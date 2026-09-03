@@ -287,6 +287,14 @@ namespace nyEngineSDK
     static NY_FORCE_INLINE T
     sqrt(const T& _val) noexcept;
     /**
+     * @brief  The square operation.
+     * @param  _val  The value for the square.
+     * @return The result of the square.
+     */
+    template<typename T>
+    static NY_FORCE_INLINE T
+    sqr(const T& _val) noexcept;
+    /**
      * @brief  Returns the power of a value to its exponent.
      * @param  _base   The base of the power.
      * @param  _power  The exponent of the base.
@@ -783,6 +791,13 @@ namespace nyEngineSDK
   Math::sqrt(const T& _val) noexcept
   {
     return std::sqrt(_val);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE T
+  Math::sqr(const T& _val) noexcept
+  {
+    return _val * _val;
   }
 
   template<typename T>

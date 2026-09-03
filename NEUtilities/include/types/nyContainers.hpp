@@ -19,6 +19,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <array>
 
 namespace nyEngineSDK
 {
@@ -26,6 +27,9 @@ namespace nyEngineSDK
 
   template <class T>
   using Vector = std::vector<T>;
+
+  template <class T, size_t N>
+  using Array = std::array<T, N>;
 
   template <class T>
   using UPtr = std::unique_ptr<T>;
