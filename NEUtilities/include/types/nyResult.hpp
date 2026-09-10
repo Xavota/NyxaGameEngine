@@ -349,7 +349,12 @@ namespace nyEngineSDK
     union Storage
     {
       Storage() {}
-      ~Storage() {}
+      ~Storage() {};
+
+      Storage(const Storage& other) = delete;
+      Storage(Storage&& other) = delete;
+      Storage& operator=(const Storage& other) = delete;
+      Storage& operator=(Storage&& other) = delete;
 
       /**
        * @brief  The value contained in the Result object when it represents a

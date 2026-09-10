@@ -179,5 +179,14 @@
     <ClInclude Include="include\math\nyVector3.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="include\math\nyVector2.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\nyVector4.hpp">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

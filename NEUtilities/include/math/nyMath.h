@@ -13,12 +13,18 @@
 #pragma once
 
 #include <cmath>
+#include <type_traits>
+#include <utility>
 
 #include "macros/nyMacros.hpp"
+#include "macros/nyUtilitiesApi.hpp"
 #include "types/nyTypes.hpp"
 
 namespace nyEngineSDK
 {
+  template<typename>
+  inline constexpr bool kAlwaysFalse = false;
+
   class NY_API Math
   {
    public:
@@ -36,7 +42,7 @@ namespace nyEngineSDK
      * @return The result of the cosine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     cos(const T& _radian) noexcept;
     /**
      * @brief  The cosine function in degrees.
@@ -44,7 +50,7 @@ namespace nyEngineSDK
      * @return The result of the cosine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     cosd(const T& _degree) noexcept;
     /**
      * @brief  The sine function in radians.
@@ -52,7 +58,7 @@ namespace nyEngineSDK
      * @return The result of the sine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     sin(const T& _radian) noexcept;
     /**
      * @brief  The sine function in degrees.
@@ -60,7 +66,7 @@ namespace nyEngineSDK
      * @return The result of the sine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     sind(const T& _degree) noexcept;
     /**
      * @brief  The tangent function in radians.
@@ -68,7 +74,7 @@ namespace nyEngineSDK
      * @return The result of the tangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     tan(const T& _radian) noexcept;
     /**
      * @brief  The tangent function in degrees.
@@ -76,7 +82,7 @@ namespace nyEngineSDK
      * @return The result of the tangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     tand(const T& _degree) noexcept;
 
     /**
@@ -85,7 +91,7 @@ namespace nyEngineSDK
      * @return The result of the secant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     sec(const T& _radian) noexcept;
     /**
      * @brief  The secant function in degrees.
@@ -93,7 +99,7 @@ namespace nyEngineSDK
      * @return The result of the secant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     secd(const T& _degree) noexcept;
     /**
      * @brief  The cosecant function in radians.
@@ -101,7 +107,7 @@ namespace nyEngineSDK
      * @return The result of the cosecant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     csc(const T& _radian) noexcept;
     /**
      * @brief  The cosecant function in degrees.
@@ -109,7 +115,7 @@ namespace nyEngineSDK
      * @return The result of the cosecant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     cscd(const T& _degree) noexcept;
     /**
      * @brief  The cotangent function in radians.
@@ -117,7 +123,7 @@ namespace nyEngineSDK
      * @return The result of the cotangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     cot(const T& _radian) noexcept;
     /**
      * @brief  The cotangent function in degrees.
@@ -125,7 +131,7 @@ namespace nyEngineSDK
      * @return The result of the cotangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     cotd(const T& _degree) noexcept;
 
     /**
@@ -134,7 +140,7 @@ namespace nyEngineSDK
      * @return The result of the arccosine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     acos(const T& _radian) noexcept;
     /**
      * @brief  The arccosine function, in degrees.
@@ -142,7 +148,7 @@ namespace nyEngineSDK
      * @return The result of the arccosine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     acosd(const T& _degree) noexcept;
     /**
      * @brief  The arcsine function in radians.
@@ -150,7 +156,7 @@ namespace nyEngineSDK
      * @return The result of the arcsine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     asin(const T& _radian) noexcept;
     /**
      * @brief  The arcsine function, in degrees.
@@ -158,7 +164,7 @@ namespace nyEngineSDK
      * @return  The result of the arcsine function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     asind(const T& _degree) noexcept;
     /**
      * @brief  The arctangent function, in radians.
@@ -166,7 +172,7 @@ namespace nyEngineSDK
      * @return The result of the arctangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     atan(const T& _radian) noexcept;
     /**
      * @brief  The arctangent function, in degrees.
@@ -174,7 +180,7 @@ namespace nyEngineSDK
      * @return The result of the arctangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     atand(const T& _degree) noexcept;
     /**
      * @brief  The arctangent function, for a right triangle with adjacent leg
@@ -184,7 +190,7 @@ namespace nyEngineSDK
      * @return The result of the arctangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     atan2(const T& _y, const T& _x) noexcept;
 
     /**
@@ -193,7 +199,7 @@ namespace nyEngineSDK
      * @return The result of the arcsecant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     asec(const T& _radian) noexcept;
     /**
      * @brief  The arcsecant function, in degrees.
@@ -201,7 +207,7 @@ namespace nyEngineSDK
      * @return The result of the arcsecant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     asecd(const T& _degree) noexcept;
     /**
      * @brief  The arccosecant function, in radians.
@@ -209,7 +215,7 @@ namespace nyEngineSDK
      * @return The result of the arccosecant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     acsc(const T& _radian) noexcept;
     /**
      * @brief  The arccosecant function, in degrees.
@@ -217,7 +223,7 @@ namespace nyEngineSDK
      * @return The result of the arccosecant function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     acscd(const T& _degree) noexcept;
     /**
      * @brief  The arccotangent function, in radians.
@@ -225,7 +231,7 @@ namespace nyEngineSDK
      * @return The result of the arccotangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     acot(const T& _radian) noexcept;
     /**
      * @brief  The arccotangent function, in degrees.
@@ -233,7 +239,7 @@ namespace nyEngineSDK
      * @return The result of the arccotangent function.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     acotd(const T& _degree) noexcept;
 
     /**
@@ -242,7 +248,7 @@ namespace nyEngineSDK
      * @return The degrees result.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     radToDeg(const T& _radian) noexcept;
     /**
      * @brief  Transforms degrees to radians by multiplying with kPI_OVER_180.
@@ -250,7 +256,7 @@ namespace nyEngineSDK
      * @return The radians result.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     degToRad(const T& _degree) noexcept;
 
     /**************************************************************************/
@@ -266,7 +272,7 @@ namespace nyEngineSDK
      * @return The result of the module.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     fmod(const T& value, const T& mod) noexcept;
 
     /**
@@ -275,7 +281,7 @@ namespace nyEngineSDK
      * @return The fractional part of 'value'.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     frac(const T& value) noexcept;
 
     /**
@@ -284,7 +290,7 @@ namespace nyEngineSDK
      * @return The result of the square root.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     sqrt(const T& _val) noexcept;
     /**
      * @brief  The square operation.
@@ -292,7 +298,7 @@ namespace nyEngineSDK
      * @return The result of the square.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     sqr(const T& _val) noexcept;
     /**
      * @brief  Returns the power of a value to its exponent.
@@ -301,7 +307,7 @@ namespace nyEngineSDK
      * @return The result of the power operation.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     pow(const T& _base, const T& _power) noexcept;
     /**
      * @brief  The exponential operation, returns e to the power of the given value.
@@ -309,8 +315,33 @@ namespace nyEngineSDK
      * @return The result of the exponential operation.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     exp(const T& _power) noexcept;
+    /**
+     * @brief  Linearly interpolates between two values based on the given
+     *         alpha value.
+     * @param  _a      The first value to interpolate from.
+     * @param  _b      The second value to interpolate to.
+     * @param  _alpha  The interpolation factor, typically in the range [0, 1].
+     * @return The interpolated value between _a and _b.
+     */
+    template<typename T, typename Alpha>
+    static NY_FORCE_INLINE NY_NODISCARD T
+    lerp(const T& _a, const T& _b, const Alpha& _alpha) noexcept;
+    /**
+     * @brief  Interpolates between two values based on the given alpha value
+     *         and an alpha function.
+     * @param  _a      The first value to interpolate from.
+     * @param  _b      The second value to interpolate to.
+     * @param  _alpha  The interpolation factor, typically in the range [0, 1].
+     * @param  _curveFunc  A function that modifies the interpolation factor to
+     *                     create a custom interpolation curve.
+     * @return The interpolated value between _a and _b.
+     */
+    template<typename T, typename Alpha, typename Curve>
+    static NY_FORCE_INLINE NY_NODISCARD T
+    lerp(const T& _a, const T& _b,
+         const Alpha&_alpha, Curve&& _curveFunc) noexcept;
 
     /**
      * @brief  Rounds the given value to the nearest integer.
@@ -318,7 +349,7 @@ namespace nyEngineSDK
      * @return The value rounded.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     round(const T& _val) noexcept;
     /**
      * @brief  Rounds the given value to the nearest integer below it.
@@ -326,7 +357,7 @@ namespace nyEngineSDK
      * @return The value rounded.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     floor(const T& _val) noexcept;
     /**
      * @brief  Rounds the given value to the nearest integer above it.
@@ -334,7 +365,7 @@ namespace nyEngineSDK
      * @return The value rounded.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     ceil(const T& _val) noexcept;
     /**
      * @brief  The absolute value.
@@ -342,7 +373,7 @@ namespace nyEngineSDK
      * @return The absolute value.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     abs(const T& _val) noexcept;
     /**
      * @brief  Returns the sign of the given value as a 1.0f or -1.0f.
@@ -350,7 +381,7 @@ namespace nyEngineSDK
      * @return The sign value.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     sign(const T& _val) noexcept;
     /**
      * @brief  Composes a floating point value with the magnitude of 'mag' and
@@ -360,7 +391,7 @@ namespace nyEngineSDK
      * @return The composed value.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     copysign(const T& _mag, const T& _sign) noexcept;
     /**
      * @brief  Returns the maximum value between the first and the second value.
@@ -369,7 +400,7 @@ namespace nyEngineSDK
      * @return The maximum value between the first and the second value.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     max(const T& _val1, const T& _val2) noexcept;
     /**
      * @brief  Returns the minimum value between the first and the second value.
@@ -378,7 +409,7 @@ namespace nyEngineSDK
      * @return The minimum value between the first and the second value.
      */
     template<typename T>
-    static NY_FORCE_INLINE T
+    static NY_FORCE_INLINE NY_NODISCARD T
     min(const T& _val1, const T& _val2) noexcept;
 
     /**
@@ -388,7 +419,7 @@ namespace nyEngineSDK
      * @return If the value has the 1's bits of the flag.
      */
     template<typename V, typename F>
-    static NY_FORCE_INLINE bool
+    static NY_FORCE_INLINE NY_NODISCARD bool
     hasFlag(const V& _val, const F& _flag) noexcept;
 
 
@@ -472,6 +503,62 @@ namespace nyEngineSDK
      * @brief A very small tolerance for stricter floating point comparisons.
      */
     static const f64L kFLOAT_TINYdL;
+
+    /**
+     * @brief  A small tolerance for approximate floating point comparisons,
+     *         depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kSmallFloat = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kFLOAT_SMALL;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kFLOAT_SMALLd;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kFLOAT_SMALLdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kSmallFloat only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
+    /**
+     * @brief  A tiny tolerance for approximate floating point comparisons,
+     *         depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kTinyFloat = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kFLOAT_TINY;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kFLOAT_TINYd;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kFLOAT_TINYdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kTinyFloat only supports f32, f64 and f64L."
+        );
+      }
+    }();
 
     /**
      * @brief
@@ -569,204 +656,204 @@ namespace nyEngineSDK
   };
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::cos(const T& _radian) noexcept
   {
     return std::cos(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::cosd(const T& _degree) noexcept
   {
     return cos(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::sin(const T& _radian) noexcept
   {
     return std::sin(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::sind(const T& _degree) noexcept
   {
     return sin(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::tan(const T& _radian) noexcept
   {
     return std::tan(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::tand(const T& _degree) noexcept
   {
     return tan(Math::degToRad(_degree));
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::sec(const T& _radian) noexcept
   {
     return (T)1 / Math::cos(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::secd(const T& _degree) noexcept
   {
     return sec(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::csc(const T& _radian) noexcept
   {
     return (T)1 / Math::sin(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::cscd(const T& _degree) noexcept
   {
     return csc(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::cot(const T& _radian) noexcept
   {
     return (T)1 / Math::tan(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::cotd(const T& _degree) noexcept
   {
     return cot(Math::degToRad(_degree));
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::acos(const T& _radian) noexcept
   {
     return std::acos(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::acosd(const T& _degree) noexcept
   {
     return acos(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::asin(const T& _radian) noexcept
   {
     return std::asin(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::asind(const T& _degree) noexcept
   {
     return asin(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::atan(const T& _radian) noexcept
   {
     return std::atan(_radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::atand(const T& _degree) noexcept
   {
     return atan(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::atan2(const T& _y, const T& _x) noexcept
   {
     return std::atan2(_y, _x);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::asec(const T& _radian) noexcept
   {
     return acos((T)1 / _radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::asecd(const T& _degree) noexcept
   {
     return asec(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::acsc(const T& _radian) noexcept
   {
     return asin((T)1 / _radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::acscd(const T& _degree) noexcept
   {
     return acsc(Math::degToRad(_degree));
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::acot(const T& _radian) noexcept
   {
     return atan((T)1 / _radian);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::acotd(const T& _degree) noexcept
   {
     return acot(Math::degToRad(_degree));
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::radToDeg(const T& _radian) noexcept
   {
     return _radian * k180_OVER_PI;
   }
   template<>
-  NY_FORCE_INLINE f32
+  NY_FORCE_INLINE NY_NODISCARD f32
   Math::radToDeg<f32>(const f32& _radian) noexcept
   {
     return _radian * k180_OVER_PI;
   }
   template<>
-  NY_FORCE_INLINE f64
+  NY_FORCE_INLINE NY_NODISCARD f64
   Math::radToDeg<f64>(const f64& _radian) noexcept
   {
     return _radian * k180_OVER_PId;
   }
   template<>
-  NY_FORCE_INLINE f64L
+  NY_FORCE_INLINE NY_NODISCARD f64L
   Math::radToDeg<f64L>(const f64L& _radian) noexcept
   {
     return _radian * k180_OVER_PIdL;
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::degToRad(const T& _degree) noexcept
   {
     return _degree * kPI_OVER_180;
   }
   template<>
-  NY_FORCE_INLINE f32
+  NY_FORCE_INLINE NY_NODISCARD f32
   Math::degToRad<f32>(const f32& _degree) noexcept
   {
     return _degree * kPI_OVER_180;
   }
   template<>
-  NY_FORCE_INLINE f64
+  NY_FORCE_INLINE NY_NODISCARD f64
   Math::degToRad<f64>(const f64& _degree) noexcept
   {
     return _degree * kPI_OVER_180d;
   }
   template<>
-  NY_FORCE_INLINE f64L
+  NY_FORCE_INLINE NY_NODISCARD f64L
   Math::degToRad<f64L>(const f64L& _degree) noexcept
   {
     return _degree * kPI_OVER_180dL;
@@ -774,104 +861,146 @@ namespace nyEngineSDK
 
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::fmod(const T& value, const T& mod) noexcept
   {
     return std::fmod(value, mod);
   }
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::frac(const T& value) noexcept
   {
     return fmod(value, T(1));
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::sqrt(const T& _val) noexcept
   {
     return std::sqrt(_val);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::sqr(const T& _val) noexcept
   {
     return _val * _val;
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::pow(const T& _base, const T& _power) noexcept
   {
     return std::pow(_base, _power);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::exp(const T& _power) noexcept
   {
     return std::exp(_power);
   }
 
+  template<typename T, typename Alpha>
+  NY_FORCE_INLINE NY_NODISCARD T
+  Math::lerp(const T& _a, const T& _b, const Alpha& _alpha) noexcept
+  {
+    NY_STATIC_ASSERT(
+      std::is_floating_point_v<Alpha>,
+      "Alpha must be a floating-point type."
+    );
+
+    return _a + (_b - _a) * _alpha;
+  }
+
+  template<typename T, typename Alpha, typename Curve>
+  NY_FORCE_INLINE NY_NODISCARD T
+  Math::lerp(const T& _a, const T& _b,
+             const Alpha& _alpha, Curve&& _curveFunc) noexcept
+  {
+    NY_STATIC_ASSERT(
+      std::is_floating_point_v<Alpha>,
+      "Alpha must be a floating-point type."
+    );
+
+    NY_STATIC_ASSERT(
+      (std::is_nothrow_invocable_v<Curve, Alpha>),
+      "Curve must be noexcept."
+    );
+
+    using R = std::invoke_result_t<Curve, Alpha>;
+
+    NY_STATIC_ASSERT(
+      (std::is_convertible_v<R, Alpha>),
+      "Curve must return a value convertible to Alpha."
+    );
+
+    return lerp(
+      _a, _b,
+      static_cast<Alpha>(
+        std::forward<Curve>(_curveFunc)(_alpha)
+      )
+    );
+  }
+
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::round(const T& _val) noexcept
   {
     return std::round(_val);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::floor(const T& _val) noexcept
   {
     return std::floor(_val);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::ceil(const T& _val) noexcept
   {
     return std::ceil(_val);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::abs(const T& _val) noexcept
   {
     return std::abs(_val);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::sign(const T& _val) noexcept
   {
     return _val >= T(0) ? T(1) : T(-1);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::copysign(const T& _mag, const T& _sign) noexcept
   {
     return abs(_mag) * sign(_sign);
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::max(const T& _val1, const T& _val2) noexcept
   {
     return _val1 > _val2 ? _val1 : _val2;
   }
 
   template<typename T>
-  NY_FORCE_INLINE T
+  NY_FORCE_INLINE NY_NODISCARD T
   Math::min(const T& _val1, const T& _val2) noexcept
   {
     return _val1 < _val2 ? _val1 : _val2;
   }
 
   template<typename V, typename F>
-  NY_FORCE_INLINE bool
+  NY_FORCE_INLINE NY_NODISCARD bool
   Math::hasFlag(const V& _val, const F& _flag) noexcept
   {
     return (_val & _flag) == _flag;

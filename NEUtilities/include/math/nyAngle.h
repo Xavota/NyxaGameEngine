@@ -1,7 +1,7 @@
 #pragma once
 
 #include "macros/nyMacros.hpp"
-#include "nyModuleName.h"
+#include "nyModuleName.hpp"
 #include "types/nyTypes.hpp"
 #include "types/nyResult.hpp"
 #include "math/nyMath.h"

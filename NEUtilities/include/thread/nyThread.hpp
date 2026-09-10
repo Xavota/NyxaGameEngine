@@ -18,7 +18,6 @@
 
 #include "macros/nyBuild.hpp"
 #include "macros/nyMacros.hpp"
-#include "macros/nyUtilitiesApi.hpp"
 
 namespace nyEngineSDK
 {
@@ -26,7 +25,7 @@ namespace nyEngineSDK
    * @brief Thin wrapper over std::thread for engine-wide consistency.
    * @bug No known bugs
    */
-  class NY_API Thread
+  class Thread
   {
   public:
     /**

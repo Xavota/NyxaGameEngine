@@ -18,8 +18,6 @@
 
 #include "macros/nyUtilitiesApi.hpp"
 
-#include "thread/nyMutex.hpp"
-#include "thread/nyThread.hpp"
 #include "types/nyContainers.hpp"
 #include "types/nyTypes.hpp"
 #include "types/nyStringView.hpp"
@@ -81,6 +79,34 @@ namespace nyEngineSDK
     ~FileWatcher();
 
     /**
+     * @brief  Deleted copy constructor
+     * @param  other  The other watcher to copy from.
+     * @bug    No known bugs
+     */
+    FileWatcher(const FileWatcher& other) = delete;
+    /**
+     * @brief  Deleted copy assignment operator
+     * @param  other  The other watcher to copy from.
+     * @bug    No known bugs
+     */
+    FileWatcher&
+    operator=(const FileWatcher& other) = delete;
+
+    /**
+     * @brief  Deleted move constructor.
+     * @param  other  The other watcher to move ownerships from.
+     * @bug    No known bugs
+     */
+    FileWatcher(FileWatcher&& other) = delete;
+    /**
+     * @brief  Deleted  move assignment operator.
+     * @param  other  The other watcher to move ownerships from.
+     * @bug    No known bugs
+     */
+    FileWatcher&
+    operator=(FileWatcher&& other) = delete;
+
+    /**
      * @brief  Initializes the watcher with a time to check the file each time frame
      * @param  interval  The time interval to check for any changes in the file.
      * @bug    No known bugs
@@ -110,56 +136,7 @@ namespace nyEngineSDK
     watchPath(StringView path, Callback callback, bool recursive = false);
 
    private:
-
-    /**
-     * @brief  Configuration for one watched root.
-     * @bug    No known bugs
-     */
-    struct WatchRoot
-    {
-      String path;
-      Callback callback;
-      HashMap<String, EntryInfo> snapshot;
-      bool recursive = true;
-    };
-
-    /**
-     * @brief  The loop this watcher makes to check its watch list files every 
-     *         time period. This function is ran in a different thread, owned 
-     *         by this object, and it's stopped with the 'stop' function
-     * @bug    No known bugs
-     */
-    void
-    run();
-
-    /**
-     * @brief  Updates one watched root and collects generated events.
-     * @bug    No known bugs
-     */
-    void
-    updateRoot(WatchRoot& root, Vector<FileChangeEvent>& outEvents);
-
-    /**
-     * @brief  The watch list of roots to keep watch on.
-     */
-    Vector<WatchRoot> mRoots;
-
-    /**
-     * @brief  The thread owned by this object that runs the check loop.
-     */
-    Thread mThread;
-    /**
-     * @brief  Mutex for synchronizing every loop to avoid running conditions.
-     */
-    Mutex mMutex;
-
-    /**
-     * @brief  Whether the thread is running or not.
-     */
-    bool mRunning = false;
-    /**
-     * @brief  The interval time to check the files every time frame.
-     */
-    Duration mInterval;
+    struct Impl;
+    Impl* mImpl;
   };
 } // namespace nyEngineSDK

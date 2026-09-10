@@ -321,7 +321,9 @@
     <ClInclude Include="include\macros\nyWarnings.hpp" />
     <ClInclude Include="include\math\nyAngle.h" />
     <ClInclude Include="include\math\nyMath.h" />
+    <ClInclude Include="include\math\nyVector2.hpp" />
     <ClInclude Include="include\math\nyVector3.hpp" />
+    <ClInclude Include="include\math\nyVector4.hpp" />
     <ClInclude Include="include\memory\nyAllocator.hpp" />
     <ClInclude Include="include\memory\nyByteBuffer.hpp" />
     <ClInclude Include="include\memory\nyMemory.hpp" />
@@ -343,6 +345,9 @@
     <ClInclude Include="include\types\nyStatus.hpp" />
     <ClInclude Include="include\types\nyStringView.hpp" />
     <ClInclude Include="include\types\nyTypes.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

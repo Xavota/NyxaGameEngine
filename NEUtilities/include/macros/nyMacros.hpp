@@ -17,8 +17,6 @@
 #pragma once
 
 #include <atomic>
-#include <cstdlib>
-#include <utility>
 
 #include "macros/nyConfig.hpp"
 #include "macros/nyPlatform.hpp"

@@ -1,0 +1,10 @@
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define NY_FORCE_INLINE
+#define NY_FORCE_INLINE inline __attribute__((always_inline))
+#define NY_NODISCARD [[nodiscard]]
+#define NY_NODISCARD
+#define NY_NO_INLINE __declspec(noinline)
+#define NY_NO_INLINE __attribute__((noinline))
+#define NY_NO_INLINE

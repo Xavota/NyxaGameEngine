@@ -3,6 +3,8 @@
 #include <filesystem>
 
 #include "file/nyPath.h"
+#include "thread/nyMutex.hpp"
+#include "thread/nyThread.hpp"
 #include "thread/nyLockGuard.hpp"
 #include "thread/nyClock.hpp"
 
@@ -93,7 +95,63 @@ namespace nyEngineSDK
 
   } // namespace
 
-  FileWatcher::FileWatcher() = default;
+  struct FileWatcher::Impl
+  {
+    /**
+     * @brief  Configuration for one watched root.
+     * @bug    No known bugs
+     */
+    struct WatchRoot
+    {
+      String path;
+      Callback callback;
+      HashMap<String, EntryInfo> snapshot;
+      bool recursive = true;
+    };
+
+    /**
+     * @brief  The loop this watcher makes to check its watch list files every 
+     *         time period. This function is ran in a different thread, owned 
+     *         by this object, and it's stopped with the 'stop' function
+     * @bug    No known bugs
+     */
+    void
+    run();
+
+    /**
+     * @brief  Updates one watched root and collects generated events.
+     * @bug    No known bugs
+     */
+    void
+    updateRoot(WatchRoot& root, Vector<FileChangeEvent>& outEvents);
+
+    /**
+     * @brief  The watch list of roots to keep watch on.
+     */
+    Vector<WatchRoot> mRoots;
+
+    /**
+     * @brief  The thread owned by this object that runs the check loop.
+     */
+    Thread mThread;
+    /**
+     * @brief  Mutex for synchronizing every loop to avoid running conditions.
+     */
+    Mutex mMutex;
+
+    /**
+     * @brief  Whether the thread is running or not.
+     */
+    bool mRunning = false;
+    /**
+     * @brief  The interval time to check the files every time frame.
+     */
+    Duration mInterval;
+  };
+
+  FileWatcher::FileWatcher()
+    : mImpl(new Impl())
+  {}
 
   FileWatcher::~FileWatcher()
   {
@@ -103,18 +161,18 @@ namespace nyEngineSDK
   void
   FileWatcher::start(const Duration& interval)
   {
-    LockGuard lock(mMutex);
+    LockGuard lock(mImpl->mMutex);
 
-    if (mRunning) {
+    if (mImpl->mRunning) {
       return;
     }
 
-    mInterval = interval;
-    mRunning = true;
+    mImpl->mInterval = interval;
+    mImpl->mRunning = true;
 
-    mThread.start([this]()
+    mImpl->mThread.start([this]()
     {
-      run();
+      mImpl->run();
     });
   }
 
@@ -122,33 +180,34 @@ namespace nyEngineSDK
   FileWatcher::stop()
   {
     {
-      LockGuard lock(mMutex);
-      if (!mRunning) {
+      LockGuard lock(mImpl->mMutex);
+      if (!mImpl->mRunning) {
         return;
       }
 
-      mRunning = false;
+      mImpl->mRunning = false;
     }
 
-    if (mThread.isJoinable()) {
-      mThread.join();
+    if (mImpl->mThread.isJoinable()) {
+      mImpl->mThread.join();
     }
   }
 
-  void FileWatcher::watchPath(StringView path, Callback callback, bool recursive)
+  void
+  FileWatcher::watchPath(StringView path, Callback callback, bool recursive)
   {
-    WatchRoot root;
+    Impl::WatchRoot root;
     root.path = Path::makeAbsolute(path);
     root.callback = std::move(callback);
     root.recursive = recursive;
     root.snapshot = buildSnapshot(root.path.data(), root.recursive);
 
-    LockGuard<Mutex> lock(mMutex);
-    mRoots.push_back(std::move(root));
+    LockGuard<Mutex> lock(mImpl->mMutex);
+    mImpl->mRoots.push_back(std::move(root));
   }
 
   void
-  FileWatcher::run()
+  FileWatcher::Impl::run()
   {
     for (;;) {
       Vector<std::pair<Callback, FileChangeEvent>> dispatches;
@@ -165,7 +224,7 @@ namespace nyEngineSDK
           updateRoot(root, events);
 
           for (const FileChangeEvent& event : events) {
-            dispatches.push_back({ root.callback, event });
+            dispatches.emplace_back(root.callback, event);
           }
         }
       }
@@ -180,7 +239,7 @@ namespace nyEngineSDK
     }
   }
 
-  void FileWatcher::updateRoot(WatchRoot& root, Vector<FileChangeEvent>& outEvents)
+  void FileWatcher::Impl::updateRoot(WatchRoot& root, Vector<FileChangeEvent>& outEvents)
   {
     HashMap<String, EntryInfo> newSnapshot;
 

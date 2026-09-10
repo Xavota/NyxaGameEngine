@@ -1,11 +1,11 @@
 /******************************************************************************/
 /**
- * @file    nyVector3.hpp
+ * @file    nyVector2.hpp
  * @author  Dalia Castellanos
- * @date    02/09/2026
- * @brief   Defines the Vector3 class for geometrical operations.
+ * @date    07/09/2026
+ * @brief   Defines the Vector2 class for geometrical operations.
  *
- * A simple 3D vector class for geometrical operations.
+ * A simple 2D vector class for geometrical operations.
  *
  * @bug	    No known bugs.
  */
@@ -28,50 +28,59 @@
 namespace nyEngineSDK
 {
   /**
-   * @brief A simple 3D vector class for geometrical operations.
+   * @brief A simple 2D vector class for geometrical operations.
    * @bug No known bugs
    */
   template <typename T>
-  class NY_API Vector3
+  class NY_API Vector2
   {
    public:
     /**
-     * @brief The default constructor for a Vector3 object, initializing all
+     * @brief The default constructor for a Vector2 object, initializing all
      *        components to zero.
      */
-    Vector3() noexcept : x(T{ 0 }), y(T{ 0 }), z(T{ 0 }) {}
+    Vector2() noexcept : x(T{ 0 }), y(T{ 0 })) {}
     /**
-     * @brief A constructor for a Vector3 object that initializes the vector
+     * @brief A constructor for a Vector2 object that initializes the vector
      *        with the specified components.
      * @param x The x-component of the vector.
      * @param y The y-component of the vector.
-     * @param z The z-component of the vector.
      */
-    Vector3(T x, T y, T z) noexcept : x(x), y(y), z(z) {}
+    Vector2(T x, T y) noexcept : x(x), y(y) {}
     /**
-     * @brief A constructor for a Vector3 object that initializes the vector
+     * @brief A constructor for a Vector2 object that initializes the vector
      *        with the specified direction and scale.
      * @param dir   The direction vector.
      * @param scale The scale factor.
      */
-    Vector3(const Vector3<T>& dir, T scale) noexcept :
-    x(dir.x * scale), y(dir.y * scale), z(dir.z * scale) {}
+    Vector2(const Vector2<T>& dir, T scale) noexcept :
+    x(dir.x * scale), y(dir.y * scale) {}
 
     /**
      * @brief  The dot product of two vectors.
      * @param  other  The other vector for the dot product.
-     * @return A new vector with x = x1 * x2, y = y1 * y2, z = z1 * z2.
+     * @return A new vector with x = x1 * x2, y = y1 * y2.
      */
     template<typename R = T>
     NY_FORCE_INLINE NY_NODISCARD R
-    dot(const Vector3<T>& other) const noexcept;
+    dot(const Vector2<T>& other) const noexcept;
     /**
      * @brief  The cross product of two vectors.
      * @param  other  The other vector for the cross product.
-     * @return The result of the cross product of the two vectors.
+     * @return A scalar value representing the signed area of the parallelogram
+     *         they span. Positive if the other vector is counter-clockwise from
+     *         this vector, negative if clockwise, and zero if they are collinear.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-    cross(const Vector3<T>& other) const noexcept;
+    template<typename R = T>
+    NY_FORCE_INLINE NY_NODISCARD R
+    cross(const Vector2<T>& other) const noexcept;
+    /**
+     * @brief  Gets a vector perpendicular to this one, rotated 90 degrees
+     *         counter-clockwise.
+     * @return A new vector that is perpendicular to this vector.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+    perpendicular() const noexcept;
     
     /**
      * @brief  The square distance between two points.
@@ -80,7 +89,7 @@ namespace nyEngineSDK
      */
     template<typename R = T>
     NY_FORCE_INLINE NY_NODISCARD R
-    getSqrDistance(const Vector3<T>& other) const noexcept;
+    getSqrDistance(const Vector2<T>& other) const noexcept;
     /**
      * @brief  The distance between two points.
      * @param  other  The other point for the distance calculation.
@@ -88,7 +97,7 @@ namespace nyEngineSDK
      */
     template<typename R = std::conditional_t<std::is_integral_v<T>, f32, T>>
     NY_FORCE_INLINE NY_NODISCARD R
-    getDistance(const Vector3<T>& other) const noexcept;
+    getDistance(const Vector2<T>& other) const noexcept;
     /**
      * @brief  Returns the square length of the vector in space.
      * @return The square length of the vector.
@@ -108,14 +117,14 @@ namespace nyEngineSDK
      *         length of 1 unit.
      * @return The vector normalized.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
     getNormalized() const noexcept;
     /**
      * @brief  Modifies this vector to have length of 1 unit with its same
      *         direction, and returns it.
      * @return This vector normalized.
      */
-    NY_FORCE_INLINE Vector3<T>
+    NY_FORCE_INLINE Vector2<T>
     normalize() noexcept;
     /**
      * @brief  Returns a vector with the same direction as the original
@@ -124,7 +133,7 @@ namespace nyEngineSDK
      * @return The vector truncated with the new size.
      */
     template<typename R = std::conditional_t<std::is_integral_v<T>, f32, T>>
-    NY_FORCE_INLINE NY_NODISCARD Vector3<R>
+    NY_FORCE_INLINE NY_NODISCARD Vector2<R>
     getTruncated(R newSize) const noexcept;
     /**
      * @brief  Modifies this vector to have the same direction as the original
@@ -132,7 +141,7 @@ namespace nyEngineSDK
      * @param  newSize  The desired size of the new vector.
      * @return This vector truncated with the new size.
      */
-    NY_FORCE_INLINE Vector3<T>
+    NY_FORCE_INLINE Vector2<T>
     truncate(T newSize) noexcept;
 
     /**
@@ -141,16 +150,16 @@ namespace nyEngineSDK
      * @param  b  The vector onto which to project.
      * @return The projected vector.
      */
-    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
-    projection(const Vector3<T>& a, const Vector3<T>& b) noexcept;
+    static NY_FORCE_INLINE NY_NODISCARD Result<Vector2<T>>
+    projection(const Vector2<T>& a, const Vector2<T>& b) noexcept;
     /**
      * @brief  Returns a vector that is the rejection of a over the vector b
      * @param  a  The vector to reject.
      * @param  b  The vector onto which to reject.
      * @return The rejected vector.
      */
-    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
-    rejection(const Vector3<T>& a, const Vector3<T>& b) noexcept;
+    static NY_FORCE_INLINE NY_NODISCARD Result<Vector2<T>>
+    rejection(const Vector2<T>& a, const Vector2<T>& b) noexcept;
     /**
      * @brief  Returns a vector that is the reflection of a with respect to the
      *         normal vector b
@@ -158,8 +167,8 @@ namespace nyEngineSDK
      * @param  b  The normal vector about which to reflect.
      * @return The reflected vector.
      */
-    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
-    reflection(const Vector3<T>& a, const Vector3<T>& b) noexcept;
+    static NY_FORCE_INLINE NY_NODISCARD Result<Vector2<T>>
+    reflection(const Vector2<T>& a, const Vector2<T>& b) noexcept;
 
     /**
      * @brief  Linearly interpolates between two vectors based on the given
@@ -170,8 +179,8 @@ namespace nyEngineSDK
      * @return The interpolated vector between a and b.
      */
     template<typename Alpha = std::conditional_t<std::is_integral_v<T>, f32, T>>
-    static NY_FORCE_INLINE NY_NODISCARD Vector3<Alpha>
-    lerp(const Vector3<T>& a, const Vector3<T>& b, Alpha alpha) noexcept;
+    static NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
+    lerp(const Vector2<T>& a, const Vector2<T>& b, Alpha alpha) noexcept;
     /**
      * @brief  Linearly interpolates between two vectors based on the given
      *         alpha value.
@@ -184,12 +193,13 @@ namespace nyEngineSDK
      */
     template<typename Alpha = std::conditional_t<std::is_integral_v<T>, f32, T>,
              typename Curve>
-    static NY_FORCE_INLINE NY_NODISCARD Vector3<Alpha>
-    lerp(const Vector3<T>& a, const Vector3<T>& b,
+    static NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
+    lerp(const Vector2<T>& a, const Vector2<T>& b,
          Alpha alpha, Curve&& curveFunc) noexcept;
+    
 
     /**
-     * @brief  Creates and returns a string with the format "{ x:0, y:0, z:0 }".
+     * @brief  Creates and returns a string with the format "{ x:0, y:0 }".
      * @return This vector as a String.
      */
     NY_FORCE_INLINE NY_NODISCARD String
@@ -201,16 +211,16 @@ namespace nyEngineSDK
      * @param  other  The other vector for the operation.
      * @return The sum of the two vectors.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-    operator+(const Vector3<T>& other) const noexcept;
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+    operator+(const Vector2<T>& other) const noexcept;
     /**
      * @brief  Returns a vector with the subtraction of every component of the
      *         original minus their counterpart on the other vector.
      * @param  other  The other vector for the operation.
      * @return The subtraction of the two vectors.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-    operator-(const Vector3<T>& other) const noexcept;
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+    operator-(const Vector2<T>& other) const noexcept;
 
     /**
      * @brief  Returns a vector with the sum of every component of the original
@@ -218,7 +228,7 @@ namespace nyEngineSDK
      * @param  other  The number for the operation.
      * @return The sum of the vector plus the number.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
     operator+(T other) const noexcept;
     /**
      * @brief  Returns a vector with the subtraction of every component of the
@@ -226,7 +236,7 @@ namespace nyEngineSDK
      * @param  other  The number for the operation.
      * @return The subtraction of the vector minus the number.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
     operator-(T other) const noexcept;
     /**
      * @brief  Returns a vector with the multiplication of every component of the original
@@ -234,7 +244,7 @@ namespace nyEngineSDK
      * @param  other  The number for the operation.
      * @return The product of the vector and the number.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
     operator*(T other) const noexcept;
     /**
      * @brief  Returns a vector with the division of every component of the
@@ -242,14 +252,14 @@ namespace nyEngineSDK
      * @param  other  The number for the operation.
      * @return The division of the vector by the number.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
     operator/(T other) const noexcept;
 
     /**
      * @brief  Returns a vector in the opposite direction of the original.
      * @return A vector in the opposite direction of the original.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector3<T>
+    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
     operator-() const noexcept;
     
     /**
@@ -258,16 +268,16 @@ namespace nyEngineSDK
      * @param  other  The other vector to whom is gonna be sum.
      * @return This vector after the operation.
      */
-    NY_FORCE_INLINE Vector3<T>&
-    operator+=(const Vector3<T>& other) noexcept;
+    NY_FORCE_INLINE Vector2<T>&
+    operator+=(const Vector2<T>& other) noexcept;
     /**
      * @brief  Makes every component of the original vector equal to the
      *         components of itself minus their counterparts of the other vector.
      * @param  other  The other vector to whom is gonna be subtracted.
      * @return This vector after the operation.
      */
-    NY_FORCE_INLINE Vector3<T>&
-    operator-=(const Vector3<T>& other) noexcept;
+    NY_FORCE_INLINE Vector2<T>&
+    operator-=(const Vector2<T>& other) noexcept;
 
     /**
      * @brief  Makes every component of the original vector equal to the
@@ -275,7 +285,7 @@ namespace nyEngineSDK
      * @param  other  The number to whom is gonna be sum.
      * @return This vector after the operation.
      */
-    NY_FORCE_INLINE Vector3<T>&
+    NY_FORCE_INLINE Vector2<T>&
     operator+=(T other) noexcept;
     /**
      * @brief  Makes every component of the original vector equal to the
@@ -283,7 +293,7 @@ namespace nyEngineSDK
      * @param  other  The number to whom is gonna be subtracted.
      * @return This vector after the operation.
      */
-    NY_FORCE_INLINE Vector3<T>&
+    NY_FORCE_INLINE Vector2<T>&
     operator-=(T other) noexcept;
     /**
      * @brief  Makes every component of the original vector equal to the
@@ -291,7 +301,7 @@ namespace nyEngineSDK
      * @param  other  The number to whom is gonna be multiplied.
      * @return This vector after the operation.
      */
-    NY_FORCE_INLINE Vector3<T>&
+    NY_FORCE_INLINE Vector2<T>&
     operator*=(T other) noexcept;
     /**
      * @brief  Makes every component of the original vector equal to the
@@ -299,7 +309,7 @@ namespace nyEngineSDK
      * @param  other  The number to whom is gonna be divided.
      * @return This vector after the operation.
      */
-    NY_FORCE_INLINE Vector3<T>&
+    NY_FORCE_INLINE Vector2<T>&
     operator/=(T other) noexcept;
     
     /**
@@ -309,7 +319,7 @@ namespace nyEngineSDK
      * @return True if they are equal.
      */
     NY_FORCE_INLINE NY_NODISCARD bool
-    operator==(const Vector3<T>& other) const noexcept;
+    operator==(const Vector2<T>& other) const noexcept;
     /**
      * @brief  Check if any component of the vector is not equal to their
      *         counterpart of the other vector.
@@ -317,7 +327,7 @@ namespace nyEngineSDK
      * @return True if they are not equal.
      */
     NY_FORCE_INLINE NY_NODISCARD bool
-    operator!=(const Vector3<T>& other) const noexcept;
+    operator!=(const Vector2<T>& other) const noexcept;
 
     /**
      * @brief  Converts this vector to a vector of another type.
@@ -326,7 +336,7 @@ namespace nyEngineSDK
      */
     template<typename U>
     explicit NY_FORCE_INLINE NY_NODISCARD
-    operator Vector3<U>() const noexcept;
+    operator Vector2<U>() const noexcept;
 
     /**
      * @brief The components of the vector, in a union so they can be taken
@@ -344,142 +354,142 @@ namespace nyEngineSDK
          * @brief The y component of the vector
          */
         T y;
-        /*
-         * @brief The z component of the vector
-         */
-        T z;
       };
       /*
        * @brief All the components of the vector in an array
        */
-      Array<T, 3> xyz;
+      Array<T, 2> xy;
     };
 
     /*
      * @brief A vector with 0 as its components
      */
-    inline static const Vector3 kZERO{ T{0}, T{0}, T{0} };
-    /*
-     * @brief A unitary vector pointing forward
-     */
-    inline static const Vector3 kFORWARD{ T{0}, T{0}, T{1} };
+    inline static const Vector2 kZERO{ T{0}, T{0} };
     /*
      * @brief A unitary vector pointing right
      */
-    inline static const Vector3 kRIGHT{ T{1}, T{0}, T{0} };
+    inline static const Vector2 kRIGHT{ T{1}, T{0} };
     /*
      * @brief A unitary vector pointing up
      */
-    inline static const Vector3 kUP{ T{0}, T{1}, T{0} };
+    inline static const Vector2 kUP{ T{0}, T{1} };
   };
 
-  using Vector3f = Vector3<f32>;
-  using Vector3i = Vector3<i32>;
-  using Vector3u = Vector3<u32>;
+  using Vector2f = Vector2<f32>;
+  using Vector2i = Vector2<i32>;
+  using Vector2u = Vector2<u32>;
 
   template<typename T>
   template<typename R>
   NY_FORCE_INLINE NY_NODISCARD R
-  Vector3<T>::dot(const Vector3<T>& other) const noexcept
+  Vector2<T>::dot(const Vector2<T>& other) const noexcept
   {
     R x1 = static_cast<R>(this->x);
     R y1 = static_cast<R>(this->y);
-    R z1 = static_cast<R>(this->z);
 
     R x2 = static_cast<R>(other.x);
     R y2 = static_cast<R>(other.y);
-    R z2 = static_cast<R>(other.z);
 
-    return x1 * x2 + y1 * y2 + z1 * z2;
-  }
-  template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::cross(const Vector3<T>& other) const noexcept
-  {
-    return Vector3<T>(this->y * other.z - this->z * other.y,
-                      this->z * other.x - this->x * other.z,
-                      this->x * other.y - this->y * other.x);
+    return x1 * x2 + y1 * y2;
   }
 
   template<typename T>
   template<typename R>
   NY_FORCE_INLINE NY_NODISCARD R
-  Vector3<T>::getSqrDistance(const Vector3<T>& other) const noexcept
+  Vector2<T>::cross(const Vector2<T>& other) const noexcept
   {
     R x1 = static_cast<R>(this->x);
     R y1 = static_cast<R>(this->y);
-    R z1 = static_cast<R>(this->z);
 
     R x2 = static_cast<R>(other.x);
     R y2 = static_cast<R>(other.y);
-    R z2 = static_cast<R>(other.z);
 
-    return Math::sqr<R>(x2 - x1) + Math::sqr<R>(y2 - y1) + Math::sqr<R>(z2 - z1);
+    return x1 * y2 - y1 * x2;
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::perpendicular() const noexcept
+  {
+    return Vector2<T>(-y, x);
+  }
+
+  template<typename T>
+  template<typename R>
+  NY_FORCE_INLINE NY_NODISCARD R
+  Vector2<T>::getSqrDistance(const Vector2<T>& other) const noexcept
+  {
+    R x1 = static_cast<R>(this->x);
+    R y1 = static_cast<R>(this->y);
+    R x2 = static_cast<R>(other.x);
+    R y2 = static_cast<R>(other.y);
+
+    return Math::sqr<R>(x2 - x1) + Math::sqr<R>(y2 - y1);
   }
   template<typename T>
   template<typename R>
   NY_FORCE_INLINE NY_NODISCARD R
-  Vector3<T>::getDistance(const Vector3<T>& other) const noexcept
+  Vector2<T>::getDistance(const Vector2<T>& other) const noexcept
   {
     return Math::sqrt<R>(getSqrDistance<R>(other));
   }
   template<typename T>
   template<typename R>
   NY_FORCE_INLINE NY_NODISCARD R
-  Vector3<T>::getSqrMagnitude() const noexcept
+  Vector2<T>::getSqrMagnitude() const noexcept
   {
     return dot<R>(*this);
   }
   template<typename T>
   template<typename R>
   NY_FORCE_INLINE NY_NODISCARD R
-  Vector3<T>::getMagnitude() const noexcept
+  Vector2<T>::getMagnitude() const noexcept
   {
-    return Math::sqrt<R>(getSqrMagnitude<R>());
+    return Math::sqrt<R>(getSqrMagnitud<R>());
   }
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::getNormalized() const noexcept
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::getNormalized() const noexcept
   {
-    const T magnitude = getMagnitude();
+    const T magnitude = getMagnitud();
     if (magnitude < Math::kTinyFloat<T>)
     {
-      return Vector3<T>::kZERO;
+      return Vector2<T>::kZERO;
     }
-    return Vector3<T>(this->x / magnitude, this->y / magnitude, this->z / magnitude);
+    return Vector2<T>(this->x / magnitude, this->y / magnitude);
   }
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>
-  Vector3<T>::normalize() noexcept
+  NY_FORCE_INLINE Vector2<T>
+  Vector2<T>::normalize() noexcept
   {
     *this = getNormalized();
     return *this;
   }
   template<typename T>
   template<typename R>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<R>
-  Vector3<T>::getTruncated(R newSize) const noexcept
+  NY_FORCE_INLINE NY_NODISCARD Vector2<R>
+  Vector2<T>::getTruncated(R newSize) const noexcept
   {
-    const R magnitude = getMagnitude<R>();
+    const R magnitude = getMagnitud<R>();
     if (magnitude < Math::kTinyFloat<R>)
     {
-      return Vector3<R>::kZERO;
+      return Vector2<R>::kZERO;
     }
-    return static_cast<Vector3<R>>(*this) * (newSize / magnitude);
+    return static_cast<Vector2<R>>(*this) * (newSize / magnitude);
   }
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>
-  Vector3<T>::truncate(T newSize) noexcept
+  NY_FORCE_INLINE Vector2<T>
+  Vector2<T>::truncate(T newSize) noexcept
   {
     *this = getTruncated(newSize);
     return *this;
   }
 
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
-  Vector3<T>::projection(const Vector3<T>& a, const Vector3<T>& b) noexcept
+  NY_FORCE_INLINE NY_NODISCARD Result<Vector2<T>>
+  Vector2<T>::projection(const Vector2<T>& a, const Vector2<T>& b) noexcept
   {
-    const T sqrMagnitude = b.getSqrMagnitude();
+    const T sqrMagnitude = b.getSqrMagnitud();
     if (sqrMagnitude < Math::kTinyFloat<T>)
     {
       return Status::error("Cannot project vector onto zero vector.");
@@ -487,8 +497,8 @@ namespace nyEngineSDK
     return b * (a.dot(b) / sqrMagnitude);
   }
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
-  Vector3<T>::rejection(const Vector3<T>& a, const Vector3<T>& b) noexcept
+  NY_FORCE_INLINE NY_NODISCARD Result<Vector2<T>>
+  Vector2<T>::rejection(const Vector2<T>& a, const Vector2<T>& b) noexcept
   {
     auto& projResult = projection(a, b);
     if (projResult)
@@ -498,10 +508,10 @@ namespace nyEngineSDK
     return projResult;
   }
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
-  Vector3<T>::reflection(const Vector3<T>& a, const Vector3<T>& b) noexcept
+  NY_FORCE_INLINE NY_NODISCARD Result<Vector2<T>>
+  Vector2<T>::reflection(const Vector2<T>& a, const Vector2<T>& b) noexcept
   {
-    const T sqrMagnitude = b.getSqrMagnitude<T>();
+    const T sqrMagnitude = b.getSqrMagnitud();
     if (sqrMagnitude < Math::kTinyFloat<T>)
     {
       return Status::error("Cannot reflect vector with zero normal.");
@@ -511,137 +521,129 @@ namespace nyEngineSDK
 
   template<typename T>
   template<typename Alpha>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<Alpha>
-  Vector3<T>::lerp(const Vector3<T>& a, const Vector3<T>& b, Alpha alpha) noexcept
+  NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
+  Vector2<T>::lerp(const Vector2<T>& a, const Vector2<T>& b, Alpha alpha) noexcept
   {
     NY_STATIC_ASSERT(std::is_floating_point_v<Alpha>);
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
-    Alpha z1 = static_cast<Alpha>(a.z);
-
     Alpha x2 = static_cast<Alpha>(b.x);
     Alpha y2 = static_cast<Alpha>(b.y);
-    Alpha z2 = static_cast<Alpha>(b.z);
 
-    return Vector3<Alpha>(Math::lerp<Alpha>(x1, x2, alpha),
-                          Math::lerp<Alpha>(y1, y2, alpha),
-                          Math::lerp<Alpha>(z1, z2, alpha));
+    return Vector2<Alpha>(Math::lerp<Alpha>(x1, x2, alpha),
+                          Math::lerp<Alpha>(y1, y2, alpha));
   }
+
   template<typename T>
   template<typename Alpha, typename Curve>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<Alpha>
-  Vector3<T>::lerp(const Vector3<T>& a, const Vector3<T>& b,
+  NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
+  Vector2<T>::lerp(const Vector2<T>& a, const Vector2<T>& b,
                    Alpha alpha, Curve&& curveFunc) noexcept
   {
     NY_STATIC_ASSERT(std::is_floating_point_v<Alpha>);
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
-    Alpha z1 = static_cast<Alpha>(a.z);
-
     Alpha x2 = static_cast<Alpha>(b.x);
     Alpha y2 = static_cast<Alpha>(b.y);
-    Alpha z2 = static_cast<Alpha>(b.z);
 
-    return Vector3<Alpha>(Math::lerp<Alpha>(x1, x2, alpha, curveFunc),
-                          Math::lerp<Alpha>(y1, y2, alpha, curveFunc),
-                          Math::lerp<Alpha>(z1, z2, alpha, curveFunc));
+    return Vector2<Alpha>(Math::lerp<Alpha>(x1, x2, alpha, curveFunc),
+                          Math::lerp<Alpha>(y1, y2, alpha, curveFunc));
   }
 
   template<typename T>
   NY_FORCE_INLINE String
-  Vector3<T>::toString() noexcept
+  Vector2<T>::toString() noexcept
   {
     return "{ x:" + std::to_string(this->x) +
-           ", y:" + std::to_string(this->y) +
-           ", z:" + std::to_string(this->z) + " }";
+           ", y:" + std::to_string(this->y) + " }";
   }
 
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::operator+(const Vector3<T>& other) const noexcept
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::operator+(const Vector2<T>& other) const noexcept
   {
-    return Vector3<T>(this->x + other.x, this->y + other.y, this->z + other.z);
+    return Vector2<T>(this->x + other.x, this->y + other.y);
   }
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::operator-(const Vector3<T>& other) const noexcept
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::operator-(const Vector2<T>& other) const noexcept
   {
-    return Vector3<T>(this->x - other.x, this->y - other.y, this->z - other.z);
-  }
-
-  template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::operator+(T other) const noexcept
-  {
-    return Vector3<T>(this->x + other, this->y + other, this->z + other);
-  }
-  template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::operator-(T other) const noexcept
-  {
-    return Vector3<T>(this->x - other, this->y - other, this->z - other);
-  }
-  template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::operator*(T other) const noexcept
-  {
-    return Vector3<T>(this->x * other, this->y * other, this->z * other);
-  }
-  template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::operator/(T other) const noexcept
-  {
-    return Vector3<T>(this->x / other, this->y / other, this->z / other);
+    return Vector2<T>(this->x - other.x, this->y - other.y);
   }
 
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-  Vector3<T>::operator-() const noexcept
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::operator+(T other) const noexcept
   {
-    return Vector3<T>(-this->x, -this->y, -this->z);
+    return Vector2<T>(this->x + other, this->y + other);
+  }
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::operator-(T other) const noexcept
+  {
+    return Vector2<T>(this->x - other, this->y - other);
+  }
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::operator*(T other) const noexcept
+  {
+    return Vector2<T>(this->x * other, this->y * other);
+  }
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::operator/(T other) const noexcept
+  {
+    return Vector2<T>(this->x / other, this->y / other);
   }
 
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>&
-  Vector3<T>::operator+=(const Vector3<T>& other) noexcept
+  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  Vector2<T>::operator-() const noexcept
+  {
+    return Vector2<T>(-this->x, -this->y);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE Vector2<T>&
+  Vector2<T>::operator+=(const Vector2<T>& other) noexcept
   {
     *this = *this + other;
     return *this;
   }
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>&
-  Vector3<T>::operator-=(const Vector3<T>& other) noexcept
+  NY_FORCE_INLINE Vector2<T>&
+  Vector2<T>::operator-=(const Vector2<T>& other) noexcept
   {
     *this = *this - other;
     return *this;
   }
 
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>&
-  Vector3<T>::operator+=(T other) noexcept
+  NY_FORCE_INLINE Vector2<T>&
+  Vector2<T>::operator+=(T other) noexcept
   {
     *this = *this + other;
     return *this;
   }
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>&
-  Vector3<T>::operator-=(T other) noexcept
+  NY_FORCE_INLINE Vector2<T>&
+  Vector2<T>::operator-=(T other) noexcept
   {
     *this = *this - other;
     return *this;
   }
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>&
-  Vector3<T>::operator*=(T other) noexcept
+  NY_FORCE_INLINE Vector2<T>&
+  Vector2<T>::operator*=(T other) noexcept
   {
     *this = *this * other;
     return *this;
   }
   template<typename T>
-  NY_FORCE_INLINE Vector3<T>&
-  Vector3<T>::operator/=(T other) noexcept
+  NY_FORCE_INLINE Vector2<T>&
+  Vector2<T>::operator/=(T other) noexcept
   {
     *this = *this / other;
     return *this;
@@ -649,28 +651,27 @@ namespace nyEngineSDK
 
   template<typename T>
   NY_FORCE_INLINE NY_NODISCARD bool
-  Vector3<T>::operator==(const Vector3<T>& other) const noexcept
+  Vector2<T>::operator==(const Vector2<T>& other) const noexcept
   {
-    return this->x == other.x && this->y == other.y && this->z == other.z;
+    return this->x == other.x && this->y == other.y;
   }
   template<typename T>
   NY_FORCE_INLINE NY_NODISCARD bool
-  Vector3<T>::operator!=(const Vector3<T>& other) const noexcept
+  Vector2<T>::operator!=(const Vector2<T>& other) const noexcept
   {
     return !(*this == other);
   }
 
   template<typename T>
   template<typename U>
-  Vector3<T>::operator Vector3<U>() const noexcept
+  Vector2<T>::operator Vector2<U>() const noexcept
   {
     if (std::is_same_v<T, U>)
     {
       return *this;
     }
 
-    return Vector3<U>(static_cast<U>(x),
-                      static_cast<U>(y),
-                      static_cast<U>(z));
+    return Vector2<U>(static_cast<U>(x),
+                      static_cast<U>(y));
   }
 } // namespace nyEngineSDK
