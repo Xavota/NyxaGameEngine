@@ -438,11 +438,67 @@ namespace nyEngineSDK
     static const f64L kPIdL;
     /**
      * @brief
+     * The approximate value of pi depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kPi = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kPI;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kPId;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kPIdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kPi only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
+    /**
+     * @brief
      * Pi divided by 180.
      */
     static const f32 kPI_OVER_180;
     static const f64 kPI_OVER_180d;
     static const f64L kPI_OVER_180dL;
+    /**
+     * @brief
+     * Pi divided by 180 depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kPiOver180 = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kPI_OVER_180;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kPI_OVER_180d;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kPI_OVER_180dL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kPiOver180 only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
     /**
      * @brief
      * 180 divided by pi.
@@ -452,11 +508,67 @@ namespace nyEngineSDK
     static const f64L k180_OVER_PIdL;
     /**
      * @brief
+     * 180 divided by pi depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T k180OverPi = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return k180_OVER_PI;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return k180_OVER_PId;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return k180_OVER_PIdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::k180OverPi only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
+    /**
+     * @brief
      * Pi times 2.
      */
     static const f32 k2_PI;
     static const f64 k2_PId;
     static const f64L k2_PIdL;
+    /**
+     * @brief
+     * Pi times 2 depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T k2Pi = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return k2_PI;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return k2_PId;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return k2_PIdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::k2Pi only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
     /**
      * @brief
      * Pi over 2.
@@ -466,6 +578,34 @@ namespace nyEngineSDK
     static const f64L kPI_OVER_2dL;
     /**
      * @brief
+     * Pi over 2 depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kPiOver2 = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kPI_OVER_2;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kPI_OVER_2d;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kPI_OVER_2dL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kPiOver2 only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
+    /**
+     * @brief
      * Pi over 4.
      */
     static const f32 kPI_OVER_4;
@@ -473,37 +613,73 @@ namespace nyEngineSDK
     static const f64L kPI_OVER_4dL;
     /**
      * @brief
+     * Pi over 4 depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kPiOver4 = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kPI_OVER_4;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kPI_OVER_4d;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kPI_OVER_4dL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kPiOver4 only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
+    /**
+     * @brief
      * The value of e.
      */
-    static const f32 kEuler;
-    static const f64 kEulerd;
-    static const f64L kEulerdL;
+    static const f32 kEULER;
+    static const f64 kEULERd;
+    static const f64L kEULERdL;
+    /**
+     * @brief
+     * The value of e depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kEuler = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kEULER;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kEULERd;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kEULERdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kEuler only supports f32, f64 and f64L."
+        );
+      }
+    }();
 
     /**
      * @brief A small tolerance for approximate floating point comparisons.
      */
     static const f32 kFLOAT_SMALL;
-    /**
-     * @brief A very small tolerance for stricter floating point comparisons.
-     */
-    static const f32 kFLOAT_TINY;
-    /**
-     * @brief A small tolerance for approximate floating point comparisons.
-     */
     static const f64 kFLOAT_SMALLd;
-    /**
-     * @brief A very small tolerance for stricter floating point comparisons.
-     */
-    static const f64 kFLOAT_TINYd;
-    /**
-     * @brief A small tolerance for approximate floating point comparisons.
-     */
     static const f64L kFLOAT_SMALLdL;
-    /**
-     * @brief A very small tolerance for stricter floating point comparisons.
-     */
-    static const f64L kFLOAT_TINYdL;
-
     /**
      * @brief  A small tolerance for approximate floating point comparisons,
      *         depending on the type.
@@ -531,7 +707,13 @@ namespace nyEngineSDK
         );
       }
     }();
-
+    
+    /**
+     * @brief A very small tolerance for stricter floating point comparisons.
+     */
+    static const f32 kFLOAT_TINY;
+    static const f64 kFLOAT_TINYd;
+    static const f64L kFLOAT_TINYdL;
     /**
      * @brief  A tiny tolerance for approximate floating point comparisons,
      *         depending on the type.
@@ -576,6 +758,33 @@ namespace nyEngineSDK
      */
     static const f64L kMAX_FLOATdL;
     /**
+     * @brief  The maximum floating point possible depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kMaxFloat = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kMAX_FLOAT;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kMAX_FLOATd;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kMAX_FLOATdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kMaxFloat only supports f32, f64 and f64L."
+        );
+      }
+    }();
+
+    /**
      * @brief
      * The minimum float possible.
      */
@@ -590,69 +799,206 @@ namespace nyEngineSDK
      * The minimum long double possible.
      */
     static const f64L kMIN_FLOATdL;
+    /**
+     * @brief  The minimum floating point possible depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kMinFloat = []()
+    {
+      if constexpr (std::is_same_v<T, f32>)
+      {
+        return kMIN_FLOAT;
+      }
+      else if constexpr (std::is_same_v<T, f64>)
+      {
+        return kMIN_FLOATd;
+      }
+      else if constexpr (std::is_same_v<T, f64L>)
+      {
+        return kMIN_FLOATdL;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kMinFloat only supports f32, f64 and f64L."
+        );
+      }
+    }();
 
     /**
      * @brief
-     * The minimum integer of 8 bits possible.
+     * The minimum signed integer of 8 bits possible.
      */
     static const i8 kMIN_INT_8;
     /**
      * @brief
-     * The minimum integer of 16 bits possible.
+     * The minimum signed integer of 16 bits possible.
      */
     static const i16 kMIN_INT_16;
     /**
      * @brief
-     * The minimum integer of 32 bits possible.
+     * The minimum signed integer of 32 bits possible.
      */
     static const i32 kMIN_INT_32;
     /**
      * @brief
-     * The minimum integer of 64 bits possible.
+     * The minimum signed integer of 64 bits possible.
      */
     static const i64 kMIN_INT_64;
+    /**
+     * @brief  The minimum signed integer possible depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kMinInt = []()
+    {
+      if constexpr (std::is_same_v<T, i8>)
+      {
+        return kMIN_INT_8;
+      }
+      else if constexpr (std::is_same_v<T, i16>)
+      {
+        return kMIN_INT_16;
+      }
+      else if constexpr (std::is_same_v<T, i32>)
+      {
+        return kMIN_INT_32;
+      }
+      else if constexpr (std::is_same_v<T, i64>)
+      {
+        return kMIN_INT_64;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kMinInt only supports i8, i16, i32 and i64."
+        );
+      }
+    }();
 
     /**
      * @brief
-     * The maximum integer of 8 bits possible.
+     * The maximum signed integer of 8 bits possible.
      */
     static const i8 kMAX_INT_8;
     /**
      * @brief
-     * The maximum integer of 16 bits possible.
+     * The maximum signed integer of 16 bits possible.
      */
     static const i16 kMAX_INT_16;
     /**
      * @brief
-     * The maximum integer of 32 bits possible.
+     * The maximum signed integer of 32 bits possible.
      */
     static const i32 kMAX_INT_32;
     /**
      * @brief
-     * The maximum integer of 64 bits possible.
+     * The maximum signed integer of 64 bits possible.
      */
     static const i64 kMAX_INT_64;
+    /**
+     * @brief  The maximum signed integer possible depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kMaxInt = []()
+    {
+      if constexpr (std::is_same_v<T, i8>)
+      {
+        return kMAX_INT_8;
+      }
+      else if constexpr (std::is_same_v<T, i16>)
+      {
+        return kMAX_INT_16;
+      }
+      else if constexpr (std::is_same_v<T, i32>)
+      {
+        return kMAX_INT_32;
+      }
+      else if constexpr (std::is_same_v<T, i64>)
+      {
+        return kMAX_INT_64;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kMaxInt only supports i8, i16, i32 and i64."
+        );
+      }
+    }();
 
     /**
      * @brief
-     * The maximum integer of 8 bits possible.
+     * The maximum unsigned integer of 8 bits possible.
      */
     static const u8 kMAX_UINT_8;
     /**
      * @brief
-     * The maximum integer of 16 bits possible.
+     * The maximum unsigned integer of 16 bits possible.
      */
     static const u16 kMAX_UINT_16;
     /**
      * @brief
-     * The maximum integer of 32 bits possible.
+     * The maximum unsigned integer of 32 bits possible.
      */
     static const u32 kMAX_UINT_32;
     /**
      * @brief
-     * The maximum integer of 64 bits possible.
+     * The maximum unsigned integer of 64 bits possible.
      */
     static const u64 kMAX_UINT_64;
+    /**
+     * @brief  The maximum unsigned integer possible depending on the type.
+     */
+    template<typename T>
+    inline static constexpr T kMaxUint = []()
+    {
+      if constexpr (std::is_same_v<T, u8>)
+      {
+        return kMAX_UINT_8;
+      }
+      else if constexpr (std::is_same_v<T, u16>)
+      {
+        return kMAX_UINT_16;
+      }
+      else if constexpr (std::is_same_v<T, u32>)
+      {
+        return kMAX_UINT_32;
+      }
+      else if constexpr (std::is_same_v<T, u64>)
+      {
+        return kMAX_UINT_64;
+      }
+      else
+      {
+        NY_STATIC_ASSERT(
+          kAlwaysFalse<T>,
+          "Math::kMaxUint only supports u8, u16, u32 and u64."
+        );
+      }
+    }();
+
+    /**
+     * @brief  A linear interpolation function that returns the input value.
+     */
+    template<typename T>
+    constexpr T linear(T t) noexcept;
+    /**
+     * @brief  A quadratic easing function that accelerates from zero velocity.
+     */
+    template<typename T>
+    constexpr T easeInQuad(T t) noexcept;
+    /**
+     * @brief  A quadratic easing function that decelerates to zero velocity.
+     */
+    template<typename T>
+    constexpr T easeOutQuad(T t) noexcept;
+    /**
+     * @brief  A quadratic easing function that accelerates until halfway, then decelerates.
+     */
+    template<typename T>
+    constexpr T smoothStep(T t) noexcept;
   };
 
   template<typename T>
@@ -1004,5 +1350,30 @@ namespace nyEngineSDK
   Math::hasFlag(const V& _val, const F& _flag) noexcept
   {
     return (_val & _flag) == _flag;
+  }
+
+
+  template<typename T>
+  inline constexpr T Math::linear(T t) noexcept
+  {
+    return t;
+  }
+  template<typename T>
+  inline constexpr T Math::easeInQuad(T t) noexcept
+  {
+    T result = t * t;
+    return result;
+  }
+  template<typename T>
+  inline constexpr T Math::easeOutQuad(T t) noexcept
+  {
+    T result = t * (T(2) - t);
+    return result;
+  }
+  template<typename T>
+  inline constexpr T Math::smoothStep(T t) noexcept
+  {
+    T result = t * t * (T(3) - T(2) * t);
+    return result;
   }
 }

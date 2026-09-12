@@ -28,9 +28,9 @@ namespace nyEngineSDK
   const double Math::kPI_OVER_4d = Math::kPId / 4.0;
   const long double Math::kPI_OVER_4dL = Math::kPIdL / 4.0l;
 
-  const float Math::kEuler = Math::exp(1.0f);
-  const double Math::kEulerd = Math::exp(1.0);
-  const long double Math::kEulerdL = Math::exp(1.0l);
+  const float Math::kEULER = Math::exp(1.0f);
+  const double Math::kEULERd = Math::exp(1.0);
+  const long double Math::kEULERdL = Math::exp(1.0l);
 
 
   const float Math::kFLOAT_SMALL = 1e-4f;

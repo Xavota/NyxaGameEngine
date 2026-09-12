@@ -345,6 +345,7 @@
     <ClInclude Include="include\types\nyStatus.hpp" />
     <ClInclude Include="include\types\nyStringView.hpp" />
     <ClInclude Include="include\types\nyTypes.hpp" />
+    <ClInclude Include="nyMatrix2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
