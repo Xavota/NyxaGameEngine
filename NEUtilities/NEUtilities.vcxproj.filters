@@ -185,7 +185,13 @@
     <ClInclude Include="include\math\nyVector4.hpp">
       <Filter>Header Files\math</Filter>
     </ClInclude>
-    <ClInclude Include="nyMatrix2.h">
+    <ClInclude Include="include\math\nyMatrix2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types\nyConcepts.hpp">
+      <Filter>Header Files\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\nyMatrix3.h">
       <Filter>Header Files\math</Filter>
     </ClInclude>
   </ItemGroup>

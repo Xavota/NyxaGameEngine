@@ -13,11 +13,11 @@
 #pragma once
 
 #include <cmath>
-#include <type_traits>
-#include <utility>
 
 #include "macros/nyMacros.hpp"
 #include "macros/nyUtilitiesApi.hpp"
+
+#include "types/nyConcepts.hpp"
 #include "types/nyTypes.hpp"
 
 namespace nyEngineSDK
@@ -443,15 +443,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kPi = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kPI;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kPId;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kPIdL;
       }
@@ -478,15 +478,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kPiOver180 = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kPI_OVER_180;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kPI_OVER_180d;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kPI_OVER_180dL;
       }
@@ -513,15 +513,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T k180OverPi = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return k180_OVER_PI;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return k180_OVER_PId;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return k180_OVER_PIdL;
       }
@@ -548,15 +548,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T k2Pi = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return k2_PI;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return k2_PId;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return k2_PIdL;
       }
@@ -583,15 +583,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kPiOver2 = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kPI_OVER_2;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kPI_OVER_2d;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kPI_OVER_2dL;
       }
@@ -618,15 +618,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kPiOver4 = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kPI_OVER_4;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kPI_OVER_4d;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kPI_OVER_4dL;
       }
@@ -653,15 +653,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kEuler = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kEULER;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kEULERd;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kEULERdL;
       }
@@ -687,15 +687,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kSmallFloat = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kFLOAT_SMALL;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kFLOAT_SMALLd;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kFLOAT_SMALLdL;
       }
@@ -721,15 +721,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kTinyFloat = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kFLOAT_TINY;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kFLOAT_TINYd;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kFLOAT_TINYdL;
       }
@@ -763,15 +763,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kMaxFloat = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kMAX_FLOAT;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kMAX_FLOATd;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kMAX_FLOATdL;
       }
@@ -805,15 +805,15 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kMinFloat = []()
     {
-      if constexpr (std::is_same_v<T, f32>)
+      if constexpr (IsSameV<T, f32>)
       {
         return kMIN_FLOAT;
       }
-      else if constexpr (std::is_same_v<T, f64>)
+      else if constexpr (IsSameV<T, f64>)
       {
         return kMIN_FLOATd;
       }
-      else if constexpr (std::is_same_v<T, f64L>)
+      else if constexpr (IsSameV<T, f64L>)
       {
         return kMIN_FLOATdL;
       }
@@ -852,19 +852,19 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kMinInt = []()
     {
-      if constexpr (std::is_same_v<T, i8>)
+      if constexpr (IsSameV<T, i8>)
       {
         return kMIN_INT_8;
       }
-      else if constexpr (std::is_same_v<T, i16>)
+      else if constexpr (IsSameV<T, i16>)
       {
         return kMIN_INT_16;
       }
-      else if constexpr (std::is_same_v<T, i32>)
+      else if constexpr (IsSameV<T, i32>)
       {
         return kMIN_INT_32;
       }
-      else if constexpr (std::is_same_v<T, i64>)
+      else if constexpr (IsSameV<T, i64>)
       {
         return kMIN_INT_64;
       }
@@ -903,19 +903,19 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kMaxInt = []()
     {
-      if constexpr (std::is_same_v<T, i8>)
+      if constexpr (IsSameV<T, i8>)
       {
         return kMAX_INT_8;
       }
-      else if constexpr (std::is_same_v<T, i16>)
+      else if constexpr (IsSameV<T, i16>)
       {
         return kMAX_INT_16;
       }
-      else if constexpr (std::is_same_v<T, i32>)
+      else if constexpr (IsSameV<T, i32>)
       {
         return kMAX_INT_32;
       }
-      else if constexpr (std::is_same_v<T, i64>)
+      else if constexpr (IsSameV<T, i64>)
       {
         return kMAX_INT_64;
       }
@@ -954,19 +954,19 @@ namespace nyEngineSDK
     template<typename T>
     inline static constexpr T kMaxUint = []()
     {
-      if constexpr (std::is_same_v<T, u8>)
+      if constexpr (IsSameV<T, u8>)
       {
         return kMAX_UINT_8;
       }
-      else if constexpr (std::is_same_v<T, u16>)
+      else if constexpr (IsSameV<T, u16>)
       {
         return kMAX_UINT_16;
       }
-      else if constexpr (std::is_same_v<T, u32>)
+      else if constexpr (IsSameV<T, u32>)
       {
         return kMAX_UINT_32;
       }
-      else if constexpr (std::is_same_v<T, u64>)
+      else if constexpr (IsSameV<T, u64>)
       {
         return kMAX_UINT_64;
       }
@@ -1252,7 +1252,7 @@ namespace nyEngineSDK
   Math::lerp(const T& _a, const T& _b, const Alpha& _alpha) noexcept
   {
     NY_STATIC_ASSERT(
-      std::is_floating_point_v<Alpha>,
+      IsFloatingPointV<Alpha>,
       "Alpha must be a floating-point type."
     );
 
@@ -1265,19 +1265,19 @@ namespace nyEngineSDK
              const Alpha& _alpha, Curve&& _curveFunc) noexcept
   {
     NY_STATIC_ASSERT(
-      std::is_floating_point_v<Alpha>,
+      IsFloatingPointV<Alpha>,
       "Alpha must be a floating-point type."
     );
 
     NY_STATIC_ASSERT(
-      (std::is_nothrow_invocable_v<Curve, Alpha>),
+      (IsNothrowInvocableV<Curve, Alpha>),
       "Curve must be noexcept."
     );
 
-    using R = std::invoke_result_t<Curve, Alpha>;
+    using R = InvokeResultT<Curve, Alpha>;
 
     NY_STATIC_ASSERT(
-      (std::is_convertible_v<R, Alpha>),
+      (IsConvertibleV<R, Alpha>),
       "Curve must return a value convertible to Alpha."
     );
 

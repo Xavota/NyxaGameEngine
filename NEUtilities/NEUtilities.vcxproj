@@ -319,8 +319,10 @@
     <ClInclude Include="include\macros\nyPlatform.hpp" />
     <ClInclude Include="include\macros\nyResultMacros.hpp" />
     <ClInclude Include="include\macros\nyWarnings.hpp" />
+    <ClInclude Include="include\math\nyMatrix3.h" />
     <ClInclude Include="include\math\nyAngle.h" />
     <ClInclude Include="include\math\nyMath.h" />
+    <ClInclude Include="include\math\nyMatrix2.h" />
     <ClInclude Include="include\math\nyVector2.hpp" />
     <ClInclude Include="include\math\nyVector3.hpp" />
     <ClInclude Include="include\math\nyVector4.hpp" />
@@ -337,6 +339,7 @@
     <ClInclude Include="include\thread\nySpinlock.hpp" />
     <ClInclude Include="include\thread\nyThread.hpp" />
     <ClInclude Include="include\thread\nyClock.hpp" />
+    <ClInclude Include="include\types\nyConcepts.hpp" />
     <ClInclude Include="include\types\nyContainers.hpp" />
     <ClInclude Include="include\types\nyHandle.hpp" />
     <ClInclude Include="include\types\nyModule.h" />
@@ -345,7 +348,6 @@
     <ClInclude Include="include\types\nyStatus.hpp" />
     <ClInclude Include="include\types\nyStringView.hpp" />
     <ClInclude Include="include\types\nyTypes.hpp" />
-    <ClInclude Include="nyMatrix2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -1,35 +1,84 @@
+/******************************************************************************/
+/**
+ * @file    nyMatrix2.hpp
+ * @author  Dalia Castellanos
+ * @date    10/09/2026
+ * @brief   Defines the Matrix2 class for numerical operations.
+ *
+ * A simple 2 by 2 matrix class for numerical operations.
+ *
+ * @bug	    No known bugs.
+ */
+ /******************************************************************************/
 #pragma once
 
 #include "macros/nyMacros.hpp"
 #include "macros/nyUtilitiesApi.hpp"
 
-#include "types/nyContainers.hpp"
+#include "types/nyConcepts.hpp"
 #include "types/nyResult.hpp"
-#include "types/nyStatus.hpp"
 
+#include "math/nyAngle.h"
 #include "math/nyVector2.hpp"
 
 namespace nyEngineSDK
 {
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   class NY_API Matrix2
   {
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsNumberV<T>,
+      "Matrix2<T> requires a number type."
+    );
+#endif
+
    public:
     /**
      * @brief  Constructs a 2x2 matrix with the given array.
      */
-    Matrix2(Array<T, 4> _m) : m(_m) {}
+    Matrix2(const Array<T, 4>& _m) : m(_m) {}
     /**
      * @brief  Constructs a 2x2 matrix with the given values.
      */
     Matrix2(const T& _m00, const T& _m01, const T& _m10, const T& _m11) :
     m({ _m00, _m01, _m10, _m11 }) {}
+
     /**
-     * @brief  Constructs a 2x2 matrix with the axis vectors.
+     * @brief  Creates a 2x2 rotation matrix from an angle.
+     * @param  angle  The angle in radians.
+     * @return The resulting matrix.
      */
-    Matrix2(const Vector2<T>& _axisx, const Vector2<T>& _axisy) :
-    m({ _axisx.x, _axisy.x, _axisx.y, _axisy.y }) {}
-    
+    static NY_FORCE_INLINE NY_NODISCARD Matrix2
+    fromAngle(const Angle<T>& angle) noexcept;
+    /**
+     * @brief  Creates a 2x2 matrix from a scale vector.
+     * @param  scale  The scale vector.
+     * @return The resulting matrix.
+     */
+    static NY_FORCE_INLINE NY_NODISCARD Matrix2
+    fromScale(const Vector2<T>& scale) noexcept;
+    /**
+     * @brief  Creates a 2x2 matrix from an angle and a scale vector.
+     * @param  angle  The angle in radians.
+     * @param  scale  The scale vector.
+     * @return The resulting matrix.
+     */
+    static NY_FORCE_INLINE NY_NODISCARD Matrix2
+    fromAngleScale(const Angle<T>& angle, const Vector2<T>& scale) noexcept;
+    /**
+     * @brief  Creates a 2x2 matrix from two world axis vectors.
+     * @param  axisX  The x-axis vector.
+     * @param  axisY  The y-axis vector.
+     * @return The resulting matrix.
+     */
+    static NY_FORCE_INLINE NY_NODISCARD Matrix2
+    fromWorldAxis(const Vector2<T>& axisX, const Vector2<T>& axisY) noexcept;
+
     /**
      * @brief  Multiplies two matrices and returns the result.
      * @param  a  The first matrix.
@@ -64,7 +113,7 @@ namespace nyEngineSDK
      * @brief  Returns the determinant of this matrix.
      * @return The determinant.
      */
-    template<typename R = std::conditional_t<std::is_integral_v<T>, f32, T>>
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
     NY_FORCE_INLINE NY_NODISCARD R
     determinant() const noexcept;
 
@@ -154,10 +203,44 @@ namespace nyEngineSDK
 
   template<typename T>
   NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
+  Matrix2<T>::fromAngle(const Angle<T>& angle) noexcept
+  {
+    return Matrix2(angle.cos(), -angle.sin(),
+                   angle.sin(),  angle.cos());
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
+  Matrix2<T>::fromScale(const Vector2<T>& scale) noexcept
+  {
+    return Matrix2(scale.x, T(0), T(0), scale.y);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
+  Matrix2<T>::fromAngleScale(const Angle<T>& angle, const Vector2<T>& scale) noexcept
+  {
+    return Matrix2(scale.x * angle.cos(), -scale.y * angle.sin(),
+                   scale.x * angle.sin(),  scale.y * angle.cos());
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
+  Matrix2<T>::fromWorldAxis(const Vector2<T>& axisX, const Vector2<T>& axisY) noexcept
+  {
+    return Matrix2(axisX.x, axisY.x,
+                   axisX.y, axisY.y);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
   Matrix2<T>::multiply(const Matrix2<T>& a, const Matrix2<T>& b) noexcept
   {
-    return Matrix2(a.m[0] * b.m[0] + a.m[1] * b.m[2], a.m[0] * b.m[1] + a.m[1] * b.m[3],
-                   a.m[2] * b.m[0] + a.m[3] * b.m[2], a.m[2] * b.m[1] + a.m[3] * b.m[3]);
+    return Matrix2(a.m00 * b.m00 + a.m01 * b.m10,
+                   a.m00 * b.m01 + a.m01 * b.m11,
+
+                   a.m10 * b.m00 + a.m11 * b.m10,
+                   a.m10 * b.m01 + a.m11 * b.m11);
   }
 
   template<typename T>
@@ -186,7 +269,8 @@ namespace nyEngineSDK
     const T det = determinant();
     if (det < Math::kTinyFloat<R>)
     {
-      return Status.error(LogLevel::Warning, "Matrix is singular and cannot be inverted.");
+      return Status.error(LogLevel::Warning,
+                          "Matrix is singular and cannot be inverted.");
     }
     const T invDet = T(1) / det;
     return Matrix2(m11, -m01, -m10, m00) * invDet;
@@ -202,13 +286,15 @@ namespace nyEngineSDK
   NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
   Matrix2<T>::operator+(const Matrix2<T>& other) const noexcept
   {
-    return Matrix2(m00 + other.m00, m01 + other.m01, m10 + other.m10, m11 + other.m11);
+    return Matrix2(m00 + other.m00, m01 + other.m01,
+                   m10 + other.m10, m11 + other.m11);
   }
   template<typename T>
   NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
   Matrix2<T>::operator-(const Matrix2<T>& other) const noexcept
   {
-    return Matrix2(m00 - other.m00, m01 - other.m01, m10 - other.m10, m11 - other.m11);
+    return Matrix2(m00 - other.m00, m01 - other.m01,
+                   m10 - other.m10, m11 - other.m11);
   }
   template<typename T>
   NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
@@ -256,6 +342,7 @@ namespace nyEngineSDK
   NY_FORCE_INLINE NY_NODISCARD R
   Matrix2<T>::determinant() const noexcept
   {
-    return R(m00 * m11 - m01 * m10);
+    return static_cast<R>(m00) * static_cast<R>(m11) -
+           static_cast<R>(m01) * static_cast<R>(m10);
   }
 }

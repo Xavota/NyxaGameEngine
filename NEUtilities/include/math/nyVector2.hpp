@@ -13,11 +13,11 @@
 #pragma once
 
 #include <string>
-#include <type_traits>
 
 #include "macros/nyUtilitiesApi.hpp"
 #include "macros/nyMacros.hpp"
 
+#include "types/nyConcepts.hpp"
 #include "types/nyContainers.hpp"
 #include "types/nyTypes.hpp"
 #include "types/nyStatus.hpp"
@@ -31,9 +31,20 @@ namespace nyEngineSDK
    * @brief A simple 2D vector class for geometrical operations.
    * @bug No known bugs
    */
-  template <typename T>
+#if NY_CPP20
+  template<Number T>
+#else
+  template<typename T>
+#endif
   class NY_API Vector2
   {
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsNumberV<T>,
+      "Vector2<T> requires a number type."
+    );
+#endif
+
    public:
     /**
      * @brief The default constructor for a Vector2 object, initializing all
@@ -95,7 +106,7 @@ namespace nyEngineSDK
      * @param  other  The other point for the distance calculation.
      * @return The distance between this point and the other point.
      */
-    template<typename R = std::conditional_t<std::is_integral_v<T>, f32, T>>
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
     NY_FORCE_INLINE NY_NODISCARD R
     getDistance(const Vector2<T>& other) const noexcept;
     /**
@@ -109,7 +120,7 @@ namespace nyEngineSDK
      * @brief  Returns the length of the vector in space.
      * @return The length of the vector.
      */
-    template<typename R = std::conditional_t<std::is_integral_v<T>, f32, T>>
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
     NY_FORCE_INLINE NY_NODISCARD R
     getMagnitude() const noexcept;
     /**
@@ -132,7 +143,7 @@ namespace nyEngineSDK
      * @param  newSize  The desired size of the new vector.
      * @return The vector truncated with the new size.
      */
-    template<typename R = std::conditional_t<std::is_integral_v<T>, f32, T>>
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
     NY_FORCE_INLINE NY_NODISCARD Vector2<R>
     getTruncated(R newSize) const noexcept;
     /**
@@ -178,7 +189,7 @@ namespace nyEngineSDK
      * @param  alpha  The interpolation factor (0.0f to 1.0f).
      * @return The interpolated vector between a and b.
      */
-    template<typename Alpha = std::conditional_t<std::is_integral_v<T>, f32, T>>
+    template<typename Alpha = ConditionalT<IsIntegerV<T>, f32, T>>
     static NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
     lerp(const Vector2<T>& a, const Vector2<T>& b, Alpha alpha) noexcept;
     /**
@@ -191,7 +202,7 @@ namespace nyEngineSDK
      *                     create a custom interpolation curve.
      * @return The interpolated vector between a and b.
      */
-    template<typename Alpha = std::conditional_t<std::is_integral_v<T>, f32, T>,
+    template<typename Alpha = ConditionalT<IsIntegerV<T>, f32, T>,
              typename Curve>
     static NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
     lerp(const Vector2<T>& a, const Vector2<T>& b,
@@ -524,7 +535,7 @@ namespace nyEngineSDK
   NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
   Vector2<T>::lerp(const Vector2<T>& a, const Vector2<T>& b, Alpha alpha) noexcept
   {
-    NY_STATIC_ASSERT(std::is_floating_point_v<Alpha>);
+    NY_STATIC_ASSERT(IsFloatingPointV<Alpha>);
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
@@ -541,7 +552,7 @@ namespace nyEngineSDK
   Vector2<T>::lerp(const Vector2<T>& a, const Vector2<T>& b,
                    Alpha alpha, Curve&& curveFunc) noexcept
   {
-    NY_STATIC_ASSERT(std::is_floating_point_v<Alpha>);
+    NY_STATIC_ASSERT(IsFloatingPointV<Alpha>);
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
@@ -666,7 +677,7 @@ namespace nyEngineSDK
   template<typename U>
   Vector2<T>::operator Vector2<U>() const noexcept
   {
-    if (std::is_same_v<T, U>)
+    if (IsSameV<T, U>)
     {
       return *this;
     }
