@@ -2,7 +2,7 @@
 /**
  * @file    nyMatrix3.hpp
  * @author  Dalia Castellanos
- * @date    10/09/2026
+ * @date    12/09/2026
  * @brief   Defines the Matrix3 class for numerical operations.
  *
  * A simple 3 by 3 matrix class for numerical operations.
@@ -187,11 +187,24 @@ namespace nyEngineSDK
     transpose() noexcept;
 
     /**
+     * @brief  Returns the cofactor matrix of this matrix.
+     * @return The cofactor matrix.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Matrix3
+    getCofactor() const noexcept;
+
+    /**
+     * @brief  Returns the adjoint matrix of this matrix.
+     * @return The adjoint matrix.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Matrix3
+    getAdjoint() const noexcept;
+
+    /**
      * @brief  Returns the determinant of this matrix.
      * @return The determinant.
      */
-    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
-    NY_FORCE_INLINE NY_NODISCARD R
+    NY_FORCE_INLINE NY_NODISCARD T
     determinant() const noexcept;
 
     /**
@@ -373,7 +386,7 @@ namespace nyEngineSDK
                                const Vector3<T>& scale) noexcept
   {
     Matrix3<T> rotationMat = Matrix3<T>::fromAngle3D(angles);
-    Matrix3<T> scaleMat = Matrix3<T>::fromScale3D(angles);
+    Matrix3<T> scaleMat = Matrix3<T>::fromScale3D(scale);
     return rotationMat * scaleMat;
   }
 
@@ -428,16 +441,48 @@ namespace nyEngineSDK
   }
 
   template<typename T>
-  template<typename R>
-  NY_FORCE_INLINE NY_NODISCARD R
+  NY_FORCE_INLINE NY_NODISCARD Matrix3<T>
+  Matrix3<T>::getCofactor() const noexcept
+  {
+    T c00 = Matrix2<T>(m11, m12,
+                       m21, m22).determinant();
+    T c01 = Matrix2<T>(m10, m12,
+                       m20, m22).determinant();
+    T c02 = Matrix2<T>(m10, m11,
+                       m20, m21).determinant();
+
+    T c10 = Matrix2<T>(m01, m02,
+                       m21, m22).determinant();
+    T c11 = Matrix2<T>(m00, m02,
+                       m20, m22).determinant();
+    T c12 = Matrix2<T>(m00, m01,
+                       m20, m21).determinant();
+
+    T c20 = Matrix2<T>(m01, m02,
+                       m11, m12).determinant();
+    T c21 = Matrix2<T>(m00, m02,
+                       m10, m12).determinant();
+    T c22 = Matrix2<T>(m00, m01,
+                       m10, m11).determinant();
+
+    return Matrix3( c00, -c01,  c02,
+                   -c10,  c11, -c12,
+                    c20, -c21,  c22);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Matrix3<T>
+  Matrix3<T>::getAdjoint() const noexcept
+  {
+    return getCofactor().getTransposed();
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD T
   Matrix3<T>::determinant() const noexcept
   {
-    return static_cast<R>(m00) * static_cast<R>(m11) * static_cast<R>(m22) +
-           static_cast<R>(m01) * static_cast<R>(m12) * static_cast<R>(m20) +
-           static_cast<R>(m02) * static_cast<R>(m10) * static_cast<R>(m21) -
-           static_cast<R>(m02) * static_cast<R>(m11) * static_cast<R>(m20) -
-           static_cast<R>(m00) * static_cast<R>(m12) * static_cast<R>(m21) -
-           static_cast<R>(m01) * static_cast<R>(m10) * static_cast<R>(m22);
+    return m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21 -
+           m02 * m11 * m20 - m00 * m12 * m21 - m01 * m10 * m22;
   }
 
   template<typename T>
@@ -451,7 +496,7 @@ namespace nyEngineSDK
                           "Matrix is singular and cannot be inverted.");
     }
     const T invDet = T(1) / det;
-    return Matrix3(m11, -m01, -m10, m00) * invDet; // TODO: Implement full 3x3 matrix inversion
+    return getAdjoint() * invDet;
   }
   template<typename T>
   NY_FORCE_INLINE NY_NODISCARD Result<Matrix3<T>&>

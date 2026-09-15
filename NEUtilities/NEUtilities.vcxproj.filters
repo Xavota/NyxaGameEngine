@@ -194,6 +194,9 @@
     <ClInclude Include="include\math\nyMatrix3.h">
       <Filter>Header Files\math</Filter>
     </ClInclude>
+    <ClInclude Include="include\math\nyMatrix4.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

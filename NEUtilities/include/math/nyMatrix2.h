@@ -110,11 +110,24 @@ namespace nyEngineSDK
     transpose() noexcept;
 
     /**
+     * @brief  Returns the cofactor matrix of this matrix.
+     * @return The cofactor matrix.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Matrix2
+    getCofactor() const noexcept;
+
+    /**
+     * @brief  Returns the adjoint matrix of this matrix.
+     * @return The adjoint matrix.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Matrix2
+    getAdjoint() const noexcept;
+
+    /**
      * @brief  Returns the determinant of this matrix.
      * @return The determinant.
      */
-    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
-    NY_FORCE_INLINE NY_NODISCARD R
+    NY_FORCE_INLINE NY_NODISCARD T
     determinant() const noexcept;
 
     /**
@@ -263,6 +276,26 @@ namespace nyEngineSDK
     return *this;
   }
   template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
+  Matrix2<T>::getCofactor() const noexcept
+  {
+    return Matrix2( m11, -m10,
+                   -m01, m00);
+  }
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Matrix2<T>
+  Matrix2<T>::getAdjoint() const noexcept
+  {
+    return getCofactor().getTransposed();
+  }
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD T
+  Matrix2<T>::determinant() const noexcept
+  {
+    return m00 * m11 -
+           m01 * m10;
+  }
+  template<typename T>
   NY_FORCE_INLINE NY_NODISCARD Result<Matrix2<T>>
   Matrix2<T>::getInversed() const noexcept
   {
@@ -273,7 +306,7 @@ namespace nyEngineSDK
                           "Matrix is singular and cannot be inverted.");
     }
     const T invDet = T(1) / det;
-    return Matrix2(m11, -m01, -m10, m00) * invDet;
+    return getAdjoint() * invDet;
   }
   template<typename T>
   NY_FORCE_INLINE NY_NODISCARD Result<Matrix2<T>&>
@@ -335,14 +368,5 @@ namespace nyEngineSDK
   {
     *this = *this * scale;
     return *this;
-  }
-
-  template<typename T>
-  template<typename R>
-  NY_FORCE_INLINE NY_NODISCARD R
-  Matrix2<T>::determinant() const noexcept
-  {
-    return static_cast<R>(m00) * static_cast<R>(m11) -
-           static_cast<R>(m01) * static_cast<R>(m10);
   }
 }
