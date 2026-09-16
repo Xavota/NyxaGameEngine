@@ -324,6 +324,7 @@
     <ClInclude Include="include\math\nyMath.h" />
     <ClInclude Include="include\math\nyMatrix2.h" />
     <ClInclude Include="include\math\nyMatrix4.h" />
+    <ClInclude Include="include\math\nyQuaternion.h" />
     <ClInclude Include="include\math\nyVector2.hpp" />
     <ClInclude Include="include\math\nyVector3.hpp" />
     <ClInclude Include="include\math\nyVector4.hpp" />
