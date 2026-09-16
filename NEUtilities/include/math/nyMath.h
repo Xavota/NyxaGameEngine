@@ -310,13 +310,33 @@ namespace nyEngineSDK
     static NY_FORCE_INLINE NY_NODISCARD T
     pow(const T& _base, const T& _power) noexcept;
     /**
-     * @brief  The exponential operation, returns e to the power of the given value.
+     * @brief  The exponential operation, returns e to the power of the
+     *         given value.
      * @param  _power  The exponent of the base.
      * @return The result of the exponential operation.
      */
     template<typename T>
     static NY_FORCE_INLINE NY_NODISCARD T
     exp(const T& _power) noexcept;
+    /**
+     * @brief  The natural logarithm operation, returns the natural logarithm
+     *         of the given value.
+     * @param  _val  The value for the logarithm.
+     * @return The result of the logarithm operation.
+     */
+    template<typename T>
+    static NY_FORCE_INLINE NY_NODISCARD T
+    log(const T& _val) noexcept;
+    /**
+     * @brief  The logarithm operation, returns the logarithm of the
+     *         given value with the specified base.
+     * @param  _base  The base of the logarithm.
+     * @param  _val  The value for the logarithm.
+     * @return The result of the logarithm operation.
+     */
+    template<typename T>
+    static NY_FORCE_INLINE NY_NODISCARD T
+    log(const T& _base, const T& _val) noexcept;
     /**
      * @brief  Linearly interpolates between two values based on the given
      *         alpha value.
@@ -1245,6 +1265,20 @@ namespace nyEngineSDK
   Math::exp(const T& _power) noexcept
   {
     return std::exp(_power);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD T
+  Math::log(const T& _val) noexcept
+  {
+    return std::log(_val);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD T
+  Math::log(const T& _base, const T& _val) noexcept
+  {
+    return std::log(_val) / std::log(_base);
   }
 
   template<typename T, typename Alpha>

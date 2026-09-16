@@ -14,12 +14,15 @@
 
 #include <string>
 
+#include "nyModuleName.hpp"
+
 #include "macros/nyUtilitiesApi.hpp"
 #include "macros/nyMacros.hpp"
 
 #include "types/nyConcepts.hpp"
 #include "types/nyContainers.hpp"
 #include "types/nyTypes.hpp"
+#include "types/nyResult.hpp"
 
 #include "math/nyAngle.h"
 #include "math/nyMath.h"
@@ -160,11 +163,39 @@ namespace nyEngineSDK
     NY_FORCE_INLINE NY_NODISCARD Vector3<T>
     getVectorPart() const noexcept;
     /**
-     * @brief  Returns the sign of the quaternion.
-     * @return The sign of the quaternion.
+     * @brief  Returns the argument (angle) of the quaternion in radians.
+     * @return The argument (angle) of the quaternion in radians.
      */
-    NY_FORCE_INLINE NY_NODISCARD T
-    getSign() const noexcept;
+    NY_FORCE_INLINE NY_NODISCARD Result<Quaternion<T>>
+    getArgument() const noexcept;
+
+    /**
+     * @brief  Returns the natural logarithm of the quaternion.
+     * @return The natural logarithm of the quaternion.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+    log() const noexcept;
+    /**
+     * @brief  Returns the logarithm of the quaternion with a specified base.
+     * @param  base  The base of the logarithm.
+     * @return The logarithm of the quaternion with the specified base.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+    log(T base) const noexcept;
+    /**
+     * @brief  Returns the exponential of the quaternion.
+     * @return The exponential of the quaternion.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+    exp() const noexcept;
+    /**
+     * @brief  Returns the quaternion raised to a specified power,
+     *         using the formula q^exponent = exp(exponent * log(q)).
+     * @param  exponent  The power to raise the quaternion to.
+     * @return The quaternion raised to the specified power.
+     */
+    NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+    pow(T exponent) const noexcept;
 
     /**
      * @brief  Spherically interpolates between two quaternions based on the
@@ -421,8 +452,12 @@ namespace nyEngineSDK
   NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
   Quaternion<T>::getInverse() const noexcept
   {
-    Quaternion<T> conjugate = getConjugate();
     T normSquared = getSqrNorm();
+    if (normSquared < Math::kTinyFloat<T>)
+    {
+      return Quaternion<T>::kZERO;
+    }
+    Quaternion<T> conjugate = getConjugate();
     return Quaternion<T>(conjugate.w / normSquared, conjugate.x / normSquared,
                          conjugate.y / normSquared, conjugate.z / normSquared);
   }
@@ -445,6 +480,72 @@ namespace nyEngineSDK
   }
 
   template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Vector3<T>
+  Quaternion<T>::getVectorPart() const noexcept
+  {
+    return Vector3<T>(this->x, this->y, this->z);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Result<Quaternion<T>>
+  Quaternion<T>::getArgument() const noexcept
+  {
+    T norm = getNorm();
+    if (norm < Math::kTinyFloat<T>)
+    {
+      return Status::error(LogLevel::Warning, kModule,
+                           "Can't get argument of zero quaternion");
+    }
+    return Math::acos(w / norm);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+  Quaternion<T>::log() const noexcept
+  {
+    T m = getVectorPart().getMagnitude();
+    T t = m < Math::kTinyFloat<T> ? T(0) : Math::atan2(m, w) / m;
+
+    Quaternion<T> r;
+
+    r.w = T(0.5) * Math::log(getSqrNorm());
+    r.x = x * t;
+    r.y = y * t;
+    r.z = z * t;
+    return r;
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+  Quaternion<T>::log(T base) const noexcept
+  {
+    return log().getScaled(T(1) / Math::log(base));
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+  Quaternion<T>::exp() const noexcept
+  {
+    T m = getVectorPart().getMagnitude();
+    T et = Math::exp(w);
+    T s = m < Math::kTinyFloat<T> ? T(0) : et * Math::sin(m) / m;
+
+    Quaternion<T> r;
+    r.w = et * Math::cos(m);
+    r.x = x * s;
+    r.y = y * s;
+    r.z = z * s;
+    return r;
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
+  Quaternion<T>::pow(T exponent) const noexcept
+  {
+    return log().getScaled(exponent).exp();
+  }
+
+  template<typename T>
   NY_FORCE_INLINE NY_NODISCARD Quaternion<T>
   Quaternion<T>::slerp(const Quaternion<T>& a, const Quaternion<T>& b,
                        T alpha, bool allowFlip) noexcept
@@ -453,13 +554,13 @@ namespace nyEngineSDK
 
     T c1, c2;
     // Linear interpolation for close orientations
-    if ((T(1) - Math.abs(cosAngle)) < Math::kSmallFloat<T>) {
+    if ((T(1) - Math::abs(cosAngle)) < Math::kSmallFloat<T>) {
       c1 = T(1) - alpha;
       c2 = alpha;
     }
     else {
       // Spherical interpolation
-      T angle = Math::acos(Math.abs(cosAngle));
+      T angle = Math::acos(Math::abs(cosAngle));
       T sinAngle = Math::sin(angle);
       c1 = Math::sin(angle * (T(1) - alpha)) / sinAngle;
       c2 = Math::sin(angle * alpha) / sinAngle;
@@ -585,15 +686,15 @@ namespace nyEngineSDK
     Matrix4<T> r;
 
     r.m00 = 1 - 2 * (y * y + z * z);
-    r.m10 = 2 * (x * y - z * w);
-    r.m20 = 2 * (x * z + y * w);
+    r.m10 =     2 * (x * y - z * w);
+    r.m20 =     2 * (x * z + y * w);
 
-    r.m01 = 2 * (x * y + z * w);
+    r.m01 =     2 * (x * y + z * w);
     r.m11 = 1 - 2 * (x * x + z * z);
-    r.m21 = 2 * (y * z - x * w);
+    r.m21 =     2 * (y * z - x * w);
 
-    r.m02 = 2 * (x * z - y * w);
-    r.m12 = 2 * (y * z + x * w);
+    r.m02 =     2 * (x * z - y * w);
+    r.m12 =     2 * (y * z + x * w);
     r.m22 = 1 - 2 * (x * x + y * y);
 
     r.m03 = r.m13 = r.m23 = 0;//right column

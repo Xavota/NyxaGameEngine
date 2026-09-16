@@ -14,6 +14,8 @@
 
 #include <string>
 
+#include "nyModuleName.hpp"
+
 #include "macros/nyUtilitiesApi.hpp"
 #include "macros/nyMacros.hpp"
 
@@ -503,7 +505,8 @@ namespace nyEngineSDK
     const T sqrMagnitude = b.getSqrMagnitud();
     if (sqrMagnitude < Math::kTinyFloat<T>)
     {
-      return Status::error("Cannot project vector onto zero vector.");
+      return Status::error(LogLevel::Warning, kModule,
+                           "Cannot project vector onto zero vector.");
     }
     return b * (a.dot(b) / sqrMagnitude);
   }
@@ -525,7 +528,8 @@ namespace nyEngineSDK
     const T sqrMagnitude = b.getSqrMagnitud();
     if (sqrMagnitude < Math::kTinyFloat<T>)
     {
-      return Status::error("Cannot reflect vector with zero normal.");
+      return Status::error(LogLevel::Warning, kModule,
+                           "Cannot reflect vector with zero normal.");
     }
     return a - (b * (2.0f * a.dot(b) / sqrMagnitude));
   }
