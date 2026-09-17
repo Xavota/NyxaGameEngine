@@ -13,6 +13,7 @@
 #pragma once
 
 #include <cmath>
+#include <limits>
 
 #include "macros/nyMacros.hpp"
 #include "macros/nyUtilitiesApi.hpp"
@@ -453,9 +454,9 @@ namespace nyEngineSDK
      * @brief
      * The approximate value of pi.
      */
-    static const f32 kPI;
-    static const f64 kPId;
-    static const f64L kPIdL;
+    inline static constexpr f32 kPI = 3.14159265358979323846f;
+    inline static constexpr f64 kPId = 3.141592653589793238462643383279502884;
+    inline static constexpr f64L kPIdL = 3.141592653589793238462643383279502884L;
     /**
      * @brief
      * The approximate value of pi depending on the type.
@@ -488,9 +489,9 @@ namespace nyEngineSDK
      * @brief
      * Pi divided by 180.
      */
-    static const f32 kPI_OVER_180;
-    static const f64 kPI_OVER_180d;
-    static const f64L kPI_OVER_180dL;
+    static constexpr f32 kPI_OVER_180 = Math::kPI / 180.0f;
+    static constexpr f64 kPI_OVER_180d = Math::kPId / 180.0;
+    static constexpr f64L kPI_OVER_180dL = Math::kPIdL / 180.0l;
     /**
      * @brief
      * Pi divided by 180 depending on the type.
@@ -523,9 +524,9 @@ namespace nyEngineSDK
      * @brief
      * 180 divided by pi.
      */
-    static const f32 k180_OVER_PI;
-    static const f64 k180_OVER_PId;
-    static const f64L k180_OVER_PIdL;
+    static constexpr f32 k180_OVER_PI = 180.0f / Math::kPI;
+    static constexpr f64 k180_OVER_PId = 180.0 / Math::kPId;
+    static constexpr f64L k180_OVER_PIdL = 180.0l / Math::kPIdL;
     /**
      * @brief
      * 180 divided by pi depending on the type.
@@ -558,9 +559,9 @@ namespace nyEngineSDK
      * @brief
      * Pi times 2.
      */
-    static const f32 k2_PI;
-    static const f64 k2_PId;
-    static const f64L k2_PIdL;
+    static constexpr f32 k2_PI = Math::kPI * 2.0f;
+    static constexpr f64 k2_PId = Math::kPId * 2.0;
+    static constexpr f64L k2_PIdL = Math::kPIdL * 2.0l;
     /**
      * @brief
      * Pi times 2 depending on the type.
@@ -593,9 +594,9 @@ namespace nyEngineSDK
      * @brief
      * Pi over 2.
      */
-    static const f32 kPI_OVER_2;
-    static const f64 kPI_OVER_2d;
-    static const f64L kPI_OVER_2dL;
+    static constexpr f32 kPI_OVER_2 = Math::kPI / 2.0f;
+    static constexpr f64 kPI_OVER_2d = Math::kPId / 2.0;
+    static constexpr f64L kPI_OVER_2dL = Math::kPIdL / 2.0l;
     /**
      * @brief
      * Pi over 2 depending on the type.
@@ -628,9 +629,9 @@ namespace nyEngineSDK
      * @brief
      * Pi over 4.
      */
-    static const f32 kPI_OVER_4;
-    static const f64 kPI_OVER_4d;
-    static const f64L kPI_OVER_4dL;
+    static constexpr f32 kPI_OVER_4 = Math::kPI / 4.0f;
+    static constexpr f64 kPI_OVER_4d = Math::kPId / 4.0;
+    static constexpr f64L kPI_OVER_4dL = Math::kPIdL / 4.0l;
     /**
      * @brief
      * Pi over 4 depending on the type.
@@ -663,33 +664,33 @@ namespace nyEngineSDK
      * @brief
      * The value of e.
      */
-    static const f32 kEULER;
-    static const f64 kEULERd;
-    static const f64L kEULERdL;
+    static constexpr f32 kEULER_NUMBER = 2.71828182845904523536f;
+    static constexpr f64 kEULER_NUMBERd = 2.718281828459045235360287471352662498;
+    static constexpr f64L kEULER_NUMBERdL = 2.718281828459045235360287471352662498L;
     /**
      * @brief
      * The value of e depending on the type.
      */
     template<typename T>
-    inline static constexpr T kEuler = []()
+    inline static constexpr T kEulerNumber = []()
     {
       if constexpr (IsSameV<T, f32>)
       {
-        return kEULER;
+        return kEULER_NUMBER;
       }
       else if constexpr (IsSameV<T, f64>)
       {
-        return kEULERd;
+        return kEULER_NUMBERd;
       }
       else if constexpr (IsSameV<T, f64L>)
       {
-        return kEULERdL;
+        return kEULER_NUMBERdL;
       }
       else
       {
         NY_STATIC_ASSERT(
           kAlwaysFalse<T>,
-          "Math::kEuler only supports f32, f64 and f64L."
+          "Math::kEulerNumber only supports f32, f64 and f64L."
         );
       }
     }();
@@ -697,9 +698,9 @@ namespace nyEngineSDK
     /**
      * @brief A small tolerance for approximate floating point comparisons.
      */
-    static const f32 kFLOAT_SMALL;
-    static const f64 kFLOAT_SMALLd;
-    static const f64L kFLOAT_SMALLdL;
+    static constexpr f32 kFLOAT_SMALL = 1e-4f;
+    static constexpr f64 kFLOAT_SMALLd = 1e-8;
+    static constexpr f64L kFLOAT_SMALLdL = 1e-10l;
     /**
      * @brief  A small tolerance for approximate floating point comparisons,
      *         depending on the type.
@@ -731,9 +732,9 @@ namespace nyEngineSDK
     /**
      * @brief A very small tolerance for stricter floating point comparisons.
      */
-    static const f32 kFLOAT_TINY;
-    static const f64 kFLOAT_TINYd;
-    static const f64L kFLOAT_TINYdL;
+    static constexpr f32 kFLOAT_TINY = 1e-6f;
+    static constexpr f64 kFLOAT_TINYd = 1e-12;
+    static constexpr f64L kFLOAT_TINYdL = 1e-15L;
     /**
      * @brief  A tiny tolerance for approximate floating point comparisons,
      *         depending on the type.
@@ -766,17 +767,17 @@ namespace nyEngineSDK
      * @brief
      * The maximum float possible.
      */
-    static const f32 kMAX_FLOAT;
+    static constexpr f32 kMAX_FLOAT = std::numeric_limits<f32>::max();
     /**
      * @brief
      * The maximum double possible.
      */
-    static const f64 kMAX_FLOATd;
+    static constexpr f64 kMAX_FLOATd = std::numeric_limits<f64>::max();
     /**
      * @brief
      * The maximum long double possible.
      */
-    static const f64L kMAX_FLOATdL;
+    static constexpr f64L kMAX_FLOATdL = std::numeric_limits<f64L>::max();
     /**
      * @brief  The maximum floating point possible depending on the type.
      */
@@ -808,17 +809,17 @@ namespace nyEngineSDK
      * @brief
      * The minimum float possible.
      */
-    static const f32 kMIN_FLOAT;
+    static constexpr f32 kMIN_FLOAT = std::numeric_limits<f32>::lowest();
     /**
      * @brief
      * The minimum double possible.
      */
-    static const f64 kMIN_FLOATd;
+    static constexpr f64 kMIN_FLOATd = std::numeric_limits<f64>::lowest();
     /**
      * @brief
      * The minimum long double possible.
      */
-    static const f64L kMIN_FLOATdL;
+    static constexpr f64L kMIN_FLOATdL = std::numeric_limits<f64L>::lowest();
     /**
      * @brief  The minimum floating point possible depending on the type.
      */
@@ -850,22 +851,22 @@ namespace nyEngineSDK
      * @brief
      * The minimum signed integer of 8 bits possible.
      */
-    static const i8 kMIN_INT_8;
+    static constexpr i8 kMIN_INT_8 = std::numeric_limits<i8>::min();
     /**
      * @brief
      * The minimum signed integer of 16 bits possible.
      */
-    static const i16 kMIN_INT_16;
+    static constexpr i16 kMIN_INT_16 = std::numeric_limits<i16>::min();
     /**
      * @brief
      * The minimum signed integer of 32 bits possible.
      */
-    static const i32 kMIN_INT_32;
+    static constexpr i32 kMIN_INT_32 = std::numeric_limits<i32>::min();
     /**
      * @brief
      * The minimum signed integer of 64 bits possible.
      */
-    static const i64 kMIN_INT_64;
+    static constexpr i64 kMIN_INT_64 = std::numeric_limits<i64>::min();
     /**
      * @brief  The minimum signed integer possible depending on the type.
      */
@@ -901,22 +902,22 @@ namespace nyEngineSDK
      * @brief
      * The maximum signed integer of 8 bits possible.
      */
-    static const i8 kMAX_INT_8;
+    static constexpr i8 kMAX_INT_8 = std::numeric_limits<i8>::max();
     /**
      * @brief
      * The maximum signed integer of 16 bits possible.
      */
-    static const i16 kMAX_INT_16;
+    static constexpr i16 kMAX_INT_16 = std::numeric_limits<i16>::max();
     /**
      * @brief
      * The maximum signed integer of 32 bits possible.
      */
-    static const i32 kMAX_INT_32;
+    static constexpr i32 kMAX_INT_32 = std::numeric_limits<i32>::max();
     /**
      * @brief
      * The maximum signed integer of 64 bits possible.
      */
-    static const i64 kMAX_INT_64;
+    static constexpr i64 kMAX_INT_64 = std::numeric_limits<i64>::max();
     /**
      * @brief  The maximum signed integer possible depending on the type.
      */
@@ -952,22 +953,22 @@ namespace nyEngineSDK
      * @brief
      * The maximum unsigned integer of 8 bits possible.
      */
-    static const u8 kMAX_UINT_8;
+    static constexpr u8 kMAX_UINT_8 = std::numeric_limits<u8>::max();
     /**
      * @brief
      * The maximum unsigned integer of 16 bits possible.
      */
-    static const u16 kMAX_UINT_16;
+    static constexpr u16 kMAX_UINT_16 = std::numeric_limits<u16>::max();
     /**
      * @brief
      * The maximum unsigned integer of 32 bits possible.
      */
-    static const u32 kMAX_UINT_32;
+    static constexpr u32 kMAX_UINT_32 = std::numeric_limits<u32>::max();
     /**
      * @brief
      * The maximum unsigned integer of 64 bits possible.
      */
-    static const u64 kMAX_UINT_64;
+    static constexpr u64 kMAX_UINT_64 = std::numeric_limits<u64>::max();
     /**
      * @brief  The maximum unsigned integer possible depending on the type.
      */
@@ -1003,22 +1004,22 @@ namespace nyEngineSDK
      * @brief  A linear interpolation function that returns the input value.
      */
     template<typename T>
-    constexpr T linear(T t) noexcept;
+    static constexpr T linear(T t) noexcept;
     /**
      * @brief  A quadratic easing function that accelerates from zero velocity.
      */
     template<typename T>
-    constexpr T easeInQuad(T t) noexcept;
+    static constexpr T easeInQuad(T t) noexcept;
     /**
      * @brief  A quadratic easing function that decelerates to zero velocity.
      */
     template<typename T>
-    constexpr T easeOutQuad(T t) noexcept;
+    static constexpr T easeOutQuad(T t) noexcept;
     /**
      * @brief  A quadratic easing function that accelerates until halfway, then decelerates.
      */
     template<typename T>
-    constexpr T smoothStep(T t) noexcept;
+    static constexpr T smoothStep(T t) noexcept;
   };
 
   template<typename T>

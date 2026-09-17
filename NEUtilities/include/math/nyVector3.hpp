@@ -122,14 +122,22 @@ namespace nyEngineSDK
      * @return The vector normalized.
      */
     NY_FORCE_INLINE NY_NODISCARD Vector3<T>
-    getNormalized() const noexcept;
+    getNormalized() const noexcept
+#if NY_CPP20
+    requires FloatingPoint<T>
+#endif
+    ;
     /**
      * @brief  Modifies this vector to have length of 1 unit with its same
      *         direction, and returns it.
      * @return This vector normalized.
      */
     NY_FORCE_INLINE Vector3<T>
-    normalize() noexcept;
+    normalize() noexcept
+#if NY_CPP20
+    requires FloatingPoint<T>
+#endif
+    ;
     /**
      * @brief  Returns a vector with the same direction as the original
      *         but with the new size given.
@@ -146,7 +154,11 @@ namespace nyEngineSDK
      * @return This vector truncated with the new size.
      */
     NY_FORCE_INLINE Vector3<T>
-    truncate(T newSize) noexcept;
+    truncate(T newSize) noexcept
+#if NY_CPP20
+    requires FloatingPoint<T>
+#endif
+    ;
 
     /**
      * @brief  Returns a vector that is the projection of a over the vector b
@@ -154,7 +166,8 @@ namespace nyEngineSDK
      * @param  b  The vector onto which to project.
      * @return The projected vector.
      */
-    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<R>>
     projection(const Vector3<T>& a, const Vector3<T>& b) noexcept;
     /**
      * @brief  Returns a vector that is the rejection of a over the vector b
@@ -162,7 +175,8 @@ namespace nyEngineSDK
      * @param  b  The vector onto which to reject.
      * @return The rejected vector.
      */
-    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<R>>
     rejection(const Vector3<T>& a, const Vector3<T>& b) noexcept;
     /**
      * @brief  Returns a vector that is the reflection of a with respect to the
@@ -171,7 +185,8 @@ namespace nyEngineSDK
      * @param  b  The normal vector about which to reflect.
      * @return The reflected vector.
      */
-    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+    static NY_FORCE_INLINE NY_NODISCARD Result<Vector3<R>>
     reflection(const Vector3<T>& a, const Vector3<T>& b) noexcept;
 
     /**
@@ -206,7 +221,7 @@ namespace nyEngineSDK
      * @return This vector as a String.
      */
     NY_FORCE_INLINE NY_NODISCARD String
-    toString() noexcept;
+    toString() const noexcept;
 
     /**
      * @brief  Returns a vector with the sum of every component of the original
@@ -342,53 +357,66 @@ namespace nyEngineSDK
     operator Vector3<U>() const noexcept;
 
     /**
-     * @brief The components of the vector, in a union so they can be taken
-     *        separately or together
+     * @brief  Returns a reference to the component of the vector at
+     *         the given index.
+     * @param  index  The index of the component to return.
+     * @return A reference to the component at the given index.
      */
-    union
-    {
-      struct
-      {
-        /*
-         * @brief The x component of the vector
-         */
-        T x;
-        /*
-         * @brief The y component of the vector
-         */
-        T y;
-        /*
-         * @brief The z component of the vector
-         */
-        T z;
-      };
-      /*
-       * @brief All the components of the vector in an array
-       */
-      Array<T, 3> xyz;
-    };
+    NY_FORCE_INLINE NY_NODISCARD T&
+    operator[](usize index) noexcept;
+
+    /**
+     * @brief  Returns a const reference to the component of the vector a
+     *         the given index.
+     * @param  index  The index of the component to return.
+     * @return A const reference to the component at the given index.
+     */
+    NY_FORCE_INLINE NY_NODISCARD const T&
+    operator[](usize index) const noexcept;
+
+    /*
+     * @brief The x component of the vector
+     */
+    T x;
+    /*
+     * @brief The y component of the vector
+     */
+    T y;
+    /*
+     * @brief The z component of the vector
+     */
+    T z;
 
     /*
      * @brief A vector with 0 as its components
      */
-    inline static const Vector3 kZERO{ T{0}, T{0}, T{0} };
+    static const Vector3 kZERO;
     /*
      * @brief A unitary vector pointing forward
      */
-    inline static const Vector3 kFORWARD{ T{0}, T{0}, T{1} };
+    static const Vector3 kFORWARD;
     /*
      * @brief A unitary vector pointing right
      */
-    inline static const Vector3 kRIGHT{ T{1}, T{0}, T{0} };
+    static const Vector3 kRIGHT;
     /*
      * @brief A unitary vector pointing up
      */
-    inline static const Vector3 kUP{ T{0}, T{1}, T{0} };
+    static const Vector3 kUP;
   };
 
   using Vector3f = Vector3<f32>;
   using Vector3i = Vector3<i32>;
   using Vector3u = Vector3<u32>;
+
+  template<typename T>
+  inline const Vector3<T> Vector3<T>::kZERO{ T{0}, T{0}, T{0} };
+  template<typename T>
+  inline const Vector3<T> Vector3<T>::kFORWARD{ T{0}, T{0}, T{1} };
+  template<typename T>
+  inline const Vector3<T> Vector3<T>::kRIGHT{ T{1}, T{0}, T{0} };
+  template<typename T>
+  inline const Vector3<T> Vector3<T>::kUP{ T{0}, T{1}, T{0} };
 
   template<typename T>
   template<typename R>
@@ -454,6 +482,13 @@ namespace nyEngineSDK
   NY_FORCE_INLINE NY_NODISCARD Vector3<T>
   Vector3<T>::getNormalized() const noexcept
   {
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<T>,
+      "Vector3<T>::getNormalized() requires a floating-point type."
+    );
+#endif
+
     const T magnitude = getMagnitude();
     if (magnitude < Math::kTinyFloat<T>)
     {
@@ -465,6 +500,13 @@ namespace nyEngineSDK
   NY_FORCE_INLINE Vector3<T>
   Vector3<T>::normalize() noexcept
   {
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<T>,
+      "Vector3<T>::normalize() requires a floating-point type."
+    );
+#endif
+
     *this = getNormalized();
     return *this;
   }
@@ -484,44 +526,58 @@ namespace nyEngineSDK
   NY_FORCE_INLINE Vector3<T>
   Vector3<T>::truncate(T newSize) noexcept
   {
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<T>,
+      "Vector3<T>::truncate() requires a floating-point type."
+    );
+#endif
+
     *this = getTruncated(newSize);
     return *this;
   }
 
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
+  template<typename R>
+  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<R>>
   Vector3<T>::projection(const Vector3<T>& a, const Vector3<T>& b) noexcept
   {
-    const T sqrMagnitude = b.getSqrMagnitude();
-    if (sqrMagnitude < Math::kTinyFloat<T>)
+    const R sqrMagnitude = b.getSqrMagnitude<R>();
+    if (sqrMagnitude < Math::kTinyFloat<R>)
     {
       return Status::error(LogLevel::Warning, kModule,
                            "Cannot project vector onto zero vector.");
     }
-    return b * (a.dot(b) / sqrMagnitude);
+    auto aCast = static_cast<Vector3<R>>(a);
+    auto bCast = static_cast<Vector3<R>>(b);
+    return bCast * (aCast.dot(bCast) / sqrMagnitude);
   }
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
+  template<typename R>
+  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<R>>
   Vector3<T>::rejection(const Vector3<T>& a, const Vector3<T>& b) noexcept
   {
-    auto& projResult = projection(a, b);
+    auto projResult = projection<R>(a, b);
     if (projResult)
     {
-      return a - projResult.value();
+      return static_cast<Vector3<R>>(a) - projResult.value();
     }
     return projResult;
   }
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<T>>
+  template<typename R>
+  NY_FORCE_INLINE NY_NODISCARD Result<Vector3<R>>
   Vector3<T>::reflection(const Vector3<T>& a, const Vector3<T>& b) noexcept
   {
-    const T sqrMagnitude = b.getSqrMagnitude<T>();
-    if (sqrMagnitude < Math::kTinyFloat<T>)
+    const R sqrMagnitude = b.getSqrMagnitude<R>();
+    if (sqrMagnitude < Math::kTinyFloat<R>)
     {
       return Status::error(LogLevel::Warning, kModule,
                            "Cannot reflect vector with zero normal.");
     }
-    return a - (b * (2.0f * a.dot(b) / sqrMagnitude));
+    auto aCast = static_cast<Vector3<R>>(a);
+    auto bCast = static_cast<Vector3<R>>(b);
+    return aCast - (bCast * (R(2) * aCast.dot(bCast) / sqrMagnitude));
   }
 
   template<typename T>
@@ -529,7 +585,10 @@ namespace nyEngineSDK
   NY_FORCE_INLINE NY_NODISCARD Vector3<Alpha>
   Vector3<T>::lerp(const Vector3<T>& a, const Vector3<T>& b, Alpha alpha) noexcept
   {
-    NY_STATIC_ASSERT(IsFloatingPointV<Alpha>);
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<Alpha>,
+      "Alpha must be a floating-point type."
+    );
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
@@ -549,7 +608,10 @@ namespace nyEngineSDK
   Vector3<T>::lerp(const Vector3<T>& a, const Vector3<T>& b,
                    Alpha alpha, Curve&& curveFunc) noexcept
   {
-    NY_STATIC_ASSERT(IsFloatingPointV<Alpha>);
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<Alpha>,
+      "Alpha must be a floating-point type."
+    );
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
@@ -566,7 +628,7 @@ namespace nyEngineSDK
 
   template<typename T>
   NY_FORCE_INLINE String
-  Vector3<T>::toString() noexcept
+  Vector3<T>::toString() const noexcept
   {
     return "{ x:" + std::to_string(this->x) +
            ", y:" + std::to_string(this->y) +
@@ -679,13 +741,24 @@ namespace nyEngineSDK
   template<typename U>
   Vector3<T>::operator Vector3<U>() const noexcept
   {
-    if (IsSameV<T, U>)
-    {
-      return *this;
-    }
-
     return Vector3<U>(static_cast<U>(x),
                       static_cast<U>(y),
                       static_cast<U>(z));
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD T&
+  Vector3<T>::operator[](usize index) noexcept
+  {
+    NY_ASSERT(index < 3);
+    return index == 0 ? x : (index == 1 ? y : z);
+  }
+
+  template<typename T>
+  NY_FORCE_INLINE NY_NODISCARD const T&
+  Vector3<T>::operator[](usize index) const noexcept
+  {
+    NY_ASSERT(index < 3);
+    return index == 0 ? x : (index == 1 ? y : z);
   }
 } // namespace nyEngineSDK
