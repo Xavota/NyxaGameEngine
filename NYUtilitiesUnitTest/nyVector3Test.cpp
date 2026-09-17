@@ -1,76 +1,18 @@
 #include "pch.h"
 
+#include "nyWhatToTest.h"
+
+#if NY_TEST_VECTOR3
+
+#include "nyAssertTestUtility.h"
+
 #include "math/nyVector3.hpp"
 
 using namespace nyEngineSDK;
+using namespace assertTestUtility;
 
 namespace
 {
-  // Stores information about the most recent assertion.
-  struct AssertCapture
-  {
-    bool triggered = false;
-    const char* expression = nullptr;
-    const char* file = nullptr;
-    const char* message = nullptr;
-    int line = 0;
-  };
-
-  AssertCapture gAssertCapture;
-
-
-  // This function temporarily replaces Nyxa's normal assertion handler
-  // during tests.
-  //
-  // Instead of breaking into the debugger or aborting the program,
-  // it records the assertion information and returns.
-  void testAssertHandler(
-    const char* expr,
-    const char* file,
-    int line,
-    const char* msg) noexcept
-  {
-    gAssertCapture.triggered = true;
-    gAssertCapture.expression = expr;
-    gAssertCapture.file = file;
-    gAssertCapture.line = line;
-    gAssertCapture.message = msg;
-  }
-
-
-  // Clears information from a previous assertion.
-  void resetAssertCapture() noexcept
-  {
-    gAssertCapture = {};
-  }
-
-
-  // Temporarily installs an assertion handler.
-  //
-  // When this object goes out of scope, the previous Nyxa assertion
-  // handler is automatically restored.
-  class AssertHandlerGuard
-  {
-  public:
-    explicit AssertHandlerGuard(AssertHandlerFn handler) noexcept
-      : mPreviousHandler(getAssertHandler())
-    {
-      setAssertHandler(handler);
-    }
-
-    ~AssertHandlerGuard()
-    {
-      setAssertHandler(mPreviousHandler);
-    }
-
-    AssertHandlerGuard(const AssertHandlerGuard&) = delete;
-    AssertHandlerGuard&
-      operator=(const AssertHandlerGuard&) = delete;
-
-  private:
-    AssertHandlerFn mPreviousHandler;
-  };
-
   constexpr f32 kTolerance = 1e-5f;
 
   // =========================================================================
@@ -197,16 +139,6 @@ namespace
       Vector3f::kUP.dot(Vector3f::kFORWARD),
       0.0f
     );
-  }
-
-  TEST(Vector3Test, DotProductCanUseDifferentResultType)
-  {
-    const Vector3i a(1, 2, 3);
-    const Vector3i b(4, 5, 6);
-
-    const f32 result = a.dot<f32>(b);
-
-    EXPECT_FLOAT_EQ(result, 32.0f);
   }
 
   // =========================================================================
@@ -619,7 +551,7 @@ namespace
     const Vector3i a(1, 1, 2);
     const Vector3i b(2, 0, 0);
 
-    auto result = Vector3i::rejection(a, b);
+    auto result = Vector3i::rejection<f32>(a, b);
 
     ASSERT_TRUE(result);
 
@@ -962,6 +894,10 @@ namespace
     );
   }
 
+  // =========================================================================
+  // Assert tests
+  // =========================================================================
+
   TEST(Vector3Test, IndexOperatorAssertsWhenIndexIsOutOfBounds)
   {
 #if NY_ENABLE_ASSERTS
@@ -996,3 +932,4 @@ namespace
 #endif
   }
 }
+#endif // NY_TEST_VECTOR3

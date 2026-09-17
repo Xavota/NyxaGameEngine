@@ -1,5 +1,9 @@
 #include "pch.h"
 
+#include "nyWhatToTest.h"
+
+#if NY_TEST_MATH
+
 #include "math/nyMath.h"
 
 using namespace nyEngineSDK;
@@ -583,3 +587,4 @@ namespace
     SUCCEED();
   }
 }
+#endif // NY_TEST_MATH

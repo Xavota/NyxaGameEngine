@@ -74,8 +74,7 @@ namespace nyEngineSDK
      * @param  other  The other vector for the dot product.
      * @return A new vector with x = x1 * x2, y = y1 * y2.
      */
-    template<typename R = T>
-    NY_FORCE_INLINE NY_NODISCARD R
+    NY_FORCE_INLINE NY_NODISCARD T
     dot(const Vector2<T>& other) const noexcept;
     /**
      * @brief  The cross product of two vectors.
@@ -84,8 +83,7 @@ namespace nyEngineSDK
      *         they span. Positive if the other vector is counter-clockwise from
      *         this vector, negative if clockwise, and zero if they are collinear.
      */
-    template<typename R = T>
-    NY_FORCE_INLINE NY_NODISCARD R
+    NY_FORCE_INLINE NY_NODISCARD T
     cross(const Vector2<T>& other) const noexcept;
     /**
      * @brief  Gets a vector perpendicular to this one, rotated 90 degrees
@@ -100,29 +98,35 @@ namespace nyEngineSDK
      * @param  other  The other point for the distance calculation.
      * @return The square distance between this point and the other point.
      */
-    template<typename R = T>
-    NY_FORCE_INLINE NY_NODISCARD R
+    NY_FORCE_INLINE NY_NODISCARD T
     getSqrDistance(const Vector2<T>& other) const noexcept;
     /**
      * @brief  The distance between two points.
      * @param  other  The other point for the distance calculation.
      * @return The distance between this point and the other point.
      */
+#if NY_CPP20
+    template<FloatingPoint R = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
     template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+#endif
     NY_FORCE_INLINE NY_NODISCARD R
     getDistance(const Vector2<T>& other) const noexcept;
     /**
      * @brief  Returns the square length of the vector in space.
      * @return The square length of the vector.
      */
-    template<typename R = T>
-    NY_FORCE_INLINE NY_NODISCARD R
+    NY_FORCE_INLINE NY_NODISCARD T
     getSqrMagnitude() const noexcept;
     /**
      * @brief  Returns the length of the vector in space.
      * @return The length of the vector.
      */
+#if NY_CPP20
+    template<FloatingPoint R = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
     template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+#endif
     NY_FORCE_INLINE NY_NODISCARD R
     getMagnitude() const noexcept;
     /**
@@ -130,12 +134,13 @@ namespace nyEngineSDK
      *         length of 1 unit.
      * @return The vector normalized.
      */
-    NY_FORCE_INLINE NY_NODISCARD Vector2<T>
-    getNormalized() const noexcept
 #if NY_CPP20
-    requires FloatingPoint<T>
+    template<FloatingPoint R = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
+    template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
 #endif
-    ;
+    NY_FORCE_INLINE NY_NODISCARD Vector2<R>
+    getNormalized() const noexcept;
     /**
      * @brief  Modifies this vector to have length of 1 unit with its same
      *         direction, and returns it.
@@ -153,7 +158,11 @@ namespace nyEngineSDK
      * @param  newSize  The desired size of the new vector.
      * @return The vector truncated with the new size.
      */
+#if NY_CPP20
+    template<FloatingPoint R = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
     template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+#endif
     NY_FORCE_INLINE NY_NODISCARD Vector2<R>
     getTruncated(R newSize) const noexcept;
     /**
@@ -175,7 +184,11 @@ namespace nyEngineSDK
      * @param  b  The vector onto which to project.
      * @return The projected vector.
      */
+#if NY_CPP20
+    template<FloatingPoint R = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
     template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+#endif
     static NY_FORCE_INLINE NY_NODISCARD Result<Vector2<R>>
     projection(const Vector2<T>& a, const Vector2<T>& b) noexcept;
     /**
@@ -184,7 +197,11 @@ namespace nyEngineSDK
      * @param  b  The vector onto which to reject.
      * @return The rejected vector.
      */
+#if NY_CPP20
+    template<FloatingPoint R = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
     template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+#endif
     static NY_FORCE_INLINE NY_NODISCARD Result<Vector2<R>>
     rejection(const Vector2<T>& a, const Vector2<T>& b) noexcept;
     /**
@@ -194,7 +211,11 @@ namespace nyEngineSDK
      * @param  b  The normal vector about which to reflect.
      * @return The reflected vector.
      */
+#if NY_CPP20
+    template<FloatingPoint R = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
     template<typename R = ConditionalT<IsIntegerV<T>, f32, T>>
+#endif
     static NY_FORCE_INLINE NY_NODISCARD Result<Vector2<R>>
     reflection(const Vector2<T>& a, const Vector2<T>& b) noexcept;
 
@@ -206,7 +227,11 @@ namespace nyEngineSDK
      * @param  alpha  The interpolation factor (0.0f to 1.0f).
      * @return The interpolated vector between a and b.
      */
+#if NY_CPP20
+    template<FloatingPoint Alpha = ConditionalT<IsIntegerV<T>, f32, T>>
+#else
     template<typename Alpha = ConditionalT<IsIntegerV<T>, f32, T>>
+#endif
     static NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
     lerp(const Vector2<T>& a, const Vector2<T>& b, Alpha alpha) noexcept;
     /**
@@ -219,8 +244,13 @@ namespace nyEngineSDK
      *                     create a custom interpolation curve.
      * @return The interpolated vector between a and b.
      */
+#if NY_CPP20
+    template<FloatingPoint Alpha = ConditionalT<IsIntegerV<T>, f32, T>,
+             typename Curve>
+#else
     template<typename Alpha = ConditionalT<IsIntegerV<T>, f32, T>,
              typename Curve>
+#endif
     static NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
     lerp(const Vector2<T>& a, const Vector2<T>& b,
          Alpha alpha, Curve&& curveFunc) noexcept;
@@ -411,102 +441,173 @@ namespace nyEngineSDK
   using Vector2i = Vector2<i32>;
   using Vector2u = Vector2<u32>;
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   inline const Vector2<T> Vector2<T>::kZERO{ T{0}, T{0} };
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   inline const Vector2<T> Vector2<T>::kRIGHT{ T{1}, T{0} };
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   inline const Vector2<T> Vector2<T>::kUP{ T{0}, T{1} };
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
-  template<typename R>
-  NY_FORCE_INLINE NY_NODISCARD R
+#endif
+  NY_FORCE_INLINE NY_NODISCARD T
   Vector2<T>::dot(const Vector2<T>& other) const noexcept
   {
-    R x1 = static_cast<R>(this->x);
-    R y1 = static_cast<R>(this->y);
+    T x1 = this->x;
+    T y1 = this->y;
 
-    R x2 = static_cast<R>(other.x);
-    R y2 = static_cast<R>(other.y);
+    T x2 = other.x;
+    T y2 = other.y;
 
     return x1 * x2 + y1 * y2;
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
-  template<typename R>
-  NY_FORCE_INLINE NY_NODISCARD R
+#endif
+  NY_FORCE_INLINE NY_NODISCARD T
   Vector2<T>::cross(const Vector2<T>& other) const noexcept
   {
-    R x1 = static_cast<R>(this->x);
-    R y1 = static_cast<R>(this->y);
+    T x1 = this->x;
+    T y1 = this->y;
 
-    R x2 = static_cast<R>(other.x);
-    R y2 = static_cast<R>(other.y);
+    T x2 = other.x;
+    T y2 = other.y;
 
     return x1 * y2 - y1 * x2;
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::perpendicular() const noexcept
   {
     return Vector2<T>(-y, x);
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
-  template<typename R>
-  NY_FORCE_INLINE NY_NODISCARD R
+#endif
+  NY_FORCE_INLINE NY_NODISCARD T
   Vector2<T>::getSqrDistance(const Vector2<T>& other) const noexcept
   {
-    R x1 = static_cast<R>(this->x);
-    R y1 = static_cast<R>(this->y);
-    R x2 = static_cast<R>(other.x);
-    R y2 = static_cast<R>(other.y);
+    T x1 = this->x;
+    T y1 = this->y;
+    T x2 = other.x;
+    T y2 = other.y;
 
-    return Math::sqr<R>(x2 - x1) + Math::sqr<R>(y2 - y1);
+    return Math::sqr(x2 - x1) + Math::sqr(y2 - y1);
   }
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint R>
+#else
   template<typename T>
   template<typename R>
+#endif
   NY_FORCE_INLINE NY_NODISCARD R
   Vector2<T>::getDistance(const Vector2<T>& other) const noexcept
   {
-    return Math::sqrt<R>(getSqrDistance<R>(other));
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<R>,
+      "Vector2<T>::getDistance<R>() requires R to be a floating-point type."
+    );
+#endif
+
+    auto thisCast = static_cast<Vector2<R>>(*this);
+    auto otherCast = static_cast<Vector2<R>>(other);
+
+    return Math::sqrt(thisCast.getSqrDistance(otherCast));
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
-  template<typename R>
-  NY_FORCE_INLINE NY_NODISCARD R
+#endif
+  NY_FORCE_INLINE NY_NODISCARD T
   Vector2<T>::getSqrMagnitude() const noexcept
   {
-    return dot<R>(*this);
+    return dot(*this);
   }
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint R>
+#else
   template<typename T>
   template<typename R>
+#endif
   NY_FORCE_INLINE NY_NODISCARD R
   Vector2<T>::getMagnitude() const noexcept
   {
-    return Math::sqrt<R>(getSqrMagnitude<R>());
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<R>,
+      "Vector2<T>::getMagnitude<R>() requires R to be a floating-point type."
+    );
+#endif
+
+    auto thisCast = static_cast<Vector2<R>>(*this);
+    return Math::sqrt(thisCast.getSqrMagnitude());
   }
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint R>
+#else
   template<typename T>
-  NY_FORCE_INLINE NY_NODISCARD Vector2<T>
+  template<typename R>
+#endif
+  NY_FORCE_INLINE NY_NODISCARD Vector2<R>
   Vector2<T>::getNormalized() const noexcept
   {
 #if !NY_CPP20
     NY_STATIC_ASSERT(
-      IsFloatingPointV<T>,
-      "Vector2<T>::getNormalized() requires a floating-point type."
+      IsFloatingPointV<R>,
+      "Vector2<T>::getNormalized<R>() requires R to be a floating-point type."
     );
 #endif
 
-    const T magnitude = getMagnitude();
-    if (magnitude < Math::kTinyFloat<T>)
+    auto thisCast = static_cast<Vector2<R>>(*this);
+
+    const R magnitude = thisCast.getMagnitude();
+    if (magnitude < Math::kTinyFloat<R>)
     {
-      return Vector2<T>::kZERO;
+      return Vector2<R>::kZERO;
     }
-    return Vector2<T>(this->x / magnitude, this->y / magnitude);
+    return Vector2<R>(thisCast.x / magnitude, thisCast.y / magnitude);
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>
   Vector2<T>::normalize() noexcept
+#if NY_CPP20
+  requires FloatingPoint<T>
+#endif
   {
 #if !NY_CPP20
     NY_STATIC_ASSERT(
@@ -518,21 +619,42 @@ namespace nyEngineSDK
     *this = getNormalized();
     return *this;
   }
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint R>
+#else
   template<typename T>
   template<typename R>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<R>
   Vector2<T>::getTruncated(R newSize) const noexcept
   {
-    const R magnitude = getMagnitude<R>();
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<R>,
+      "Vector2<T>::getTruncated<R>() requires R to be a floating-point type."
+    );
+#endif
+
+    auto thisCast = static_cast<Vector2<R>>(*this);
+
+    const R magnitude = thisCast.getMagnitude();
     if (magnitude < Math::kTinyFloat<R>)
     {
       return Vector2<R>::kZERO;
     }
-    return static_cast<Vector2<R>>(*this) * (newSize / magnitude);
+    return thisCast * (newSize / magnitude);
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>
   Vector2<T>::truncate(T newSize) noexcept
+#if NY_CPP20
+  requires FloatingPoint<T>
+#endif
   {
 #if !NY_CPP20
     NY_STATIC_ASSERT(
@@ -545,26 +667,51 @@ namespace nyEngineSDK
     return *this;
   }
 
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint R>
+#else
   template<typename T>
   template<typename R>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Result<Vector2<R>>
   Vector2<T>::projection(const Vector2<T>& a, const Vector2<T>& b) noexcept
   {
-    const R sqrMagnitude = b.getSqrMagnitude<R>();
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<R>,
+      "Vector2<T>::projection<R>() requires R to be a floating-point type."
+    );
+#endif
+
+    auto aCast = static_cast<Vector2<R>>(a);
+    auto bCast = static_cast<Vector2<R>>(b);
+
+    const R sqrMagnitude = bCast.getSqrMagnitude();
     if (sqrMagnitude < Math::kTinyFloat<R>)
     {
       return Status::error(LogLevel::Warning, kModule,
                            "Cannot project vector onto zero vector.");
     }
-    auto aCast = static_cast<Vector2<R>>(a);
-    auto bCast = static_cast<Vector2<R>>(b);
-    return bCast * (aCast.dot<R>(bCast) / sqrMagnitude);
+    return bCast * (aCast.dot(bCast) / sqrMagnitude);
   }
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint R>
+#else
   template<typename T>
   template<typename R>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Result<Vector2<R>>
   Vector2<T>::rejection(const Vector2<T>& a, const Vector2<T>& b) noexcept
   {
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<R>,
+      "Vector2<T>::rejection<R>() requires R to be a floating-point type."
+    );
+#endif
+
     auto projResult = projection<R>(a, b);
     if (projResult)
     {
@@ -572,31 +719,51 @@ namespace nyEngineSDK
     }
     return projResult;
   }
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint R>
+#else
   template<typename T>
   template<typename R>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Result<Vector2<R>>
   Vector2<T>::reflection(const Vector2<T>& a, const Vector2<T>& b) noexcept
   {
-    const R sqrMagnitude = b.getSqrMagnitude<R>();
+#if !NY_CPP20
+    NY_STATIC_ASSERT(
+      IsFloatingPointV<R>,
+      "Vector2<T>::reflection<R>() requires R to be a floating-point type."
+    );
+#endif
+
+    auto aCast = static_cast<Vector2<R>>(a);
+    auto bCast = static_cast<Vector2<R>>(b);
+
+    const R sqrMagnitude = bCast.getSqrMagnitude();
     if (sqrMagnitude < Math::kTinyFloat<R>)
     {
       return Status::error(LogLevel::Warning, kModule,
                            "Cannot reflect vector with zero normal.");
     }
-    auto aCast = static_cast<Vector2<R>>(a);
-    auto bCast = static_cast<Vector2<R>>(b);
-    return aCast - (bCast * (R(2) * aCast.dot<R>(bCast) / sqrMagnitude));
+    return aCast - (bCast * (R(2) * aCast.dot(bCast) / sqrMagnitude));
   }
 
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint Alpha>
+#else
   template<typename T>
   template<typename Alpha>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
   Vector2<T>::lerp(const Vector2<T>& a, const Vector2<T>& b, Alpha alpha) noexcept
   {
+#if !NY_CPP20
     NY_STATIC_ASSERT(
       IsFloatingPointV<Alpha>,
-      "Alpha must be a floating-point type."
+      "Vector2<T>::lerp<Alpha>() requires Alpha to be a floating-point type."
     );
+#endif
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
@@ -607,16 +774,23 @@ namespace nyEngineSDK
                           Math::lerp<Alpha>(y1, y2, alpha));
   }
 
+#if NY_CPP20
+  template<Number T>
+  template<FloatingPoint Alpha, typename Curve>
+#else
   template<typename T>
   template<typename Alpha, typename Curve>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<Alpha>
   Vector2<T>::lerp(const Vector2<T>& a, const Vector2<T>& b,
                    Alpha alpha, Curve&& curveFunc) noexcept
   {
+#if !NY_CPP20
     NY_STATIC_ASSERT(
       IsFloatingPointV<Alpha>,
-      "Alpha must be a floating-point type"
+      "Vector2<T>::lerp<Alpha, Curve>() requires Alpha to be a floating-point type."
     );
+#endif
 
     Alpha x1 = static_cast<Alpha>(a.x);
     Alpha y1 = static_cast<Alpha>(a.y);
@@ -627,7 +801,11 @@ namespace nyEngineSDK
                           Math::lerp<Alpha>(y1, y2, alpha, curveFunc));
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE String
   Vector2<T>::toString() const noexcept
   {
@@ -635,59 +813,95 @@ namespace nyEngineSDK
            ", y:" + std::to_string(this->y) + " }";
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::operator+(const Vector2<T>& other) const noexcept
   {
     return Vector2<T>(this->x + other.x, this->y + other.y);
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::operator-(const Vector2<T>& other) const noexcept
   {
     return Vector2<T>(this->x - other.x, this->y - other.y);
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::operator+(T other) const noexcept
   {
     return Vector2<T>(this->x + other, this->y + other);
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::operator-(T other) const noexcept
   {
     return Vector2<T>(this->x - other, this->y - other);
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::operator*(T other) const noexcept
   {
     return Vector2<T>(this->x * other, this->y * other);
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::operator/(T other) const noexcept
   {
     return Vector2<T>(this->x / other, this->y / other);
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD Vector2<T>
   Vector2<T>::operator-() const noexcept
   {
     return Vector2<T>(-this->x, -this->y);
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>&
   Vector2<T>::operator+=(const Vector2<T>& other) noexcept
   {
     *this = *this + other;
     return *this;
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>&
   Vector2<T>::operator-=(const Vector2<T>& other) noexcept
   {
@@ -695,28 +909,44 @@ namespace nyEngineSDK
     return *this;
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>&
   Vector2<T>::operator+=(T other) noexcept
   {
     *this = *this + other;
     return *this;
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>&
   Vector2<T>::operator-=(T other) noexcept
   {
     *this = *this - other;
     return *this;
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>&
   Vector2<T>::operator*=(T other) noexcept
   {
     *this = *this * other;
     return *this;
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE Vector2<T>&
   Vector2<T>::operator/=(T other) noexcept
   {
@@ -724,20 +954,32 @@ namespace nyEngineSDK
     return *this;
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD bool
   Vector2<T>::operator==(const Vector2<T>& other) const noexcept
   {
     return this->x == other.x && this->y == other.y;
   }
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD bool
   Vector2<T>::operator!=(const Vector2<T>& other) const noexcept
   {
     return !(*this == other);
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   template<typename U>
   Vector2<T>::operator Vector2<U>() const noexcept
   {
@@ -745,7 +987,11 @@ namespace nyEngineSDK
                       static_cast<U>(y));
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD T&
   Vector2<T>::operator[](usize index) noexcept
   {
@@ -753,7 +999,11 @@ namespace nyEngineSDK
     return index == 0 ? x : y;
   }
 
+#if NY_CPP20
+  template<Number T>
+#else
   template<typename T>
+#endif
   NY_FORCE_INLINE NY_NODISCARD const T&
   Vector2<T>::operator[](usize index) const noexcept
   {

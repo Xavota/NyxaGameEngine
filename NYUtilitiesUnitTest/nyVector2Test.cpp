@@ -1,8 +1,15 @@
 #include "pch.h"
 
+#include "nyWhatToTest.h"
+
+#if NY_TEST_VECTOR2
+
+#include "nyAssertTestUtility.h"
+
 #include "math/nyVector2.hpp"
 
 using namespace nyEngineSDK;
+using namespace assertTestUtility;
 
 namespace
 {
@@ -105,16 +112,6 @@ namespace
   TEST(Vector2Test, DotProductOfPerpendicularVectorsIsZero)
   {
     EXPECT_FLOAT_EQ(Vector2f::kRIGHT.dot(Vector2f::kUP), 0.0f);
-  }
-
-  TEST(Vector2Test, DotProductCanUseDifferentReturnType)
-  {
-    Vector2i a(2, 3);
-    Vector2i b(4, 5);
-
-    const f32 result = a.dot<f32>(b);
-
-    EXPECT_FLOAT_EQ(result, 23.0f);
   }
 
   // ---------------------------------------------------------------------------
@@ -672,4 +669,43 @@ namespace
 
     EXPECT_EQ(vector.toString(), "{ x:3, y:-2 }");
   }
+
+  // =========================================================================
+  // Assert tests
+  // =========================================================================
+
+  TEST(Vector3Test, IndexOperatorAssertsWhenIndexIsOutOfBounds)
+  {
+#if NY_ENABLE_ASSERTS
+    resetAssertCapture();
+
+    AssertHandlerGuard guard(&testAssertHandler);
+
+    Vector2i vector(10, 20);
+
+    NY_MAYBE_UNUSED i32 value = vector[2];
+
+    EXPECT_TRUE(gAssertCapture.triggered);
+    EXPECT_STREQ(gAssertCapture.expression, "index < 2");
+    EXPECT_GT(gAssertCapture.line, 0);
+#endif
+  }
+  
+  TEST(Vector3Test, ConstIndexOperatorAssertsWhenIndexIsOutOfBounds)
+  {
+#if NY_ENABLE_ASSERTS
+    resetAssertCapture();
+
+    AssertHandlerGuard guard(&testAssertHandler);
+
+    const Vector2i vector(10, 20);
+
+    NY_MAYBE_UNUSED i32 value = vector[2];
+
+    EXPECT_TRUE(gAssertCapture.triggered);
+    EXPECT_STREQ(gAssertCapture.expression, "index < 2");
+    EXPECT_GT(gAssertCapture.line, 0);
+#endif
+  }
 }
+#endif // NY_TEST_VECTOR2
